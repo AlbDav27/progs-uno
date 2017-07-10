@@ -92,9 +92,12 @@ int main()
 	
 
 	if((tcsetattr(fd,TCSANOW,&SerialPortSettings)) != 0) /* Set the attributes to the termios structure*/
+	{		
 		printf("\n  ERROR ! in Setting attributes");
-        else
+	}
+        else{
 		printf("\n  BaudRate = 9600 \n  StopBits = 1 \n  Parity   = none");
+	}
 
 
 	printf("\n  justo despues de settings de settings  "); 
