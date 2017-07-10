@@ -97,7 +97,7 @@ int main()
 		printf("\n  BaudRate = 9600 \n  StopBits = 1 \n  Parity   = none");
 
 
-	printf("\n  antes de settings  "); 
+	printf("\n  justo despues de settings de settings  "); 
 
  
 	int RTS_flag,DTR_flag;
