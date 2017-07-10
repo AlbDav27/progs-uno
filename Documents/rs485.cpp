@@ -41,11 +41,8 @@ int main()
 
                                                                                                                                                
 	if(fd == -1)                                                                                           /* Error Checking */
-
 		printf("\n  Error! in Opening ttyS0  ");
-
 	else
-
 		printf("\n  ttyS0 Opened Successfully ");
 
  
@@ -53,7 +50,7 @@ int main()
                
 /*---------- Setting the Attributes of the serial port using termios structure --------- */
 
-                               
+                             
 	struct termios SerialPortSettings;              /* Create the structure                          */
 
  
@@ -91,12 +88,16 @@ int main()
 	SerialPortSettings.c_cc[VMIN] =  10; /* Read at least 10 character */
 
         SerialPortSettings.c_cc[VTIME] = 0;  /* Wait indefinetly   */
+	
+	
 
 	if((tcsetattr(fd,TCSANOW,&SerialPortSettings)) != 0) /* Set the attributes to the termios structure*/
 		printf("\n  ERROR ! in Setting attributes");
-
         else
 		printf("\n  BaudRate = 9600 \n  StopBits = 1 \n  Parity   = none");
+
+
+	printf("\n  antes de settings  "); 
 
  
 	int RTS_flag,DTR_flag;
