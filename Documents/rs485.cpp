@@ -1,4 +1,3 @@
-
 //#include <mosquittopp.h>
 
 #include <stdio.h>
@@ -16,7 +15,7 @@
 #include <unistd.h> 	//para funcion sleep()  ...delay
 #include <string.h>
 
-int main(void)
+int main()
 {
 
 	int fd;/*File Descriptor*/
@@ -30,10 +29,9 @@ int main(void)
  
 /*------------------------------- Opening the Serial Port -------------------------------*/
 
-/* Change /dev/ttyUSB0 to the one corresponding to your system */
+/* Change /dev/ttyS0 to the one corresponding to your system */
 
-	fd = open("/dev/ttyS0",O_RDWR | O_NOCTTY);           /* ttyUSB0 is the FT232 based USB2SERIAL Converter   */  
-								//dependiendo el puerto debe de modificarse ttyUSB0 al puerto serial que se va a ocupar
+	fd = open("/dev/ttyS0",O_RDWR | O_NOCTTY);           /* ttyS0 corresponde al puerto serial rs485 de UNO-1252G   */  
 
                                                                /* O_RDWR   - Read/Write access to serial port       */
 
@@ -44,11 +42,11 @@ int main(void)
                                                                                                                                                
 	if(fd == -1)                                                                                           /* Error Checking */
 
-		printf("\n  Error! in Opening ttyUSB0  ");
+		printf("\n  Error! in Opening ttyS0  ");
 
 	else
 
-		printf("\n  ttyUSB0 Opened Successfully ");
+		printf("\n  ttyS0 Opened Successfully ");
 
  
 
@@ -114,7 +112,7 @@ int main(void)
 
  
 
-	char read_buffer[32];   /* Buffer to store the data received              */
+	char *read_buffer;   /* Buffer to store the data received              */
 
        	int  bytes_read = 0;    /* Number of bytes read by the read() system call */
 
@@ -125,10 +123,14 @@ int main(void)
 	strcpy (read_buffer,"no_lei_nada");
 	strcpy (fin," '");
 	int n= 1;
+	int f = 1;
 	sleep(2);
 	tcflush(fd, TCIFLUSH);   /* Discards old data in the rx buffer            */
-	char write_buffer[2];
-                    
+	char *write_buffer;
+	char cmx[10];
+	strcpy (cmx,"$AA");		//comando para leer un canal del MX
+	int  bytes_written  = 0;  	/* Value for storing the number of bytes written to the port */ 
+        char temp;           
 
 /*------------------------------- Read data from serial port -----------------------------*/ 
 //Este es el bucle que se va a repetir para estar recibiendo constantemente información
@@ -139,55 +141,66 @@ int main(void)
 
 	while (1)
 	{		
-		write_buffer[0] = n;	/* Buffer containing characters to write into port	    */	
-		int  bytes_written  = 0;  	/* Value for storing the number of bytes written to the port */ 
+		
+		if(f<=6)
+		{
+			temp=f+48;			
+			write_buffer = cmx + temp;
+			//write_buffer = cmx;
+			f++;
+		}else{
+			write_buffer[0] = n;
+		}
+
 		bytes_written = write(fd,write_buffer,sizeof(write_buffer));/* use write() to send data to port                                            */
 										    /* "fd"                   - file descriptor pointing to the opened serial port */
 										    /*	"write_buffer"         - address of the buffer containing data	           */
 										    /* "sizeof(write_buffer)" - No of bytes to write                               */	
-		printf("\n  %s written to ttyUSB0",write_buffer);
-		printf("\n  %d Bytes written to ttyUSB0", bytes_written);
-		printf("\n +----------------------------------+\n\n");
-		sleep(2);
-		tcflush(fd, TCIFLUSH);   /* Discards old data in the rx buffer            */	
+		printf("\n   Solicitud: %s ",write_buffer);
+		//printf("\n  %d Bytes written to ttyUSB0", bytes_written);
+		//printf("\n +----------------------------------+\n\n");
+		//sleep(2);
+		//tcflush(fd, TCIFLUSH);   /* Discards old data in the rx buffer            */	
 
 		while (bytes_read==0)
 			bytes_read = read(fd,&read_buffer,32); /* Read the data                   */
 
 
-                printf("\n\n  Bytes Rxed -%d", bytes_read); /* Print the number of bytes read */
+                //printf("\n\n  Bytes Rxed -%d", bytes_read); /* Print the number of bytes read */
 
-                printf("\n\n  ");
+                printf("\n Recibo:   ");
 
 		for(i=0;i<bytes_read;i++)              /*printing only the received characters*/
 			printf("%c",read_buffer[i]);
 
-		printf("\n +----------------------------------+\n\n\n");
+		printf("\n +----------------------------------+\n\n");
 		strcat(com, read_buffer);
 		strcat(com, fin);
 		printf("\n  %s  \n",com);
-
-		//este  código solo es para probar comunicación serial
 		
 		system(com);
 		system("clear");
-		printf("reinicio de lectura %i", n);
+		printf("reinicio de lectura %i, %i", f, n);
 		//reinicio de variables
 		bytes_read=0;
 		strcpy (com,"mosquitto_pub -h iot.eclipse.org -t testkd -m 'recibo por rs485:");
-	
+		write_buffer =  '\0';
+		read_buffer =  '\0';
+		tcflush(fd, TCIFLUSH);
 		
 		if (n==32)
 		{
 			n=1;
-			sleep(30); //aqui se ingresa el tiempo de espera en segundos en el que despues de una solicitud de 
-			//todos los controladores de la estación se vuelve a solicitar info a todos--------en este caso 30 seg
+			f=1;
+			sleep(1.5); //aqui se ingresa el tiempo de espera en segundos en el que despues de una solicitud de 
+			//todos los controladores de la estación se vuelve a solicitar info a todos--------en este caso 1.5 seg
 		}
-		else
+		else if (f>6)
 		{
 			n++;
-			sleep(5); //aqui se ingresa el tiempo de espera en segundos entre la solicitud a un controlador 
-			// y el siguiente-----en este caso 5 seg
+			sleep(1.5); //aqui se ingresa el tiempo de espera en segundos entre la solicitud a un controlador 
+			//para que cada minuto se solicite 1 vez la info de cada disp se divide 60s / 38 disp = 1.57
+
 		}
 
 		
