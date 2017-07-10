@@ -150,7 +150,7 @@ int main()
 		}else{
 			write_buffer[0] = n;
 		}
-		printf("\n  Me ejecuto antes de escribir f= %i , n=%i \n", f, n);
+		printf("\n  Me ejecuto antes de escribir f= %i , n=%i , solicitud: %s \n", f, n, write_buffer);
 		bytes_written = write(fd,write_buffer,sizeof(write_buffer));/* use write() to send data to port                                            */
 										    /* "fd"                   - file descriptor pointing to the opened serial port */
 										    /*	"write_buffer"         - address of the buffer containing data	           */
