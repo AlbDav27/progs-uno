@@ -130,7 +130,8 @@ int main()
 	char cmx[10];
 	strcpy (cmx,"$AA");		//comando para leer un canal del MX
 	int  bytes_written  = 0;  	/* Value for storing the number of bytes written to the port */ 
-        char temp;           
+        char temp;
+	char solc[10];           
 
 /*------------------------------- Read data from serial port -----------------------------*/ 
 //Este es el bucle que se va a repetir para estar recibiendo constantemente información
@@ -145,12 +146,12 @@ int main()
 		{
 			temp=f+48;			
 			write_buffer = cmx + temp;
-			//write_buffer = cmx;
+			strcpy(solc, write_buffer);
 			f++;
 		}else{
 			write_buffer[0] = n;
 		}
-		printf("\n  Me ejecuto antes de escribir f= %i , n=%i , solicitud: %s  $$$ \n", f, n, write_buffer);
+		printf("\n  Me ejecuto antes de escribir f= %i , n=%i , solicitud: %s  $$$ \n", f, n, solc);
 		bytes_written = write(fd,write_buffer,sizeof(write_buffer));/* use write() to send data to port                                            */
 										    /* "fd"                   - file descriptor pointing to the opened serial port */
 										    /*	"write_buffer"         - address of the buffer containing data	           */
@@ -207,3 +208,4 @@ int main()
 	
         close(fd); /* Close the serial port */
 }
+
