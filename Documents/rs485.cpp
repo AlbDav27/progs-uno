@@ -32,7 +32,7 @@ int main(void)
 
 /* Change /dev/ttyUSB0 to the one corresponding to your system */
 
-	fd = open("/dev/ttyUSB0",O_RDWR | O_NOCTTY);           /* ttyUSB0 is the FT232 based USB2SERIAL Converter   */  
+	fd = open("/dev/ttyS0",O_RDWR | O_NOCTTY);           /* ttyUSB0 is the FT232 based USB2SERIAL Converter   */  
 								//dependiendo el puerto debe de modificarse ttyUSB0 al puerto serial que se va a ocupar
 
                                                                /* O_RDWR   - Read/Write access to serial port       */
