@@ -36,10 +36,10 @@ int main()
                                                               /* Open in blocking mode,read will wait              */
 
                                                                                                                                                
-	if(fd == -1)                                                                                           /* Error Checking */
-		printf("\n  Error! in Opening ttyS0  ");
-	else
-		printf("\n  ttyS0 Opened Successfully ");
+	//if(fd == -1)                                                                                           /* Error Checking */
+	//	printf("\n  Error! in Opening ttyS0  ");
+	//else
+	//	printf("\n  ttyS0 Opened Successfully ");
 
  
 
