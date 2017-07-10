@@ -136,7 +136,7 @@ int main()
 //Este es el bucle que se va a repetir para estar recibiendo constantemente información
 
  
-
+	printf("\n  Llego hasta antes del while \n");
 // se debe de verificar si linux permite que se ejecute indefinidamente el programa, o hay que ejecutar periodicamente el mismo
 
 	while (1)
