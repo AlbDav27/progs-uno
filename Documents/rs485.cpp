@@ -1,5 +1,3 @@
-//#include <mosquittopp.h>
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>             /* File Control Definitions           */
@@ -20,12 +18,10 @@ int main()
 
 	int fd;/*File Descriptor*/
 
-        
-
  
-/*------------------------------- Opening the Serial Port -------------------------------*/
+	/*------------------------------- Opening the Serial Port -------------------------------*/
 
-/* Change /dev/ttyS0 to the one corresponding to your system */
+	/* Change /dev/ttyS0 to the one corresponding to your system */
 
 	fd = open("/dev/ttyS0",O_RDWR | O_NOCTTY);           /* ttyS0 corresponde al puerto serial rs485 de UNO-1252G   */  
 
@@ -36,69 +32,57 @@ int main()
                                                               /* Open in blocking mode,read will wait              */
 
                                                                                                                                                
-	//if(fd == -1)                                                                                           /* Error Checking */
-	//	printf("\n  Error! in Opening ttyS0  ");
-	//else
-	//	printf("\n  ttyS0 Opened Successfully ");
+	if(fd == -1){                                                                                          /* Error Checking */
+		printf("\n  Error! in Opening ttyS0  ");
+	}
+	else{
+		printf("\n  ttyS0 Opened Successfully ");
+	}
 
  
 
                
-/*---------- Setting the Attributes of the serial port using termios structure --------- */
+	/*---------- Setting the Attributes of the serial port using termios structure --------- */
 
                              
-	struct termios SerialPortSettings;              /* Create the structure                          */
+	struct termios SerialPortSettings;	/* Create the structure                          */
 
- 
-	tcgetattr(fd, &SerialPortSettings);            /* Get the current attributes of the Serial port */
+	tcgetattr(fd, &SerialPortSettings);	/* Get the current attributes of the Serial port */
 
- 
-	/* Setting the Baud rate */
+		/* Setting the Baud rate */
+	cfsetispeed(&SerialPortSettings,B9600); /* Set Read  Speed as 9600                       */
+	cfsetospeed(&SerialPortSettings,B9600); /* Set Write Speed as 9600                       */
 
-        cfsetispeed(&SerialPortSettings,B9600); /* Set Read  Speed as 9600                       */
-
-        cfsetospeed(&SerialPortSettings,B9600); /* Set Write Speed as 9600                       */
-
-	/* 8N1 Mode */
-
-        SerialPortSettings.c_cflag &= ~PARENB;   /* Disables the Parity Enable bit(PARENB),So No Parity   */
-
-        SerialPortSettings.c_cflag &= ~CSTOPB;   /* CSTOPB = 2 Stop bits,here it is cleared so 1 Stop bit */
-
-        SerialPortSettings.c_cflag &= ~CSIZE;      /* Clears the mask for setting the data size             */
-
-        SerialPortSettings.c_cflag |=  CS8;      /* Set the data bits = 8                                 */
-
-        SerialPortSettings.c_cflag &= ~CRTSCTS;       /* No Hardware flow Control                         */
-
-        SerialPortSettings.c_cflag |= CREAD | CLOCAL; /* Enable receiver,Ignore Modem Control lines       */
-
-        SerialPortSettings.c_iflag &= ~(IXON | IXOFF | IXANY);          /* Disable XON/XOFF flow control both i/p and o/p */
-
+		/* 8N1 Mode */
+	SerialPortSettings.c_cflag &= ~PARENB;   /* Disables the Parity Enable bit(PARENB),So No Parity   */
+	SerialPortSettings.c_cflag &= ~CSTOPB;   /* CSTOPB = 2 Stop bits,here it is cleared so 1 Stop bit */
+	SerialPortSettings.c_cflag &= ~CSIZE;	 /* Clears the mask for setting the data size             */
+	SerialPortSettings.c_cflag |=  CS8;      /* Set the data bits = 8                                 */
+		
+	SerialPortSettings.c_cflag &= ~CRTSCTS;       /* No Hardware flow Control                         */
+	SerialPortSettings.c_cflag |= CREAD | CLOCAL; /* Enable receiver,Ignore Modem Control lines       */ 
+		
+		
+	SerialPortSettings.c_iflag &= ~(IXON | IXOFF | IXANY);          /* Disable XON/XOFF flow control both i/p and o/p */
 	SerialPortSettings.c_iflag &= ~(ICANON | ECHO | ECHOE | ISIG);  /* Non Cannonical mode                            */
 
 	SerialPortSettings.c_oflag &= ~OPOST;/*No Output Processing*/
-
-	/* Setting Time outs */
-
+		
+		/* Setting Time outs */
 	SerialPortSettings.c_cc[VMIN] =  10; /* Read at least 10 character */
-
-        SerialPortSettings.c_cc[VTIME] = 0;  /* Wait indefinetly   */
+	SerialPortSettings.c_cc[VTIME] = 0;  /* Wait indefinetly   */
 	
+	 
+
+	if((tcsetattr(fd,TCSANOW,&SerialPortSettings)) != 0){ 
+		    printf("\n  ERROR ! in Setting attributes");
+	}
+	else{
+                    printf("\n  BaudRate = 9600 \n  StopBits = 1 \n  Parity   = none");
+ 	}
 	
 
-	if((tcsetattr(fd,TCSANOW,&SerialPortSettings)) != 0) /* Set the attributes to the termios structure*/
-	{		
-		printf("\n  ERROR ! in Setting attributes");
-	}
-        else{
-		printf("\n  BaudRate = 9600 \n  StopBits = 1 \n  Parity   = none");
-	}
 
-
-	printf("\n  justo despues de settings de settings  "); 
-
- 
 	int RTS_flag,DTR_flag;
 
 	RTS_flag = TIOCM_RTS; /* Modem Constant for RTS pin */
@@ -110,27 +94,25 @@ int main()
 
         ioctl(fd,TIOCMBIS,&DTR_flag);/* ~DTR = 0,So  DE pin of MAX485 is LOW,                       */
 
- 
+ 	/////////apartir de aqui va el programa//////////////////////////////////
 
 	char *read_buffer;   /* Buffer to store the data received              */
-
        	int  bytes_read = 0;    /* Number of bytes read by the read() system call */
-
         int i =0;
-	char com [100];
+	char com [10];
 	char fin [2];
 	strcpy (com,"mosquitto_pub -h iot.eclipse.org -t testkd -m 'recibo por rs485:");
 	strcpy (read_buffer,"no_lei_nada");
 	strcpy (fin," '");
-	int n= 1;
-	int f = 1;
+	int n;
+	int f;
+	f= 1;
+	n = 1;
 	sleep(2);
 	tcflush(fd, TCIFLUSH);   /* Discards old data in the rx buffer            */
-	char cmx[5];
-	
-		
+	char cmx[5];	
 	int  bytes_written  = 0;  	/* Value for storing the number of bytes written to the port */ 
-        char *temp;           
+        char temp[2];           
 
 /*------------------------------- Read data from serial port -----------------------------*/ 
 //Este es el bucle que se va a repetir para estar recibiendo constantemente información
@@ -210,4 +192,3 @@ int main()
 	
         close(fd); /* Close the serial port */
 }
-
