@@ -119,19 +119,18 @@ int main()
         int i =0;
 	char com [100];
 	char fin [2];
-	strcpy (com,"mosquitto_pub -h iot.eclipse.org -t testkd -m  'recibo por rs485:");
+	strcpy (com,"mosquitto_pub -h iot.eclipse.org -t testkd -m 'recibo por rs485:");
 	strcpy (read_buffer,"no_lei_nada");
 	strcpy (fin," '");
 	int n= 1;
 	int f = 1;
 	sleep(2);
 	tcflush(fd, TCIFLUSH);   /* Discards old data in the rx buffer            */
-	char *write_buffer;
-	char cmx[10];
-	strcpy (cmx,"$AA");		//comando para leer un canal del MX
+	char cmx[5];
+	
+		
 	int  bytes_written  = 0;  	/* Value for storing the number of bytes written to the port */ 
-        char temp;
-	char solc[10];           
+        char *temp;           
 
 /*------------------------------- Read data from serial port -----------------------------*/ 
 //Este es el bucle que se va a repetir para estar recibiendo constantemente información
@@ -144,19 +143,23 @@ int main()
 	{		
 		if(f<=6)
 		{
-			temp=f+48;			
-			write_buffer = cmx + temp;
-			strcpy(solc, write_buffer);
+						
+			sprintf(temp,"%d",f);
+			strcpy(cmx, "$AA");		//comando para leer un canal del MX			
+			strcat(cmx, temp);
 			f++;
 		}else{
-			write_buffer[0] = n;
+			sprintf(temp,"%d",n);
+			strcpy(cmx, "cont:");		//comando para leer un canal del MX			
+			strcat(cmx, temp);
 		}
-		printf("\n  Me ejecuto antes de escribir f= %i , n=%i , solicitud: %s  $$$ \n", f, n, solc);
-		bytes_written = write(fd,write_buffer,sizeof(write_buffer));/* use write() to send data to port                                            */
+		printf("\n  Me ejecuto antes de escribir f= %i , n=%i , solicitud: %s  $$$ \n", f, n, cmx);
+		bytes_written = write(fd,cmx,sizeof(cmx));
+		/* use write() to send data to port                                            */
 										    /* "fd"                   - file descriptor pointing to the opened serial port */
 										    /*	"write_buffer"         - address of the buffer containing data	           */
 										    /* "sizeof(write_buffer)" - No of bytes to write                               */	
-		printf("\n   Solicitud: %s ", write_buffer);
+		printf("\n   Solicitud: %s ", cmx);
 		//printf("\n  %d Bytes written to ttyUSB0", bytes_written);
 		//printf("\n +----------------------------------+\n\n");
 		//sleep(2);
@@ -184,7 +187,6 @@ int main()
 		//reinicio de variables
 		bytes_read=0;
 		strcpy (com,"mosquitto_pub -h iot.eclipse.org -t testkd -m 'recibo por rs485:");
-		write_buffer =  '\0';
 		read_buffer =  '\0';
 		tcflush(fd, TCIFLUSH);
 		
