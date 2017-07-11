@@ -81,7 +81,7 @@ int main()
                     printf("\n  BaudRate = 9600 \n  StopBits = 1 \n  Parity   = none");
  	}
 	
-
+	
 
 	int RTS_flag,DTR_flag;
 
@@ -96,14 +96,13 @@ int main()
 
  	/////////apartir de aqui va el programa//////////////////////////////////
 
-	char *read_buffer;   /* Buffer to store the data received              */
+	char read_buffer[32];   /* Buffer to store the data received              */
        	int  bytes_read = 0;    /* Number of bytes read by the read() system call */
         int i =0;
-	char com [10];
+	char com [100];
 	char fin [2];
 	strcpy (com,"mosquitto_pub -h iot.eclipse.org -t testkd -m 'recibo por rs485:");
 	strcpy (read_buffer,"no_lei_nada");
-	strcpy (fin," '");
 	int n;
 	int f;
 	f= 1;
@@ -112,8 +111,7 @@ int main()
 	tcflush(fd, TCIFLUSH);   /* Discards old data in the rx buffer            */
 	char cmx[5];	
 	int  bytes_written  = 0;  	/* Value for storing the number of bytes written to the port */ 
-        char temp[2];           
-
+        char temp[3];
 /*------------------------------- Read data from serial port -----------------------------*/ 
 //Este es el bucle que se va a repetir para estar recibiendo constantemente información
 
@@ -123,35 +121,27 @@ int main()
 
 	while (1)
 	{		
+		
 		if(f<=6)
 		{
 						
 			sprintf(temp,"%d",f);
 			strcpy(cmx, "$AA");		//comando para leer un canal del MX			
 			strcat(cmx, temp);
-			f++;
 		}else{
 			sprintf(temp,"%d",n);
 			strcpy(cmx, "cont:");		//comando para leer un canal del MX			
 			strcat(cmx, temp);
 		}
-		printf("\n  Me ejecuto antes de escribir f= %i , n=%i , solicitud: %s  $$$ \n", f, n, cmx);
+		
 		bytes_written = write(fd,cmx,sizeof(cmx));
-		/* use write() to send data to port                                            */
-										    /* "fd"                   - file descriptor pointing to the opened serial port */
-										    /*	"write_buffer"         - address of the buffer containing data	           */
-										    /* "sizeof(write_buffer)" - No of bytes to write                               */	
+		
 		printf("\n   Solicitud: %s ", cmx);
-		//printf("\n  %d Bytes written to ttyUSB0", bytes_written);
-		//printf("\n +----------------------------------+\n\n");
-		//sleep(2);
-		//tcflush(fd, TCIFLUSH);   /* Discards old data in the rx buffer            */	
-
+			
+		memset(read_buffer, 0, 32);
 		while (bytes_read==0)
 			bytes_read = read(fd,&read_buffer,32); /* Read the data                   */
 
-
-                //printf("\n\n  Bytes Rxed -%d", bytes_read); /* Print the number of bytes read */
 
                 printf("\n Recibo:   ");
 
@@ -160,16 +150,16 @@ int main()
 
 		printf("\n +----------------------------------+\n\n");
 		strcat(com, read_buffer);
+		strcpy (fin," '");
 		strcat(com, fin);
-		printf("\n  %s  \n",com);
-		
+		printf("\n %s \n",com);
+		sleep(2);
 		system(com);
-		system("clear");
-		printf("reinicio de lectura %i, %i", f, n);
+		//system("clear");
 		//reinicio de variables
 		bytes_read=0;
+		memset(com, 0, 10);
 		strcpy (com,"mosquitto_pub -h iot.eclipse.org -t testkd -m 'recibo por rs485:");
-		read_buffer =  '\0';
 		tcflush(fd, TCIFLUSH);
 		
 		if (n==32)
@@ -179,14 +169,17 @@ int main()
 			sleep(1.5); //aqui se ingresa el tiempo de espera en segundos en el que despues de una solicitud de 
 			//todos los controladores de la estación se vuelve a solicitar info a todos--------en este caso 1.5 seg
 		}
-		else if (f>6)
+		else if (f<=6)
 		{
-			n++;
+			f++;
 			sleep(1.5); //aqui se ingresa el tiempo de espera en segundos entre la solicitud a un controlador 
 			//para que cada minuto se solicite 1 vez la info de cada disp se divide 60s / 38 disp = 1.57
 
+		}else{
+			n++;
+			sleep(1.5);
 		}
-
+		
 		
 	}
 	
