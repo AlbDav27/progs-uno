@@ -119,7 +119,7 @@ int main()
  
 	
 // se debe de verificar si linux permite que se ejecute indefinidamente el programa, o hay que ejecutar periodicamente el mismo
-
+	printf("llego antes de entrar al while (1)");
 	while (1)
 	{		
 		//////////////////////Cada ciclo completo de medición de todas las fuentes y controladores, incluye el envio de información///////
