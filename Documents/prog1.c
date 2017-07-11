@@ -119,7 +119,7 @@ int main()
  
 	
 // se debe de verificar si linux permite que se ejecute indefinidamente el programa, o hay que ejecutar periodicamente el mismo
-	printf("llego antes de entrar al while (1)");
+	
 	while (1)
 	{		
 		//////////////////////Cada ciclo completo de medición de todas las fuentes y controladores, incluye el envio de información///////
@@ -134,6 +134,8 @@ int main()
 			strcpy(cmx, "cont:");		//comando para leer un canal del MX			
 			strcat(cmx, temp);
 		}
+		
+		printf("llego antes de eescribir en puerto rs485");
 		
 		bytes_written = write(fd,cmx,sizeof(cmx));
 		
