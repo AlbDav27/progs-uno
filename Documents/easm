@@ -1,0 +1,4 @@
+#!/bin/bash
+echo Ejecutando programa en c al arranque
+cd /home/alberto/Documents/rs485
+./p
