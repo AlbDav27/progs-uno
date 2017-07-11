@@ -135,7 +135,7 @@ int main()
 			strcat(cmx, temp);
 		}
 		
-		printf("llego antes de eescribir en puerto rs485");
+		
 		
 		bytes_written = write(fd,cmx,sizeof(cmx));
 		
