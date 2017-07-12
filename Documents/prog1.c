@@ -168,17 +168,16 @@ int main()
 			strcat(com1,"mosquitto_pub -h iot.eclipse.org -t estacion1/fuentes -m 'recibo por rs485:");
 			strcat(com1, fuentes);
 			strcat(com1, fin);
-			system(com1);
 			printf("\n %s \n",com1);
+			system(com1);
 			memset(com1, 0, 300);
 			
 			
-			strcpy (fin," '");
 			strcat (com2,"mosquitto_pub -h iot.eclipse.org -t estacion1/controladores -m 'recibo por rs485:");
 			strcat(com2, control);
 			strcat(com2, fin);
-			system(com2);
 			printf("\n %s \n",com2);
+			system(com2);
 			memset(com2, 0, 300);
 			
 			//system("clear");
