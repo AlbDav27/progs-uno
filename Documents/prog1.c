@@ -94,8 +94,10 @@ int main()
 	char read_buffer[32];   /* Buffer to store the data received              */
        	int  bytes_read = 0;    /* Number of bytes read by the read() system call */
         int i =0;
-	char com1 [200];
-	char com2 [200];
+	char com1 [300];
+	char com2 [300];
+	memset(com1, 0, 300);
+	memset(com2, 0, 300);
 	char fin [2];
 	strcpy (com1,"mosquitto_pub -h iot.eclipse.org -t estacion1/fuentes -m 'recibo por rs485:");
 	strcpy (com2,"mosquitto_pub -h iot.eclipse.org -t estacion1/controladores -m 'recibo por rs485:");
@@ -109,10 +111,10 @@ int main()
 	char cmx[5];	
 	int  bytes_written  = 0;  	/* Value for storing the number of bytes written to the port */ 
         char temp[3];
-	char fuentes[150];
-	char control[150];
-	memset(fuentes, 0, 150);
-	memset(control, 0, 150);
+	char fuentes[200];
+	char control[200];
+	memset(fuentes, 0, 200);
+	memset(control, 0, 200);
 /*------------------------------- Read data from serial port -----------------------------*/ 
 //Este es el bucle que se va a repetir para estar recibiendo constantemente información
 
