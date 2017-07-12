@@ -94,8 +94,8 @@ int main()
 	char read_buffer[32];   /* Buffer to store the data received              */
        	int  bytes_read = 0;    /* Number of bytes read by the read() system call */
         int i =0;
-	char com1 [300];
-	memset(com1, 0, 300);
+	char com1 [250];
+	memset(com1, 0, 250);
 	char fin [2];
 	
 	int n;
