@@ -176,6 +176,7 @@ int main()
 			
 			
 			system(com1);
+			sleep(3);
 			system(com2);
 			
 			//system("clear");
