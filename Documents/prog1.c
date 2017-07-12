@@ -27,7 +27,7 @@ int main()
                                                               /* Open in blocking mode,read will wait              */
 
                                                                                                                                                
-	if(fd == -1){                                                                                          /* Error Checking */
+	if(fd == -1){          
 		printf("\n  Error! in Opening ttyS0  ");
 	}
 	else{
@@ -119,7 +119,7 @@ int main()
  
 	
 // se debe de verificar si linux permite que se ejecute indefinidamente el programa, o hay que ejecutar periodicamente el mismo
-	
+
 	while (1)
 	{		
 		//////////////////////Cada ciclo completo de medición de todas las fuentes y controladores, incluye el envio de información///////
@@ -127,19 +127,17 @@ int main()
 		{
 						
 			sprintf(temp,"%d",f);
-			strcpy(cmx, "$AA");		//comando para leer un canal del MX			
+			strcpy(cmx, "$AA");					
 			strcat(cmx, temp);
 		}else{
 			sprintf(temp,"%d",n);
-			strcpy(cmx, "cont:");		//comando para leer un canal del MX			
+			strcpy(cmx, "cont:");					
 			strcat(cmx, temp);
 		}
 		
-		
-		
-		bytes_written = write(fd,cmx,sizeof(cmx));
-		
 		printf("\n   Solicitud: %s ", cmx);
+		
+		bytes_written = write(fd,cmx,sizeof(cmx));		
 			
 		memset(read_buffer, 0, 32);
 		while (bytes_read==0)
