@@ -170,7 +170,7 @@ int main()
 			strcat(com1, fin);
 			system(com1);
 			printf("\n %s \n",com1);
-			memset(com1, 0, 200);
+			memset(com1, 0, 300);
 			
 			
 			strcpy (fin," '");
@@ -179,13 +179,13 @@ int main()
 			strcat(com2, fin);
 			system(com2);
 			printf("\n %s \n",com2);
-			memset(com2, 0, 200);
+			memset(com2, 0, 300);
 			
 			//system("clear");
 			//reinicio de variables
 			
-			memset(fuentes, 0, 150);
-			memset(control, 0, 150);
+			memset(fuentes, 0, 200);
+			memset(control, 0, 200);
 			tcflush(fd, TCIFLUSH);
 			sleep(2);
 		}
