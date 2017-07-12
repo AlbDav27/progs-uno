@@ -18,7 +18,7 @@ int main()
 
 	/* Change /dev/ttyS0 to the one corresponding to your system */
 
-	fd = open("/dev/ttyS0",O_RDWR | O_NOCTTY);           /* ttyS0 corresponde al puerto serial rs485 de UNO-1252G   */  
+	fd = open("/dev/ttyS1",O_RDWR | O_NOCTTY);           /* ttyS0 corresponde al puerto serial rs485 de UNO-1252G   */  
 
                                                                /* O_RDWR   - Read/Write access to serial port       */
 
