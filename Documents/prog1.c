@@ -172,10 +172,12 @@ int main()
 			strcat(com1, fin);
 			printf("\n %s \n",com1);
 			printf("\n %s \n",com2);
+			sleep(2);
+			
 			
 			system(com1);
 			system(com2);
-			sleep(2);
+			
 			//system("clear");
 			//reinicio de variables
 			memset(com1, 0, 200);
