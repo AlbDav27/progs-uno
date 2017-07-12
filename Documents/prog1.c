@@ -140,8 +140,8 @@ int main()
 		bytes_written = write(fd,cmx,sizeof(cmx));		
 			
 		memset(read_buffer, 0, 32);
-		while (bytes_read==0)
-			bytes_read = read(fd,&read_buffer,32); /* Read the data                   */
+		//while (bytes_read==0)
+		bytes_read = read(fd,&read_buffer,32); /* Read the data                   */
 
 
                 printf("\n Recibo:   ");
