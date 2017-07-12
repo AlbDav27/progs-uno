@@ -172,14 +172,17 @@ int main()
 			strcpy (fin," '");
 			strcat(com2, fin);
 			strcat(com1, fin);
-			printf("\n %s \n",com1);
-			printf("\n %s \n",com2);
+			
+			
 			sleep(2);
 			
 			
 			system(com1);
+			printf("\n %s \n",com1);
 			sleep(3);
 			system(com2);
+			printf("\n %s \n",com2);
+			
 			
 			//system("clear");
 			//reinicio de variables
@@ -194,7 +197,7 @@ int main()
 		else if (f<=6)
 		{
 			if(f!=1){
-				strcat(com1, "; ");
+				strcat(fuentes, "; ");
 			}
 			strcat(fuentes, read_buffer);			
 			f++;
@@ -203,7 +206,7 @@ int main()
 
 		}else{
 			if(n!=1){
-				strcat(com2, "; ");
+				strcat(control, "; ");
 			}
 			strcat(control, read_buffer);
 			n++;
