@@ -94,10 +94,8 @@ int main()
 	char read_buffer[32];   /* Buffer to store the data received              */
        	int  bytes_read = 0;    /* Number of bytes read by the read() system call */
         int i =0;
-	char com1 [230];
-	char com2 [230];
-	memset(com1, 0, 230);
-	memset(com2, 0, 230);
+	char com1 [300];
+	memset(com1, 0, 300);
 	char fin [2];
 	
 	int n;
@@ -170,15 +168,14 @@ int main()
 			strcat(com1, fin);
 			printf("\n %s \n",com1);
 			system(com1);
-			memset(com1, 0, 230);
+			memset(com1, 0, 300);
 			
 			
-			strcat (com2,"mosquitto_pub -h iot.eclipse.org -t estacion1/controladores -m 'recibo por rs485:");
-			strcat(com2, control);
-			strcat(com2, fin);
-			printf("\n %s \n",com2);
-			system(com2);
-			memset(com2, 0, 230);
+			strcat (com1,"mosquitto_pub -h iot.eclipse.org -t estacion1/controladores -m 'recibo por rs485:");
+			strcat(com1, control);
+			strcat(com1, fin);
+			printf("\n %s \n",com1);
+			system(com1);
 			
 			//system("clear");
 			//reinicio de variables
