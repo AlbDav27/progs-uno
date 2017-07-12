@@ -99,9 +99,7 @@ int main()
 	memset(com1, 0, 300);
 	memset(com2, 0, 300);
 	char fin [2];
-	strcpy (com1,"mosquitto_pub -h iot.eclipse.org -t estacion1/fuentes -m 'recibo por rs485:");
-	strcpy (com2,"mosquitto_pub -h iot.eclipse.org -t estacion1/controladores -m 'recibo por rs485:");
-	strcpy (read_buffer,"no_lei_nada");
+	
 	int n;
 	int f;
 	f= 1;
@@ -156,7 +154,7 @@ int main()
 		
 		bytes_read=0;
 		
-		tcflush(fd, TCIFLUSH);
+		
 		
 		if (n==32)
 		{
@@ -166,32 +164,29 @@ int main()
 			strcat(control, read_buffer);
 
 			//esta parte envia la información de controladores y fuentes//
-			
-			strcat(com1, fuentes);
-			strcat(com2, control);
 			strcpy (fin," '");
-			strcat(com2, fin);
+			strcpy (com1,"mosquitto_pub -h iot.eclipse.org -t estacion1/fuentes -m 'recibo por rs485:");
+			strcat(com1, fuentes);
 			strcat(com1, fin);
-			
-			
-			sleep(2);
-			
-			
 			system(com1);
 			printf("\n %s \n",com1);
-			sleep(3);
+			memset(com1, 0, 200);
+			
+			
+			strcpy (fin," '");
+			strcpy (com2,"mosquitto_pub -h iot.eclipse.org -t estacion1/controladores -m 'recibo por rs485:");
+			strcat(com2, control);
+			strcat(com2, fin);
 			system(com2);
 			printf("\n %s \n",com2);
-			
+			memset(com2, 0, 200);
 			
 			//system("clear");
 			//reinicio de variables
-			memset(com1, 0, 200);
-			memset(com2, 0, 200);
+			
 			memset(fuentes, 0, 150);
 			memset(control, 0, 150);
-			strcpy (com1,"mosquitto_pub -h iot.eclipse.org -t estacion1/fuentes -m 'recibo por rs485:");
-			strcpy (com2,"mosquitto_pub -h iot.eclipse.org -t estacion1/controladores -m 'recibo por rs485:");
+			tcflush(fd, TCIFLUSH);
 			sleep(2);
 		}
 		else if (f<=6)
