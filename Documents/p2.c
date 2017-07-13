@@ -111,10 +111,10 @@ int main()
 	
 // se debe de verificar si linux permite que se ejecute indefinidamente el programa, o hay que ejecutar periodicamente el mismo
 
-	while (1)
-	{	
+	//while (1)
+	//{	
 
-		//printf("\n\n n= %i  f = %i    ", n , f);
+		printf("\n\n n= %i  f = %i    ", n , f);
 		if (f<7)
 		{		
 			sprintf(temp,"%d",f);
@@ -223,7 +223,7 @@ int main()
 		tcflush(fd, TCIFLUSH);
 		sleep(2);
 		
-	}
+	//}
 	
         close(fd); /* Close the serial port */
 }
