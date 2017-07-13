@@ -45,8 +45,8 @@ int main()
 	tcgetattr(fd, &SerialPortSettings);	/* Get the current attributes of the Serial port */
 
 		/* Setting the Baud rate */
-	cfsetispeed(&SerialPortSettings,B115200); /* Set Read  Speed as 9600                       */
-	cfsetospeed(&SerialPortSettings,B115200); /* Set Write Speed as 9600                       */
+	cfsetispeed(&SerialPortSettings,B9600); /* Set Read  Speed as 9600                       */
+	cfsetospeed(&SerialPortSettings,B9600); /* Set Write Speed as 9600                       */
 
 		/* 8N1 Mode */
 	SerialPortSettings.c_cflag &= ~PARENB;   /* Disables the Parity Enable bit(PARENB),So No Parity   */
