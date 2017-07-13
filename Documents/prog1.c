@@ -160,7 +160,11 @@ int main()
 		{
 			n=1;
 			f=1;
+			printf("\n antes de cat ultimo ; \n");
+			sleep(2);
 			strcat(control, "; ");
+			printf("\n antes de cat ultimo dato \n");
+			sleep(2);
 			strcat(control, read_buffer);
 			//memset(com1, 0, 250);
 			strcpy (com1, "  ");
