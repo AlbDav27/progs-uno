@@ -73,21 +73,11 @@ int main()
 		    printf("\n  ERROR ! in Setting attributes");
 	}
 	else{
-                    printf("\n  BaudRate = 9600 \n  StopBits = 1 \n  Parity   = none");
+             sleep(2);
+             printf("\n  BaudRate = 9600 \n  StopBits = 1 \n  Parity   = none");
  	}
 	
 	
-
-	int RTS_flag,DTR_flag;
-
-	RTS_flag = TIOCM_RTS; /* Modem Constant for RTS pin */
-
-     DTR_flag = TIOCM_DTR; /* Modem Constant for DTR pin */
-
- 
-	ioctl(fd,TIOCMBIS,&RTS_flag);/* ~RTS = 0,So ~RE pin of MAX485 is LOW,Receive Mode enabled   */
-
-        ioctl(fd,TIOCMBIS,&DTR_flag);/* ~DTR = 0,So  DE pin of MAX485 is LOW,                       */
 
  	/////////apartir de aqui va el programa//////////////////////////////////
 
@@ -100,17 +90,18 @@ int main()
 	
 	int n;
 	int f;
-	f= 1;
+	f = 1;
 	n = 1;
 	sleep(2);
 	
 	char cmx[6];	
 	int  bytes_written  = 0;  	/* Value for storing the number of bytes written to the port */ 
-        char temp[3];
+    char temp[3];
 	char fuentes[200];
 	char control[200];
 	strcpy (fuentes, "");
 	strcpy (control, "");
+
 	
 
 /*------------------------------- Read data from serial port -----------------------------*/ 
@@ -121,9 +112,10 @@ int main()
 // se debe de verificar si linux permite que se ejecute indefinidamente el programa, o hay que ejecutar periodicamente el mismo
 
 	while (1)
-	{		
-		printf("\n\n n= %i  f = %i    \n\n", n , f);
-		if(f<=6)
+	{	
+
+		printf("\n\n n= %i  f = %i    ", n , f);
+		if (f<7)
 		{		
 			sprintf(temp,"%d",f);
 			strcpy(cmx, "$AA");					
@@ -134,7 +126,7 @@ int main()
 			strcat(cmx, temp);
 		}
 		strcat(cmx,"*");
-		printf("Solicitud: %s/findecad", cmx);
+		printf("\nSolicitud: %s/findecad", cmx);
 		
 		
 	
@@ -228,7 +220,8 @@ int main()
 			usleep(1500000);
 		}
 		usleep(500000);
-		
+		tcflush(fd, TCIFLUSH);
+		sleep(2);
 		
 	}
 	
