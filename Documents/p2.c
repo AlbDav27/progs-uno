@@ -122,7 +122,7 @@ int main()
 
 	while (1)
 	{		
-		tcflush(fd, TCOFLUSH);
+		
 		tcflush(fd, TCIFLUSH);	
 		printf("\n\n n= %i  f = %i    \n\n", n , f);
 		if(f<=6)
@@ -142,14 +142,14 @@ int main()
 		sleep(5);
 		bytes_written = write(fd,cmx,sizeof(cmx));	
 		tcflush(fd, TCOFLUSH);	
-		
+		sleep(2);
 		//memset(read_buffer, 0, 32);
 		//while (bytes_read==0)
 		bytes_read = read(fd,&read_buffer,32); /* Read the data                   */
-
+		tcflush(fd, TCIFLUSH);
 
         printf("\n Recibo:   ");
-        tcflush(fd, TCIFLUSH);
+        
 
 		for(i=0;i<bytes_read;i++)              /*printing only the received characters*/
 			printf("%c",read_buffer[i]);
@@ -230,7 +230,7 @@ int main()
 			usleep(1500000);
 		}
 		usleep(500000);
-		tcflush(fd, TCIOFLUSH);
+		
 		
 	}
 	
