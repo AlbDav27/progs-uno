@@ -167,7 +167,7 @@ int main()
 			strcat(control, read_buffer);
 			
 			printf("\n cadena datos fuentes = %s \n",fuentes);
-			printf("\n cadena datos controladores =  \n", control);
+			printf("\n cadena datos controladores = %s \n", control);
 			sleep(2);
 			
 			//memset(com1, 0, 250);
