@@ -76,7 +76,7 @@ int main()
                     printf("\n  BaudRate = 9600 \n  StopBits = 1 \n  Parity   = none");
  	}
 	
-	sleep(3);
+	//sleep(3);
 
 	int RTS_flag,DTR_flag;
 
@@ -142,7 +142,7 @@ int main()
 		printf("\n   Solicitud: %s/findecad", cmx);
 		
 		bytes_written = write(fd,cmx,sizeof(cmx));		
-			
+		usleep(500000);	
 		//memset(read_buffer, 0, 32);
 		//while (bytes_read==0)
 		bytes_read = read(fd,&read_buffer,32); /* Read the data                   */
