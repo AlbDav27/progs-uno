@@ -94,7 +94,7 @@ int main()
 	char read_buffer[32];   /* Buffer to store the data received              */
        	int  bytes_read = 0;    /* Number of bytes read by the read() system call */
         int i =0;
-	char com1 [500];
+	char com1 [];
 	strcpy (com1, "");
 	
 	char fin [2];
@@ -108,8 +108,8 @@ int main()
 	char cmx[5];	
 	int  bytes_written  = 0;  	/* Value for storing the number of bytes written to the port */ 
         char temp[3];
-	char fuentes[150];
-	char control[150];
+	char fuentes[];
+	char control[];
 	strcpy (fuentes, "");
 	strcpy (control, "");
 
