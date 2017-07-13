@@ -91,10 +91,10 @@ int main()
 
  	/////////apartir de aqui va el programa//////////////////////////////////
 
-	char read_buffer[32];   /* Buffer to store the data received              */
+	char read_buffer[6];   /* Buffer to store the data received              */
        	int  bytes_read = 0;    /* Number of bytes read by the read() system call */
         int i =0;
-	char com [500];
+	char com [300];
 	strcpy (com, "");
 	
 	
@@ -105,7 +105,7 @@ int main()
 	sleep(2);
 	tcflush(fd, TCIFLUSH);   /* Discards old data in the rx buffer            */
 	tcflush(fd, TCOFLUSH);
-	char cmx[5];	
+	char cmx[6];	
 	int  bytes_written  = 0;  	/* Value for storing the number of bytes written to the port */ 
         char temp[3];
 	char fuentes[200];
@@ -229,7 +229,7 @@ int main()
 			usleep(1500000);
 		}
 		usleep(500000);
-		tcflush(fd, TCOFLUSH);
+		//tcflush(fd, TCOFLUSH);
 		tcflush(fd, TCIFLUSH);	
 	}
 	
