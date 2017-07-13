@@ -103,7 +103,8 @@ int main()
 	f= 1;
 	n = 1;
 	sleep(2);
-	//tcflush(fd, TCIFLUSH);   /* Discards old data in the rx buffer            */
+	tcflush(fd, TCIFLUSH);   /* Discards old data in the rx buffer            */
+	tcflush(fd, TCOFLUSH);
 	char cmx[5];	
 	int  bytes_written  = 0;  	/* Value for storing the number of bytes written to the port */ 
         char temp[3];
@@ -228,8 +229,8 @@ int main()
 			n++;
 			usleep(1500000);
 		}
-		//tcflush(fd, TCOFLUSH);
-		//tcflush(fd, TCIFLUSH);	
+		tcflush(fd, TCOFLUSH);
+		tcflush(fd, TCIFLUSH);	
 	}
 	
         close(fd); /* Close the serial port */
