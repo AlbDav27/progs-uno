@@ -139,7 +139,7 @@ int main()
 		
 		
 		strcat(cmx,"*");
-		printf("\n   Solicitud: %s ", cmx);
+		printf("\n   Solicitud: %s  /findecad", cmx);
 		
 		bytes_written = write(fd,cmx,sizeof(cmx));		
 			
