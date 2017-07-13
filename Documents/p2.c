@@ -165,6 +165,11 @@ int main()
 			printf("\n antes de cat ultimo dato \n");
 			sleep(2);
 			strcat(control, read_buffer);
+			
+			printf("\n cadena datos fuentes = %s \n",fuentes);
+			printf("\n cadena datos controladores =  \n", control);
+			sleep(2)
+			
 			//memset(com1, 0, 250);
 			strcpy (com, "");
 			//esta parte envia la información de controladores y fuentes//
