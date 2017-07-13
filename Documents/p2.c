@@ -183,7 +183,7 @@ int main()
 			strcat(com, " '");
 			printf("\n %s \n",com);
 			system(com);
-			system("clear");
+			//system("clear");
 			strcpy (com, "");
 			//memset(com1, 0, 250);
 			
@@ -197,7 +197,7 @@ int main()
 			strcat(com, " '");
 			printf("\n %s \n",com);
 			system(com);
-			system("clear");
+			//system("clear");
 			strcpy (com, "  ");
 			
 			strcpy(fuentes, "  ");
