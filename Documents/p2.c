@@ -121,6 +121,7 @@ int main()
 
 	while (1)
 	{		
+		tcflush(fd, TCIFLUSH);
 		printf("\n\n n= %i  f = %i    \n\n", n , f);
 		//////////////////////Cada ciclo completo de medición de todas las fuentes y controladores, incluye el envio de información///////
 		if(f<=6)
@@ -179,7 +180,7 @@ int main()
 			strcat(com,"mosquitto_pub -h iot.eclipse.org -t estacion1/fuentes -m 'recibo por rs485:");
 			printf("\n antes de 1er cat %s\n",com);
 			sleep(2);
-			strcat(com, fuentes);
+			//strcat(com, fuentes);
 			printf("\n antes de 2 cat %s\n",com);
 			sleep(2);
 			strcat(com, " '");
@@ -193,7 +194,7 @@ int main()
 			strcat (com,"mosquitto_pub -h iot.eclipse.org -t estacion1/controladores -m 'recibo por rs485:");
 			printf("\n antes de 1er cat \n");
 			sleep(2);
-			strcat(com, control);
+			//strcat(com, control);
 			printf("\n antes de 2 cat \n");
 			sleep(2);
 			strcat(com, " '");
