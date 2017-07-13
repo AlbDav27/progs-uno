@@ -76,7 +76,7 @@ int main()
                     printf("\n  BaudRate = 9600 \n  StopBits = 1 \n  Parity   = none");
  	}
 	
-	//sleep(3);
+	
 
 	int RTS_flag,DTR_flag;
 
@@ -121,8 +121,8 @@ int main()
 
 	while (1)
 	{		
-		//tcflush(fd, TCIFLUSH);
-		//tcflush(fd, TCOFLUSH);
+		tcflush(fd, TCIFLUSH);
+		tcflush(fd, TCOFLUSH);
 		printf("\n\n n= %i  f = %i    \n\n", n , f);
 		if(f<=6)
 		{
