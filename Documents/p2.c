@@ -113,7 +113,7 @@ int main()
 
 	//while (1)
 	//{	
-
+		
 		printf("\n\n n= %i  f = %i    ", n , f);
 		if (f<7)
 		{		
@@ -130,9 +130,10 @@ int main()
 		
 		
 	
-		bytes_written = write(fd,cmx,6);	
+		bytes_written = write(fd,cmx,6);
+		sleep(2);
 		
-		
+		//tcflush(fc, TCIFLUSH);
 		//memset(read_buffer, 0, 32);
 		//while (bytes_read==0)
 		bytes_read = read(fd,&read_buffer,6); /* Read the data                   */
