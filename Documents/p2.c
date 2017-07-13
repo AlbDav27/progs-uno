@@ -122,6 +122,7 @@ int main()
 	while (1)
 	{		
 		tcflush(fd, TCIFLUSH);
+		tcflush(fd, TCOFLUSH);
 		printf("\n\n n= %i  f = %i    \n\n", n , f);
 		//////////////////////Cada ciclo completo de medición de todas las fuentes y controladores, incluye el envio de información///////
 		if(f<=6)
