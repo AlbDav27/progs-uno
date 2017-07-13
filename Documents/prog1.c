@@ -94,8 +94,8 @@ int main()
 	char read_buffer[32];   /* Buffer to store the data received              */
        	int  bytes_read = 0;    /* Number of bytes read by the read() system call */
         int i =0;
-	char com1 [200];
-	strcpy (com1, "  ");
+	char com [150];
+	strcpy (com, "");
 	
 	char fin [2];
 	
@@ -108,10 +108,10 @@ int main()
 	char cmx[5];	
 	int  bytes_written  = 0;  	/* Value for storing the number of bytes written to the port */ 
         char temp[3];
-	char fuentes[120];
-	char control[120];
-	strcpy (fuentes, "  ");
-	strcpy (control, "  ");
+	char fuentes[20];
+	char control[70];
+	strcpy (fuentes, "");
+	strcpy (control, "");
 
 /*------------------------------- Read data from serial port -----------------------------*/ 
 //Este es el bucle que se va a repetir para estar recibiendo constantemente información
@@ -162,39 +162,39 @@ int main()
 			f=1;
 			printf("\n antes de cat ultimo ; \n");
 			sleep(2);
-			strcat(control, "; ");
+			strcat(control, ";");
 			printf("\n antes de cat ultimo dato \n");
 			sleep(2);
 			strcat(control, read_buffer);
 			//memset(com1, 0, 250);
-			strcpy (com1, "  ");
+			strcpy (com, "");
 			//esta parte envia la información de controladores y fuentes//
 			strcpy (fin," '");
-			strcpy(com1,"mosquitto_pub -h iot.eclipse.org -t estacion1/fuentes -m 'recibo por rs485:");
+			strcat(com,"mosquitto_pub -h iot.eclipse.org -t estacion1/fuentes -m 'recibo por rs485:");
 			printf("\n antes de 1er cat \n");
 			sleep(2);
-			strcat(com1, fuentes);
+			strcat(com, fuentes);
 			printf("\n antes de 2 cat \n");
 			sleep(2);
-			strcat(com1, fin);
+			strcat(com, fin);
 			printf("\n %s \n",com1);
-			system(com1);
+			system(com);
 			system("clear");
-			strcpy (com1, "  ");
+			strcpy (com, "  ");
 			//memset(com1, 0, 250);
 			
 			
-			strcpy (com1,"mosquitto_pub -h iot.eclipse.org -t estacion1/controladores -m 'recibo por rs485:");
+			strcat (com,"mosquitto_pub -h iot.eclipse.org -t estacion1/controladores -m 'recibo por rs485:");
 			printf("\n antes de 1er cat \n");
 			sleep(2);
-			strcat(com1, control);
+			strcat(com, control);
 			printf("\n antes de 2 cat \n");
 			sleep(2);
-			strcat(com1, fin);
+			strcat(com, fin);
 			printf("\n %s \n",com1);
-			system(com1);
+			system(com);
 			system("clear");
-			strcpy (com1, "  ");
+			strcpy (com, "  ");
 			
 			strcpy(fuentes, "  ");
 			strcpy(control, "  ");
