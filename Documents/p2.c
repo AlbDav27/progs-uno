@@ -177,7 +177,7 @@ int main()
 			printf("\n antes de 2 cat \n");
 			sleep(2);
 			strcat(com, fin);
-			printf("\n %s \n",com1);
+			printf("\n %s \n",com);
 			system(com);
 			system("clear");
 			strcpy (com, "  ");
@@ -191,7 +191,7 @@ int main()
 			printf("\n antes de 2 cat \n");
 			sleep(2);
 			strcat(com, fin);
-			printf("\n %s \n",com1);
+			printf("\n %s \n",com);
 			system(com);
 			system("clear");
 			strcpy (com, "  ");
