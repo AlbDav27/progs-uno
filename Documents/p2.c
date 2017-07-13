@@ -111,8 +111,7 @@ int main()
 	char control[200];
 	strcpy (fuentes, "");
 	strcpy (control, "");
-	tcflush(fd, TCIFLUSH);
-	tcflush(fd, TCOFLUSH);
+	
 
 /*------------------------------- Read data from serial port -----------------------------*/ 
 //Este es el bucle que se va a repetir para estar recibiendo constantemente información
@@ -123,7 +122,8 @@ int main()
 
 	while (1)
 	{		
-		
+		tcflush(fd, TCOFLUSH);
+		tcflush(fd, TCIFLUSH);	
 		printf("\n\n n= %i  f = %i    \n\n", n , f);
 		if(f<=6)
 		{		
