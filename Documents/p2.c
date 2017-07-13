@@ -82,7 +82,7 @@ int main()
 
 	RTS_flag = TIOCM_RTS; /* Modem Constant for RTS pin */
 
-        DTR_flag = TIOCM_DTR; /* Modem Constant for DTR pin */
+     DTR_flag = TIOCM_DTR; /* Modem Constant for DTR pin */
 
  
 	ioctl(fd,TIOCMBIS,&RTS_flag);/* ~RTS = 0,So ~RE pin of MAX485 is LOW,Receive Mode enabled   */
@@ -92,8 +92,8 @@ int main()
  	/////////apartir de aqui va el programa//////////////////////////////////
 
 	char read_buffer[6];   /* Buffer to store the data received              */
-       	int  bytes_read = 0;    /* Number of bytes read by the read() system call */
-        int i =0;
+    int  bytes_read = 0;    /* Number of bytes read by the read() system call */
+    int i =0;
 	char com [300];
 	strcpy (com, "");
 	
@@ -122,8 +122,6 @@ int main()
 
 	while (1)
 	{		
-		
-		tcflush(fd, TCIFLUSH);	
 		printf("\n\n n= %i  f = %i    \n\n", n , f);
 		if(f<=6)
 		{		
@@ -139,14 +137,14 @@ int main()
 		printf("Solicitud: %s/findecad", cmx);
 		
 		
-		sleep(5);
+	
 		bytes_written = write(fd,cmx,sizeof(cmx));	
-		tcflush(fd, TCIFLUSH);	
-		sleep(2);
+		
+		
 		//memset(read_buffer, 0, 32);
 		//while (bytes_read==0)
 		bytes_read = read(fd,&read_buffer,32); /* Read the data                   */
-		tcflush(fd, TCOFLUSH);
+		
 
         printf("\n Recibo:   ");
         
