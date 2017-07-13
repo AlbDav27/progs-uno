@@ -139,7 +139,7 @@ int main()
 		
 		strcat(cmx,"*");
 		printf("\nSolicitud: %s/findecad", cmx);
-		usleep(500000);
+		sleep(5);
 		bytes_written = write(fd,cmx,sizeof(cmx));		
 		
 		//memset(read_buffer, 0, 32);
