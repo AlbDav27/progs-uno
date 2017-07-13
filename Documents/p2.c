@@ -103,8 +103,7 @@ int main()
 	f= 1;
 	n = 1;
 	sleep(2);
-	tcflush(fd, TCIFLUSH);   /* Discards old data in the rx buffer            */
-	tcflush(fd, TCOFLUSH);
+	
 	char cmx[6];	
 	int  bytes_written  = 0;  	/* Value for storing the number of bytes written to the port */ 
         char temp[3];
