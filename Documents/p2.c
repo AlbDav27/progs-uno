@@ -76,7 +76,7 @@ int main()
                     printf("\n  BaudRate = 9600 \n  StopBits = 1 \n  Parity   = none");
  	}
 	
-	
+	sleep(3);
 
 	int RTS_flag,DTR_flag;
 
