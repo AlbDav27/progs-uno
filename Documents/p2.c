@@ -228,7 +228,7 @@ int main()
 			n++;
 			usleep(1500000);
 		}
-		
+		tcflush(fd, TCOFLUSH);
 		tcflush(fd, TCIFLUSH);	
 	}
 	
