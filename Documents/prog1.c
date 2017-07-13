@@ -94,8 +94,8 @@ int main()
 	char read_buffer[32];   /* Buffer to store the data received              */
        	int  bytes_read = 0;    /* Number of bytes read by the read() system call */
         int i =0;
-	char com1 [];
-	strcpy (com1, "");
+	char com1 [200];
+	strcpy (com1, "  ");
 	
 	char fin [2];
 	
@@ -108,10 +108,10 @@ int main()
 	char cmx[5];	
 	int  bytes_written  = 0;  	/* Value for storing the number of bytes written to the port */ 
         char temp[3];
-	char fuentes[];
-	char control[];
-	strcpy (fuentes, "");
-	strcpy (control, "");
+	char fuentes[120];
+	char control[120];
+	strcpy (fuentes, "  ");
+	strcpy (control, "  ");
 
 /*------------------------------- Read data from serial port -----------------------------*/ 
 //Este es el bucle que se va a repetir para estar recibiendo constantemente información
@@ -163,7 +163,7 @@ int main()
 			strcat(control, "; ");
 			strcat(control, read_buffer);
 			//memset(com1, 0, 250);
-			strcpy (com1, "");
+			strcpy (com1, "  ");
 			//esta parte envia la información de controladores y fuentes//
 			strcpy (fin," '");
 			strcpy(com1,"mosquitto_pub -h iot.eclipse.org -t estacion1/fuentes -m 'recibo por rs485:");
@@ -176,7 +176,7 @@ int main()
 			printf("\n %s \n",com1);
 			system(com1);
 			system("clear");
-			strcpy (com1, "");
+			strcpy (com1, "  ");
 			//memset(com1, 0, 250);
 			
 			
@@ -190,10 +190,10 @@ int main()
 			printf("\n %s \n",com1);
 			system(com1);
 			system("clear");
-			strcpy (com1, "");
+			strcpy (com1, "  ");
 			
-			strcpy(fuentes, "");
-			strcpy(control, "");
+			strcpy(fuentes, "  ");
+			strcpy(control, "  ");
 			
 			tcflush(fd, TCIFLUSH);
 			sleep(2);
