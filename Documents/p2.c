@@ -103,7 +103,7 @@ int main()
 	f= 1;
 	n = 1;
 	sleep(2);
-	tcflush(fd, TCIFLUSH);   /* Discards old data in the rx buffer            */
+	//tcflush(fd, TCIFLUSH);   /* Discards old data in the rx buffer            */
 	char cmx[5];	
 	int  bytes_written  = 0;  	/* Value for storing the number of bytes written to the port */ 
         char temp[3];
@@ -121,7 +121,7 @@ int main()
 
 	while (1)
 	{		
-		tcflush(fd, TCIFLUSH);
+		//tcflush(fd, TCIFLUSH);
 		//tcflush(fd, TCOFLUSH);
 		printf("\n\n n= %i  f = %i    \n\n", n , f);
 		//////////////////////Cada ciclo completo de medición de todas las fuentes y controladores, incluye el envio de información///////
