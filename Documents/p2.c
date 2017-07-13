@@ -135,6 +135,8 @@ int main()
 			strcat(cmx, temp);
 		}
 		
+		
+		strcat(cmx,"*");
 		printf("\n   Solicitud: %s ", cmx);
 		
 		bytes_written = write(fd,cmx,sizeof(cmx));		
