@@ -114,7 +114,7 @@ int main()
 	while (1)
 	{	
 
-		printf("\n\n n= %i  f = %i    ", n , f);
+		//printf("\n\n n= %i  f = %i    ", n , f);
 		if (f<7)
 		{		
 			sprintf(temp,"%d",f);
