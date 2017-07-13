@@ -141,12 +141,12 @@ int main()
 		
 		sleep(5);
 		bytes_written = write(fd,cmx,sizeof(cmx));	
-		tcflush(fd, TCOFLUSH);	
+		tcflush(fd, TCIFLUSH);	
 		sleep(2);
 		//memset(read_buffer, 0, 32);
 		//while (bytes_read==0)
 		bytes_read = read(fd,&read_buffer,32); /* Read the data                   */
-		tcflush(fd, TCIFLUSH);
+		tcflush(fd, TCOFLUSH);
 
         printf("\n Recibo:   ");
         
