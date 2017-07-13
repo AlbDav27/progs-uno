@@ -152,7 +152,7 @@ int main()
 		for(i=0;i<bytes_read;i++)              /*printing only the received characters*/
 			printf("%c",read_buffer[i]);
 
-		printf("\n +----------------------------------+\n\n");
+		printf("/fincadena \n +----------------------------------+\n\n");
 		
 		bytes_read=0;
 		
@@ -229,7 +229,7 @@ int main()
 		}
 		usleep(500000);
 		//tcflush(fd, TCOFLUSH);
-		tcflush(fd, TCIFLUSH);	
+		//tcflush(fd, TCIFLUSH);	
 	}
 	
         close(fd); /* Close the serial port */
