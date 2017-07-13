@@ -97,7 +97,6 @@ int main()
 	char com [500];
 	strcpy (com, "");
 	
-	char fin [2];
 	
 	int n;
 	int f;
@@ -169,18 +168,18 @@ int main()
 			//memset(com1, 0, 250);
 			strcpy (com, "");
 			//esta parte envia la información de controladores y fuentes//
-			strcpy (fin," '");
+			//strcpy (fin," '");
 			strcat(com,"mosquitto_pub -h iot.eclipse.org -t estacion1/fuentes -m 'recibo por rs485:");
 			printf("\n antes de 1er cat \n");
 			sleep(2);
 			strcat(com, fuentes);
 			printf("\n antes de 2 cat \n");
 			sleep(2);
-			strcat(com, fin);
+			strcat(com, " '");
 			printf("\n %s \n",com);
 			system(com);
 			system("clear");
-			strcpy (com, "  ");
+			strcpy (com, "");
 			//memset(com1, 0, 250);
 			
 			
@@ -190,7 +189,7 @@ int main()
 			strcat(com, control);
 			printf("\n antes de 2 cat \n");
 			sleep(2);
-			strcat(com, fin);
+			strcat(com, " '");
 			printf("\n %s \n",com);
 			system(com);
 			system("clear");
