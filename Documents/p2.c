@@ -177,10 +177,10 @@ int main()
 			//esta parte envia la información de controladores y fuentes//
 			//strcpy (fin," '");
 			strcat(com,"mosquitto_pub -h iot.eclipse.org -t estacion1/fuentes -m 'recibo por rs485:");
-			printf("\n antes de 1er cat \n");
+			printf("\n antes de 1er cat %s\n",com);
 			sleep(2);
 			strcat(com, fuentes);
-			printf("\n antes de 2 cat \n");
+			printf("\n antes de 2 cat %s\n",com);
 			sleep(2);
 			strcat(com, " '");
 			printf("\n %s \n",com);
