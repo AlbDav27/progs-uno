@@ -228,8 +228,8 @@ int main()
 			n++;
 			usleep(1500000);
 		}
-		tcflush(fd, TCOFLUSH);
-		tcflush(fd, TCIFLUSH);	
+		//tcflush(fd, TCOFLUSH);
+		//tcflush(fd, TCIFLUSH);	
 	}
 	
         close(fd); /* Close the serial port */
