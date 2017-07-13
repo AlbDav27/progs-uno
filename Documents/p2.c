@@ -125,7 +125,6 @@ int main()
 		//tcflush(fd, TCIFLUSH);
 		//tcflush(fd, TCOFLUSH);
 		printf("\n\n n= %i  f = %i    \n\n", n , f);
-		//////////////////////Cada ciclo completo de medición de todas las fuentes y controladores, incluye el envio de información///////
 		if(f<=6)
 		{
 						
@@ -141,9 +140,9 @@ int main()
 		
 		strcat(cmx,"*");
 		printf("\nSolicitud: %s/findecad", cmx);
-		usleep(100000);
+		usleep(500000);
 		bytes_written = write(fd,cmx,sizeof(cmx));		
-		usleep(500000);	
+		
 		//memset(read_buffer, 0, 32);
 		//while (bytes_read==0)
 		bytes_read = read(fd,&read_buffer,32); /* Read the data                   */
@@ -229,6 +228,7 @@ int main()
 			n++;
 			usleep(1500000);
 		}
+		usleep(500000);
 		tcflush(fd, TCOFLUSH);
 		tcflush(fd, TCIFLUSH);	
 	}
