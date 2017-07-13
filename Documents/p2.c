@@ -125,8 +125,7 @@ int main()
 		tcflush(fd, TCOFLUSH);
 		printf("\n\n n= %i  f = %i    \n\n", n , f);
 		if(f<=6)
-		{
-						
+		{		
 			sprintf(temp,"%d",f);
 			strcpy(cmx, "$AA");					
 			strcat(cmx, temp);
@@ -135,10 +134,10 @@ int main()
 			strcpy(cmx, "cont:");					
 			strcat(cmx, temp);
 		}
-		
-		
 		strcat(cmx,"*");
-		printf("\nSolicitud: %s/findecad", cmx);
+		printf("Solicitud: %s/findecad", cmx);
+		
+		
 		sleep(5);
 		bytes_written = write(fd,cmx,sizeof(cmx));		
 		
