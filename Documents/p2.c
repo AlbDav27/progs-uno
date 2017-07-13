@@ -138,7 +138,7 @@ int main()
 		
 		
 	
-		bytes_written = write(fd,cmx,sizeof(cmx));	
+		bytes_written = write(fd,cmx,6);	
 		
 		
 		//memset(read_buffer, 0, 32);
