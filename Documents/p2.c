@@ -168,7 +168,7 @@ int main()
 			
 			printf("\n cadena datos fuentes = %s \n",fuentes);
 			printf("\n cadena datos controladores =  \n", control);
-			sleep(2)
+			sleep(2);
 			
 			//memset(com1, 0, 250);
 			strcpy (com, "");
