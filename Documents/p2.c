@@ -143,7 +143,7 @@ int main()
 		
 		//memset(read_buffer, 0, 32);
 		//while (bytes_read==0)
-		bytes_read = read(fd,&read_buffer,32); /* Read the data                   */
+		bytes_read = read(fd,&read_buffer); /* Read the data                   */
 		
 
         printf("\n Recibo:   ");
