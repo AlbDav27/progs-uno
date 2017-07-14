@@ -109,7 +109,7 @@ int main()
 	char control[200];
 	strcpy (fuentes, "");
 	strcpy (control, "");
-	tcflush(fd, TCOFLUSH);
+	//tcflush(fd, TCOFLUSH);
 
 	
 
@@ -148,7 +148,7 @@ int main()
 			//sleep(5);
 		
 	
-			bytes_written = write(fd,cmx,6);
+			bytes_written = write(fd,cmx,8);
 			tcflush(fd, TCOFLUSH);
 		}
 		
