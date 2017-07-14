@@ -135,7 +135,7 @@ int main()
 		}
 		strcat(cmx,"*");
 		printf("\nSolicitud: %s/findecad", cmx);
-		sleep(5);
+		//sleep(5);
 		
 	
 		bytes_written = write(fd,cmx,6);
@@ -218,7 +218,7 @@ int main()
 			}
 			strcat(fuentes, read_buffer);			
 			f++;
-			usleep(1500000); //aqui se ingresa el tiempo de espera en segundos entre la solicitud a un controlador 
+			usleep(500000); //aqui se ingresa el tiempo de espera en segundos entre la solicitud a un controlador 
 			//para que cada minuto se solicite 1 vez la info de cada disp se divide 60s / 38 disp = 1.57
 
 		}else{
@@ -227,11 +227,11 @@ int main()
 			}
 			strcat(control, read_buffer);
 			n++;
-			usleep(1500000);
+			usleep(500000);
 		}
-		usleep(500000);
-		tcflush(fd, TCIFLUSH);
-		sleep(2);
+		//usleep(500000);
+		//tcflush(fd, TCIFLUSH);
+		//sleep(2);
 		
 	}
 	
