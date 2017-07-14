@@ -129,18 +129,29 @@ int main()
 			sprintf(temp,"%d",f);
 			strcpy(cmx, "$AA");					
 			strcat(cmx, temp);
+			
+			
+			strcat(cmx,"*");
+			printf("\nSolicitud: %s/findecad", cmx);
+			//sleep(5);
+		
+	
+			bytes_written = write(fd,cmx,6);
+			tcflush(fd, TCOFLUSH);
 		}else{
 			sprintf(temp,"%d",n);
 			strcpy(cmx, "cont:");					
 			strcat(cmx, temp);
-		}
-		strcat(cmx,"*");
-		printf("\nSolicitud: %s/findecad", cmx);
-		//sleep(5);
+			
+			strcat(cmx,"*");
+			printf("\nSolicitud: %s/findecad", cmx);
+			//sleep(5);
 		
 	
-		bytes_written = write(fd,cmx,8);
-		tcflush(fd, TCOFLUSH);
+			bytes_written = write(fd,cmx,6);
+			tcflush(fd, TCOFLUSH);
+		}
+		
 		
 		
 		//memset(read_buffer, 0, 32);
