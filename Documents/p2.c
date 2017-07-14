@@ -122,8 +122,6 @@ int main()
 
 	while (1)
 	{	
-		ioctl(fd,TIOCMBIC,&RTS_flag);
-		ioctl(fd,TIOCMBIC,&DTR_flag);
 		printf("\n\n n= %i  f = %i    ", n , f);
 		if (f<7)
 		{		
@@ -145,8 +143,7 @@ int main()
 		
 		//memset(read_buffer, 0, 32);
 		//while (bytes_read==0)
-		ioctl(fd,TIOCMBIS,&RTS_flag);
-		ioctl(fd,TIOCMBIS,&DTR_flag);
+		
 		bytes_read = read(fd,&read_buffer,6); /* Read the data                   */
 		
 
