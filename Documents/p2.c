@@ -152,7 +152,7 @@ int main()
 		
 	
 			bytes_written = write(fd,cmx,8);
-			tcflush(fd, TCOFLUSH);
+			//tcflush(fd, TCOFLUSH);
 		}
 		
 		
