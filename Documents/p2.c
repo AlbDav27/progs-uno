@@ -109,7 +109,7 @@ int main()
 	char control[200];
 	strcpy (fuentes, "");
 	strcpy (control, "");
-	tcflush(fd, TCOFLUSH);
+	tcflush(fd, TCIFLUSH);
 
 	
 
