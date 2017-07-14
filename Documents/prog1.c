@@ -85,9 +85,6 @@ int main()
         DTR_flag = TIOCM_DTR; /* Modem Constant for DTR pin */
 
  
-	ioctl(fd,TIOCMBIS,&RTS_flag);/* ~RTS = 0,So ~RE pin of MAX485 is LOW,Receive Mode enabled   */
-
-        ioctl(fd,TIOCMBIS,&DTR_flag);/* ~DTR = 0,So  DE pin of MAX485 is LOW,                       */
 
  	/////////apartir de aqui va el programa//////////////////////////////////
 
@@ -136,11 +133,12 @@ int main()
 		
 		printf("\n   Solicitud: %s ", cmx);
 		
-		bytes_written = write(fd,cmx,sizeof(cmx));		
+		bytes_written = write(fd,cmx,sizeof(cmx));
+		tcflush(fd, TCIFLUSH);
 			
 		//memset(read_buffer, 0, 32);
 		//while (bytes_read==0)
-		bytes_read = read(fd,&read_buffer,32); /* Read the data                   */
+		//bytes_read = read(fd,&read_buffer,32); /* Read the data                   */
 
 
                 printf("\n Recibo:   ");
