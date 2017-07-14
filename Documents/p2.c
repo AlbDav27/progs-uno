@@ -110,6 +110,9 @@ int main()
 	strcpy (fuentes, "");
 	strcpy (control, "");
 	tcflush(fd, TCIFLUSH);
+	tcflush(fd, TCOFLUSH);
+	
+	sleep(5);
 
 	
 
