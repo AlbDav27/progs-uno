@@ -100,7 +100,7 @@ int main()
 	int f;
 	f = 1;
 	n = 1;
-	sleep(2);
+	//sleep(2);
 	
 	char cmx[6];	
 	int  bytes_written  = 0;  	/* Value for storing the number of bytes written to the port */ 
@@ -138,13 +138,14 @@ int main()
 		sleep(5);
 		
 	
-		bytes_written = write(fd,cmx,6);	
+		bytes_written = write(fd,cmx,6);
+		tcflush(fd, TCOFLUSH);
 		
 		
 		//memset(read_buffer, 0, 32);
 		//while (bytes_read==0)
 		
-		bytes_read = read(fd,&read_buffer,6); /* Read the data                   */
+		//bytes_read = read(fd,&read_buffer,6); /* Read the data                   */
 		
 
         printf("\n Recibo:   ");
