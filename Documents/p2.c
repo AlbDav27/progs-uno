@@ -66,6 +66,14 @@ int main()
 		/* Setting Time outs */
 	SerialPortSettings.c_cc[VMIN] =  10; /* Read at least 10 character */
 	SerialPortSettings.c_cc[VTIME] = 0;  /* Wait indefinetly   */
+
+	int RTS_flag,DTR_flag;
+
+		RTS_flag = TIOCM_RTS;	/* Modem Constant for RTS pin */
+		DTR_flag = TIOCM_DTR;	/* Modem Constant for DTR pin */
+
+		ioctl(fd,TIOCMBIC,&RTS_flag);/* ~RTS = 1,So ~RE pin of MAX485 is HIGH                       */
+		ioctl(fd,TIOCMBIC,&DTR_flag);/* ~DTR = 1,So  DE pin of MAX485 is HIGH,Transmit Mode enabled */ 
 	
 	 
 
@@ -112,9 +120,10 @@ int main()
 	
 // se debe de verificar si linux permite que se ejecute indefinidamente el programa, o hay que ejecutar periodicamente el mismo
 
-	//while (1)
-	//{	
-
+	while (1)
+	{	
+		ioctl(fd,TIOCMBIC,&RTS_flag);
+		ioctl(fd,TIOCMBIC,&DTR_flag);
 		printf("\n\n n= %i  f = %i    ", n , f);
 		if (f<7)
 		{		
@@ -136,6 +145,8 @@ int main()
 		
 		//memset(read_buffer, 0, 32);
 		//while (bytes_read==0)
+		ioctl(fd,TIOCMBIS,&RTS_flag);
+		ioctl(fd,TIOCMBIS,&DTR_flag);
 		bytes_read = read(fd,&read_buffer,6); /* Read the data                   */
 		
 
@@ -221,10 +232,10 @@ int main()
 			usleep(1500000);
 		}
 		usleep(500000);
-		tcflush(fd, TCIFLUSH);
+		//tcflush(fd, TCIFLUSH);
 		sleep(2);
 		
-	//}
+	}
 	
         close(fd); /* Close the serial port */
 }
