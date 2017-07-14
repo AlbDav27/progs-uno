@@ -181,7 +181,7 @@ int main()
 			//memset(fuentes, 0, 150);
 			//memset(control, 0, 150);
 			tcflush(fd, TCIFLUSH);
-			sleep(2);
+			//sleep(2);
 		}
 		else if (f<=6)
 		{
@@ -190,7 +190,7 @@ int main()
 			}
 			strcat(fuentes, read_buffer);			
 			f++;
-			usleep(1500000); //aqui se ingresa el tiempo de espera en segundos entre la solicitud a un controlador 
+			//usleep(1500000); //aqui se ingresa el tiempo de espera en segundos entre la solicitud a un controlador 
 			//para que cada minuto se solicite 1 vez la info de cada disp se divide 60s / 38 disp = 1.57
 
 		}else{
@@ -199,7 +199,7 @@ int main()
 			}
 			strcat(control, read_buffer);
 			n++;
-			usleep(1500000);
+			//usleep(1500000);
 		}
 		
 		
