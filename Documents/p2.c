@@ -84,8 +84,7 @@ int main()
              
              printf("\n  BaudRate = 9600 \n  StopBits = 1 \n  Parity   = none");
  	}
-	tcflush(fd, TCIFLUSH);
-	tcflush(fd, TCOFLUSH);
+	
 	
 
  	/////////apartir de aqui va el programa//////////////////////////////////
@@ -113,7 +112,9 @@ int main()
 	//tcflush(fd, TCIFLUSH);
 	//tcflush(fd, TCOFLUSH);
 	
-	//sleep(5);
+	sleep(2);
+	tcflush(fd, TCIFLUSH);
+	tcflush(fd, TCOFLUSH);
 
 	
 
