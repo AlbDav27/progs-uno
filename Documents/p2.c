@@ -109,10 +109,10 @@ int main()
 	char control[200];
 	strcpy (fuentes, "");
 	strcpy (control, "");
-	tcflush(fd, TCIFLUSH);
-	tcflush(fd, TCOFLUSH);
+	//tcflush(fd, TCIFLUSH);
+	//tcflush(fd, TCOFLUSH);
 	
-	sleep(5);
+	//sleep(5);
 
 	
 
@@ -140,7 +140,7 @@ int main()
 		
 	
 			bytes_written = write(fd,cmx,6);
-			tcflush(fd, TCOFLUSH);
+			//tcflush(fd, TCOFLUSH);
 		}else{
 			sprintf(temp,"%d",n);
 			strcpy(cmx, "cont:");					
