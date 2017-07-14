@@ -102,7 +102,7 @@ int main()
 	n = 1;
 	//sleep(2);
 	
-	char cmx[6];	
+	char cmx[7];	
 	int  bytes_written  = 0;  	/* Value for storing the number of bytes written to the port */ 
     char temp[3];
 	char fuentes[200];
@@ -138,7 +138,7 @@ int main()
 		//sleep(5);
 		
 	
-		bytes_written = write(fd,cmx,6);
+		bytes_written = write(fd,cmx,7);
 		tcflush(fd, TCOFLUSH);
 		
 		
