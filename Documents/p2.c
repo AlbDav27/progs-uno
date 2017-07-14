@@ -73,7 +73,7 @@ int main()
 		    printf("\n  ERROR ! in Setting attributes");
 	}
 	else{
-             sleep(2);
+             
              printf("\n  BaudRate = 9600 \n  StopBits = 1 \n  Parity   = none");
  	}
 	
@@ -101,6 +101,7 @@ int main()
 	char control[200];
 	strcpy (fuentes, "");
 	strcpy (control, "");
+	tcflush(fd, TCIFLUSH);
 
 	
 
@@ -113,7 +114,7 @@ int main()
 
 	//while (1)
 	//{	
-		
+
 		printf("\n\n n= %i  f = %i    ", n , f);
 		if (f<7)
 		{		
@@ -127,13 +128,12 @@ int main()
 		}
 		strcat(cmx,"*");
 		printf("\nSolicitud: %s/findecad", cmx);
-		
+		sleep(5);
 		
 	
-		bytes_written = write(fd,cmx,6);
-		sleep(2);
+		bytes_written = write(fd,cmx,6);	
 		
-		//tcflush(fc, TCIFLUSH);
+		
 		//memset(read_buffer, 0, 32);
 		//while (bytes_read==0)
 		bytes_read = read(fd,&read_buffer,6); /* Read the data                   */
