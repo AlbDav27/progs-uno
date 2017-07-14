@@ -109,7 +109,7 @@ int main()
 	char control[200];
 	strcpy (fuentes, "");
 	strcpy (control, "");
-	tcflush(fd, TCIFLUSH);
+	tcflush(fd, TCOFLUSH);
 
 	
 
@@ -122,6 +122,7 @@ int main()
 
 	while (1)
 	{	
+		strcat(cmx,"");
 		printf("\n\n n= %i  f = %i    ", n , f);
 		if (f<7)
 		{		
