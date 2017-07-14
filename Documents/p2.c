@@ -229,7 +229,7 @@ int main()
 			usleep(1500000);
 		}
 		usleep(500000);
-		//tcflush(fd, TCIFLUSH);
+		tcflush(fd, TCIFLUSH);
 		sleep(2);
 		
 	}
