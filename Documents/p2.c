@@ -89,7 +89,7 @@ int main()
 
  	/////////apartir de aqui va el programa//////////////////////////////////
 
-	char read_buffer[6];   /* Buffer to store the data received              */
+	char read_buffer[5];   /* Buffer to store the data received              */
     int  bytes_read = 0;    /* Number of bytes read by the read() system call */
     int i =0;
 	char com [300];
@@ -112,9 +112,10 @@ int main()
 	//tcflush(fd, TCIFLUSH);
 	//tcflush(fd, TCOFLUSH);
 	
-	sleep(2);
+	sleep(10);
 	tcflush(fd, TCIFLUSH);
 	tcflush(fd, TCOFLUSH);
+	int dec=0;
 
 	
 
@@ -141,23 +142,25 @@ int main()
 			//sleep(5);
 		
 	
-			bytes_written = write(fd,cmx,6);
-			//tcflush(fd, TCOFLUSH);
+			
 		}else{
+			strcpy(cmx, "c:");
+			dec=n/10;
+			if (dec==0){
+				strcat(cmx,"0");	
+			}
 			sprintf(temp,"%d",n);
-			strcpy(cmx, "cont:");					
+								
 			strcat(cmx, temp);
 			
 			strcat(cmx,"*");
 			printf("\nSolicitud: %s/findecad", cmx);
 			//sleep(5);
 		
-	
-			bytes_written = write(fd,cmx,8);
-			//tcflush(fd, TCOFLUSH);
 		}
 		
-		
+		bytes_written = write(fd,cmx,5);
+			//tcflush(fd, TCOFLUSH);
 		
 		//memset(read_buffer, 0, 32);
 		//while (bytes_read==0)
