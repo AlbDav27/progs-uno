@@ -158,12 +158,15 @@ int main()
 		}
 		
 		bytes_written = write(fd,cmx,5);
+
+
+		usleep(100000);
 			//tcflush(fd, TCOFLUSH);
 		
 		//memset(read_buffer, 0, 32);
 		//while (bytes_read==0)
 		
-		//bytes_read = read(fd,&read_buffer,6); /* Read the data                   */
+		bytes_read = read(fd,&read_buffer, 5); /* Read the data                   */
 		
 
         printf("\n Recibo:   ");
@@ -248,7 +251,7 @@ int main()
 			usleep(500000);
 		}
 		//usleep(500000);
-		//tcflush(fd, TCIFLUSH);
+		tcflush(fd, TCIFLUSH);
 		//sleep(2);
 		
 	}
