@@ -100,7 +100,7 @@ int main()
 	int f;
 	f = 1;
 	n = 1;
-	//sleep(2);
+	sleep(5);
 	
 	char cmx[5];	
 	int  bytes_written  = 0;  	/* Value for storing the number of bytes written to the port */ 
