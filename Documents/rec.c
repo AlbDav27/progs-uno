@@ -21,7 +21,7 @@ int main()
 
 	/* Change /dev/ttyS0 to the one corresponding to your system */
 
-	fd = open("/dev/ttyS1",O_RDWR | O_NOCTTY);           /* ttyS0 corresponde al puerto serial rs485 de UNO-1252G   */  
+	fd = open("/dev/ttyS1",O_RDWR | O_NOCTTY | O_NDELAY);           /* ttyS0 corresponde al puerto serial rs485 de UNO-1252G   */  
 
                                                                /* O_RDWR   - Read/Write access to serial port       */
 
@@ -48,8 +48,8 @@ int main()
 	tcgetattr(fd, &SerialPortSettings);	/* Get the current attributes of the Serial port */
 
 		/* Setting the Baud rate */
-	cfsetispeed(&SerialPortSettings,B9600); /* Set Read  Speed as 9600                       */
-	cfsetospeed(&SerialPortSettings,B9600); /* Set Write Speed as 9600                       */
+	cfsetispeed(&SerialPortSettings, B9600); /* Set Read  Speed as 9600                       */
+	cfsetospeed(&SerialPortSettings, B9600); /* Set Write Speed as 9600                       */
 
 		/* 8N1 Mode */
 	SerialPortSettings.c_cflag &= ~PARENB;   /* Disables the Parity Enable bit(PARENB),So No Parity   */
@@ -58,7 +58,7 @@ int main()
 	SerialPortSettings.c_cflag |=  CS8;      /* Set the data bits = 8                                 */
 		
 	SerialPortSettings.c_cflag &= ~CRTSCTS;       /* No Hardware flow Control                         */
-	SerialPortSettings.c_cflag |= CREAD | CLOCAL; /* Enable receiver,Ignore Modem Control lines       */ 
+	SerialPortSettings.c_cflag |= (CREAD | CLOCAL); /* Enable receiver,Ignore Modem Control lines       */ 
 		
 		
 	SerialPortSettings.c_iflag &= ~(IXON | IXOFF | IXANY);          /* Disable XON/XOFF flow control both i/p and o/p */
@@ -67,7 +67,7 @@ int main()
 	SerialPortSettings.c_oflag &= ~OPOST;/*No Output Processing*/
 		
 		/* Setting Time outs */
-	SerialPortSettings.c_cc[VMIN] =  10; /* Read at least 10 character */
+	//SerialPortSettings.c_cc[VMIN] =  10; /* Read at least 10 character */
 	SerialPortSettings.c_cc[VTIME] = 0;  /* Wait indefinetly   */
 
 	int RTS_flag,DTR_flag;
