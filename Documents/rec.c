@@ -135,7 +135,9 @@ int main()
 
 		usleep(100000);
 		
-		bytes_read = read(fd,&read_buffer, 5); /* Read the data                   */
+		//bytes_read = read(fd,&read_buffer, 5); /* Read the data                   */
+		fcntl(fd, read_buffer, 0);
+
 		
 
         printf("\n Recibo:   ");
