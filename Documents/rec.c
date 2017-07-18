@@ -97,14 +97,10 @@ int main()
     int i =0;
 	char com [300];
 	strcpy (com, "");
-	
-	
 	int n;
 	int f;
 	f = 1;
 	n = 1;
-	
-	
 	char cmx[5];	
 	int  bytes_written  = 0;  	/* Value for storing the number of bytes written to the port */ 
     char temp[3];
@@ -119,15 +115,17 @@ int main()
 	int dec=0;
 
 
-	while (1)
-	{	
+	//while (1)
+	//{	
 		printf("\n\n Listo para recibir");
 		
 
 
 		usleep(100000);
 
-		n=serial_read(fd,read_buffer,5,2000000);
+		bytes_read = read(fd,read_buffer,8);
+
+		//n=serial_read(fd,read_buffer,5,2000000);
 		//printf("\nantes de leer");
 		
 		
@@ -145,7 +143,7 @@ int main()
 		tcflush(fd, TCIFLUSH);
 
 		
-	}
+	//}
 	
      close(fd); /* Close the serial port */
 }
