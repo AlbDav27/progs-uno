@@ -109,8 +109,8 @@ int main()
 	char control[200];
 	strcpy (fuentes, "");
 	strcpy (control, "");
-	//tcflush(fd, TCIFLUSH);
-	//tcflush(fd, TCOFLUSH);
+	tcflush(fd, TCIFLUSH);
+	tcflush(fd, TCOFLUSH);
 	
 	
 	int dec=0;
@@ -126,8 +126,8 @@ int main()
 
 	while (1)
 	{	
-		//tcflush(fd, TCIFLUSH);
-		//tcflush(fd, TCOFLUSH);
+		tcflush(fd, TCIFLUSH);
+		tcflush(fd, TCOFLUSH);
 		
 		printf("\n\n Listo para recibir");
 		
