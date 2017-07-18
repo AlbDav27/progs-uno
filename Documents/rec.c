@@ -100,7 +100,7 @@ int main()
 	int f;
 	f = 1;
 	n = 1;
-	//sleep(5);
+	sleep(5);
 	
 	char cmx[5];	
 	int  bytes_written  = 0;  	/* Value for storing the number of bytes written to the port */ 
@@ -109,35 +109,22 @@ int main()
 	char control[200];
 	strcpy (fuentes, "");
 	strcpy (control, "");
-	//tcflush(fd, TCIFLUSH);
+	tcflush(fd, TCIFLUSH);
 	//tcflush(fd, TCOFLUSH);
 	
 	
 	int dec=0;
 
-	
-
-/*------------------------------- Read data from serial port -----------------------------*/ 
-//Este es el bucle que se va a repetir para estar recibiendo constantemente información
-
- 
-	
-// se debe de verificar si linux permite que se ejecute indefinidamente el programa, o hay que ejecutar periodicamente el mismo
 
 	while (1)
 	{	
-		//tcflush(fd, TCIFLUSH);
-		//tcflush(fd, TCOFLUSH);
-		
 		printf("\n\n Listo para recibir");
 		
 
 
 		usleep(100000);
-		
-		//bytes_read = read(fd,&read_buffer, 5); /* Read the data                   */
-		fcntl(fd,  F_SETFL);
-
+		printf("\nantes de leer");
+		bytes_read = read(fd,&read_buffer, 5); /* Read the data                   */
 		
 
         printf("\n Recibo:   ");
@@ -149,83 +136,11 @@ int main()
 		printf("/fincadena \n +----------------------------------+\n\n");
 		
 		bytes_read=0;
-		
-		
-		
-		if (n==32)
-		{
-			n=1;
-			f=1;
-			printf("\n antes de cat ultimo ; \n");
-			sleep(2);
-			strcat(control, ";");
-			printf("\n antes de cat ultimo dato \n");
-			sleep(2);
-			strcat(control, read_buffer);
-			
-			printf("\n cadena datos fuentes = %s \n",fuentes);
-			printf("\n cadena datos controladores = %s \n", control);
-			sleep(2);
-			
-			//memset(com1, 0, 250);
-			strcpy (com, "");
-			//esta parte envia la información de controladores y fuentes//
-			//strcpy (fin," '");
-			strcat(com,"mosquitto_pub -h iot.eclipse.org -t estacion1/fuentes -m 'recibo por rs485:");
-			printf("\n antes de 1er cat %s\n",com);
-			sleep(2);
-			//strcat(com, fuentes);
-			printf("\n antes de 2 cat %s\n",com);
-			sleep(2);
-			strcat(com, " '");
-			printf("\n %s \n",com);
-			system(com);
-			//system("clear");
-			strcpy (com, "");
-			//memset(com1, 0, 250);
-			
-			
-			strcat (com,"mosquitto_pub -h iot.eclipse.org -t estacion1/controladores -m 'recibo por rs485:");
-			printf("\n antes de 1er cat \n");
-			sleep(2);
-			//strcat(com, control);
-			printf("\n antes de 2 cat \n");
-			sleep(2);
-			strcat(com, " '");
-			printf("\n %s \n",com);
-			system(com);
-			//system("clear");
-			strcpy (com, "  ");
-			
-			strcpy(fuentes, "  ");
-			strcpy(control, "  ");
-			
-			//tcflush(fd, TCIFLUSH);
-			sleep(2);
-		}
-		else if (f<=6)
-		{
-			if(f!=1){
-				strcat(fuentes, "; ");
-			}
-			strcat(fuentes, read_buffer);			
-			f++;
-			usleep(500000); //aqui se ingresa el tiempo de espera en segundos entre la solicitud a un controlador 
-			//para que cada minuto se solicite 1 vez la info de cada disp se divide 60s / 38 disp = 1.57
 
-		}else{
-			if(n!=1){
-				strcat(control, "; ");
-			}
-			strcat(control, read_buffer);
-			n++;
-			usleep(500000);
-		}
-		//usleep(500000);
-		//tcflush(fd, TCIFLUSH);
-		//sleep(2);
+		tcflush(fd, TCIFLUSH);
+
 		
 	}
 	
-        close(fd); /* Close the serial port */
+     close(fd); /* Close the serial port */
 }
