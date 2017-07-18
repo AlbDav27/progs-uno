@@ -152,7 +152,7 @@ int serial_read(int serial_fd, char *data, int size, int timeout_usec)
   fd_set fds;
   struct timeval timeout;
   int count=0;
-  int ret=0;
+  int ret;
   int n;
   
   //-- Wait for the data. A block of size bytes is expected to arrive
@@ -172,7 +172,7 @@ int serial_read(int serial_fd, char *data, int size, int timeout_usec)
     
     //-- If there are data waiting: read it
       if (ret==1) {
-        printf("\nret debe ser 0=:%i\n", ret);
+        printf("\nret debe cambiar a 1=:%i\n", ret);
         //-- Read the data (n bytes)
         n=read (serial_fd, &data[count], size-count); 
         
@@ -183,12 +183,13 @@ int serial_read(int serial_fd, char *data, int size, int timeout_usec)
         data[count]=0;
       }
       printf("\nla funcion recibe:%s\n", data);
-	  printf("\n ret = %i, n= %i, count=%i",ret, n, count);
+      printf("\n ret = %i, n= %i, count=%i",ret, n, count);
     //-- Repeat the loop until a data block of size bytes is received or
     //-- a timeout occurs
-  } while (count<size && ret==1);
+  } while (count<size && ret==1 && count>0);
   
 
   //-- Return the number of bytes reads. 0 If a timeout has occurred.
   return count;
 }
+
