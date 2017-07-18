@@ -155,14 +155,17 @@ int serial_read(int serial_fd, char *data, int size, int timeout_usec)
   int ret=0;
   int n;
   int con=0;
+
+
+  FD_ZERO(&fds);
+  FD_SET (serial_fd, &fds);
   
   //-- Wait for the data. A block of size bytes is expected to arrive
   //-- within the timeout_usec time. This block can be received as 
   //-- smaller blocks.
   do {
       //-- Set the fds variable to wait for the serial descriptor
-      FD_ZERO(&fds);
-      FD_SET (serial_fd, &fds);
+      
       timeout.tv_sec = 0;  
       timeout.tv_usec = timeout_usec;
       printf("\nret debe ser 0=:%i\n", ret);
