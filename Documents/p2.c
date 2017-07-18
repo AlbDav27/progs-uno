@@ -89,7 +89,7 @@ int main()
 
  	/////////apartir de aqui va el programa//////////////////////////////////
 
-	char read_buffer[5];   /* Buffer to store the data received              */
+	char read_buffer[6];   /* Buffer to store the data received              */
     int  bytes_read = 0;    /* Number of bytes read by the read() system call */
     int i =0;
 	char com [300];
@@ -167,7 +167,7 @@ int main()
 		//memset(read_buffer, 0, 32);
 		//while (bytes_read==0)
 		
-		bytes_read = read(fd,&read_buffer, 5); /* Read the data                   */
+		//bytes_read = read(fd,&read_buffer, 5); /* Read the data                   */
 		
 
         printf("\n Recibo:   ");
