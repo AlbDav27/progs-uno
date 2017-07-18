@@ -67,7 +67,7 @@ int main()
 	SerialPortSettings.c_oflag &= ~OPOST;/*No Output Processing*/
 		
 		/* Setting Time outs */
-	SerialPortSettings.c_cc[VMIN] =  5; /* Read at least 10 character */
+	SerialPortSettings.c_cc[VMIN] =  10; /* Read at least 10 character */
 	SerialPortSettings.c_cc[VTIME] = 0;  /* Wait indefinetly   */
 
 	int RTS_flag,DTR_flag;
