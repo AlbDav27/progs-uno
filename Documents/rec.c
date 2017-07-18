@@ -136,7 +136,7 @@ int main()
 		usleep(100000);
 		
 		//bytes_read = read(fd,&read_buffer, 5); /* Read the data                   */
-		fcntl(fd,  F_SETFL, 0);
+		fcntl(fd,  F_SETFL);
 
 		
 
