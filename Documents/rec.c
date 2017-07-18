@@ -152,7 +152,7 @@ int serial_read(int serial_fd, char *data, int size, int timeout_usec)
   fd_set fds;
   struct timeval timeout;
   int count=0;
-  int ret;
+  int ret=0;
   int n;
   
   //-- Wait for the data. A block of size bytes is expected to arrive
