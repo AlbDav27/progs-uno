@@ -67,7 +67,7 @@ int main()
 	SerialPortSettings.c_oflag &= ~OPOST;/*No Output Processing*/
 		
 		/* Setting Time outs */
-	SerialPortSettings.c_cc[VMIN] =  3; /* Read at least 10 character */
+	SerialPortSettings.c_cc[VMIN] =  5; /* Read at least 10 character */
 	SerialPortSettings.c_cc[VTIME] = 0;  /* Wait indefinetly   */
 
 	int RTS_flag,DTR_flag;
@@ -148,7 +148,7 @@ int main()
      close(fd); /* Close the serial port */
 }
 
-int serial_read(int serial_fd, char *data, int size, int timeout_usec)
+/*int serial_read(int serial_fd, char *data, int size, int timeout_usec)
 {
   fd_set fds;
   struct timeval timeout;
@@ -195,4 +195,4 @@ int serial_read(int serial_fd, char *data, int size, int timeout_usec)
   printf("\nse acaba el do while la funcion retorna count\n");
   //-- Return the number of bytes reads. 0 If a timeout has occurred.
   return count;
-}
+}*/
