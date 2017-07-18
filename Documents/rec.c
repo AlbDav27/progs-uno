@@ -8,6 +8,9 @@
 #include <unistd.h> 	//para funcion sleep()  ...delay
 #include <string.h>
 
+
+#define TIMEOUT 2000000
+
 int main()
 {
 
@@ -170,7 +173,7 @@ int serial_read(int serial_fd, char *data, int size, int timeout_usec)
       timeout.tv_usec = timeout_usec;
       printf("\nret debe ser 0=:%i\n", ret);
 
-      ret=select (FD_SETSIZE,&fds, NULL, NULL,2000000);
+      ret=select (FD_SETSIZE,&fds, NULL, NULL,&timeout);
       printf("\nret debe cambiar a 1=:%i\n", ret);
     	//-- If there are data waiting: read it
       if (ret==1) {
