@@ -124,7 +124,7 @@ int main()
 
 		usleep(100000);
 
-		n=serial_read(fd,read_buffer,5,100000);
+		n=serial_read(fd,read_buffer,5,2000000);
 		//printf("\nantes de leer");
 		
 		
@@ -163,8 +163,6 @@ int serial_read(int serial_fd, char *data, int size, int timeout_usec)
       //-- Set the fds variable to wait for the serial descriptor
       FD_ZERO(&fds);
       FD_SET (serial_fd, &fds);
-    
-      //-- Set the timeout in usec.
       timeout.tv_sec = 0;  
       timeout.tv_usec = timeout_usec;
       printf("\nret debe ser 0=:%i\n", ret);
@@ -174,7 +172,7 @@ int serial_read(int serial_fd, char *data, int size, int timeout_usec)
     	//-- If there are data waiting: read it
       if (ret==1) {
 
-       		n=read (serial_fd, &data[count], size-count); 
+       		n=read (serial_fd + 1, &data[count], size-count); 
         	count+=n;
         
         	data[count]=0;
@@ -186,7 +184,7 @@ int serial_read(int serial_fd, char *data, int size, int timeout_usec)
     	//-- Repeat the loop until a data block of size bytes is received or
     	//-- a timeout occurs
       con= (count<size);
-      printf("\nel valor de la condición es :%i\n", con);
+      //printf("\nel valor de la condición es :%i\n", con);
   } while (count<size);
   
   printf("\nse acaba el do while la funcion retorna count\n");
