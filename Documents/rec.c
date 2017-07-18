@@ -173,11 +173,12 @@ int serial_read(int serial_fd, char *data, int size, int timeout_usec)
       if (ret==1) {
 
        		n=read (serial_fd + 1, &data[count], size-count); 
-        	count+=n;
+       		if (n>0){
+        		count+=n;
         
-        	data[count]=0;
-        	printf("\nla funcion recibe:%s\n", data);
-
+        		data[count]=0;
+        		printf("\nla funcion recibe:%s\n", data);
+        	}
       }
       
       printf("\n ret = %i, n= %i, count=%i, size=%i",ret, n, count, size);
@@ -191,3 +192,4 @@ int serial_read(int serial_fd, char *data, int size, int timeout_usec)
   //-- Return the number of bytes reads. 0 If a timeout has occurred.
   return count;
 }
+
