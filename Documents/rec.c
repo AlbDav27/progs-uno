@@ -89,7 +89,7 @@ int main()
 
  	/////////apartir de aqui va el programa//////////////////////////////////
 
-	char read_buffer[5];   /* Buffer to store the data received              */
+	char read_buffer[8];   /* Buffer to store the data received              */
     int  bytes_read = 0;    /* Number of bytes read by the read() system call */
     int i =0;
 	char com [300];
@@ -123,8 +123,8 @@ int main()
 
 
 		usleep(100000);
-		printf("\nantes de leer");
-		bytes_read = read(fd,&read_buffer, 5); /* Read the data                   */
+		//printf("\nantes de leer");
+		bytes_read = read(fd,read_buffer, 8); /* Read the data                   */
 		
 
         printf("\n Recibo:   ");
