@@ -183,6 +183,7 @@ int serial_read(int serial_fd, char *data, int size, int timeout_usec)
         data[count]=0;
       }
       printf("\nla funcion recibe:%s\n", data);
+	  printf("\n ret = %i, n= %i, count=%i",ret, n, count);
     //-- Repeat the loop until a data block of size bytes is received or
     //-- a timeout occurs
   } while (count<size && ret==1);
