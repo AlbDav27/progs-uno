@@ -100,7 +100,7 @@ int main()
 	int f;
 	f = 1;
 	n = 1;
-	
+	sleep(5);
 	
 	char cmx[5];	
 	int  bytes_written  = 0;  	/* Value for storing the number of bytes written to the port */ 
@@ -109,8 +109,8 @@ int main()
 	char control[200];
 	strcpy (fuentes, "");
 	strcpy (control, "");
-	//tcflush(fd, TCIFLUSH);
-	//tcflush(fd, TCOFLUSH);
+	tcflush(fd, TCIFLUSH);
+	tcflush(fd, TCOFLUSH);
 	
 	
 	int dec=0;
@@ -128,49 +128,14 @@ int main()
 	{	
 		tcflush(fd, TCIFLUSH);
 		tcflush(fd, TCOFLUSH);
-		/*
-		strcat(cmx,"");*/
+		
 		printf("\n\n Listo para recibir");
-		/*
-		if (f<7)
-		{		
-			sprintf(temp,"%d",f);
-			strcpy(cmx, "$AA");					
-			strcat(cmx, temp);
-			
-			
-			strcat(cmx,"*");
-			printf("\nSolicitud: %s/findecad", cmx);
-			//sleep(5);
 		
-	
-			
-		}else{
-			strcpy(cmx, "c:");
-			dec=n/10;
-			if (dec==0){
-				strcat(cmx,"0");	
-			}
-			sprintf(temp,"%d",n);
-								
-			strcat(cmx, temp);
-			
-			strcat(cmx,"*");
-			printf("\nSolicitud: %s/findecad", cmx);
-			//sleep(5);
-		
-		}
-		
-		bytes_written = write(fd,cmx,5);*/
 
 
 		usleep(100000);
-			//tcflush(fd, TCOFLUSH);
 		
-		//memset(read_buffer, 0, 32);
-		//while (bytes_read==0)
-		
-		bytes_read = read(fd,read_buffer, 5); /* Read the data                   */
+		bytes_read = read(fd,&read_buffer, 5); /* Read the data                   */
 		
 
         printf("\n Recibo:   ");
