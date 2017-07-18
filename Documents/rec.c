@@ -100,7 +100,7 @@ int main()
 	int f;
 	f = 1;
 	n = 1;
-	sleep(5);
+	
 	
 	char cmx[5];	
 	int  bytes_written  = 0;  	/* Value for storing the number of bytes written to the port */ 
@@ -124,7 +124,7 @@ int main()
 
 		usleep(100000);
 
-		n=serial_read(fd,read_buffer,8,1000000);
+		n=serial_read(fd,read_buffer,8,100000);
 		//printf("\nantes de leer");
 		
 		
@@ -154,6 +154,7 @@ int serial_read(int serial_fd, char *data, int size, int timeout_usec)
   int count=0;
   int ret=0;
   int n;
+  int con=0;
   
   //-- Wait for the data. A block of size bytes is expected to arrive
   //-- within the timeout_usec time. This block can be received as 
@@ -186,9 +187,12 @@ int serial_read(int serial_fd, char *data, int size, int timeout_usec)
       printf("\n ret = %i, n= %i, count=%i",ret, n, count);
     //-- Repeat the loop until a data block of size bytes is received or
     //-- a timeout occurs
-  } while (count<size && ret==1 && count>0);
+      con= (count<size) && (ret==1) && (count>0);
+      printf("\nel valor de la condición es :%i\n", con);
+  } while ((count<size) && (ret==1) && (count>0));
   
 
   //-- Return the number of bytes reads. 0 If a timeout has occurred.
   return count;
 }
+
