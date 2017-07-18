@@ -187,12 +187,11 @@ int serial_read(int serial_fd, char *data, int size, int timeout_usec)
       printf("\n ret = %i, n= %i, count=%i",ret, n, count);
     //-- Repeat the loop until a data block of size bytes is received or
     //-- a timeout occurs
-      con= (count<size) && (ret==1) && (count>0);
+      con= (count<size) && (ret==1) && (count==0);
       printf("\nel valor de la condición es :%i\n", con);
-  } while ((count<size) && (ret==1) && (count>0));
+  } while ((count<size) && (ret==1) && (count==0));
   
 
   //-- Return the number of bytes reads. 0 If a timeout has occurred.
   return count;
 }
-
