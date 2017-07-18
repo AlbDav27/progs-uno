@@ -168,18 +168,24 @@ int serial_read(int serial_fd, char *data, int size, int timeout_usec)
       timeout.tv_sec = 0;  
       timeout.tv_usec = timeout_usec;
       printf("\nret debe ser 0=:%i\n", ret);
-      //-- Wait for the data
+
+      ret=select (FD_SETSIZE,&fds, NULL, NULL,&timeout);
+      printf("\nret debe cambiar a 1=:%i\n", ret);
+    //-- If there are data waiting: read it
+      if (ret==1) {
+      		//-- Wait for the data
       
-        //printf("\nret debe cambiar a 1=:%i\n", ret);
-        //-- Read the data (n bytes)
-        n=read (serial_fd, &data[count], size-count); 
+        	//printf("\nret debe cambiar a 1=:%i\n", ret);
+        	//-- Read the data (n bytes)
+       		n=read (serial_fd, &data[count], size-count); 
         
-        //-- The number of bytes receives is increased in n
-        count+=n;
+       		 //-- The number of bytes receives is increased in n
+        	count+=n;
         
-        //-- The last byte is always a 0 (for printing the string data)
-        data[count]=0;
-      
+        	//-- The last byte is always a 0 (for printing the string data)
+        	data[count]=0;
+
+      }
       printf("\nla funcion recibe:%s\n", data);
       printf("\n ret = %i, n= %i, count=%i, size=%i",ret, n, count, size);
     //-- Repeat the loop until a data block of size bytes is received or
