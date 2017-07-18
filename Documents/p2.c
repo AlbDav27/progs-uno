@@ -160,7 +160,7 @@ int main()
 		bytes_written = write(fd,cmx,5);
 
 
-		usleep(100000);
+		usleep(12500000);
 			//tcflush(fd, TCOFLUSH);
 		
 		//memset(read_buffer, 0, 32);
