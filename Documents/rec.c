@@ -170,7 +170,7 @@ int serial_read(int serial_fd, char *data, int size, int timeout_usec)
       timeout.tv_usec = timeout_usec;
       printf("\nret debe ser 0=:%i\n", ret);
 
-      ret=select (FD_SETSIZE,&fds, NULL, NULL,&timeout);
+      ret=select (FD_SETSIZE,&fds, NULL, NULL,2000000);
       printf("\nret debe cambiar a 1=:%i\n", ret);
     	//-- If there are data waiting: read it
       if (ret==1) {
@@ -195,4 +195,3 @@ int serial_read(int serial_fd, char *data, int size, int timeout_usec)
   //-- Return the number of bytes reads. 0 If a timeout has occurred.
   return count;
 }
-
