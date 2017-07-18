@@ -186,7 +186,7 @@ int serial_read(int serial_fd, char *data, int size, int timeout_usec)
     //-- Repeat the loop until a data block of size bytes is received or
     //-- a timeout occurs
   } while (count<size && ret==1);
-  printf("\n%s\n", data);
+  printf("\nla funcion recibe:%s\n", data);
 
   //-- Return the number of bytes reads. 0 If a timeout has occurred.
   return count;
