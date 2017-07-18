@@ -129,8 +129,9 @@ int main()
 		tcflush(fd, TCIFLUSH);
 		tcflush(fd, TCOFLUSH);
 		/*
-		strcat(cmx,"");
-		printf("\n\n n= %i  f = %i    ", n , f);
+		strcat(cmx,"");*/
+		printf("\n\n Listo para recibir");
+		/*
 		if (f<7)
 		{		
 			sprintf(temp,"%d",f);
