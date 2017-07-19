@@ -67,7 +67,7 @@ int main()
 	SerialPortSettings.c_oflag &= ~OPOST;/*No Output Processing*/
 		
 		/* Setting Time outs */
-	SerialPortSettings.c_cc[VMIN] =  1; /* Read at least 10 character */
+	SerialPortSettings.c_cc[VMIN] =  10; /* Read at least 10 character */
 	SerialPortSettings.c_cc[VTIME] = 0;  /* Wait indefinetly   */
 
 	int RTS_flag,DTR_flag;
@@ -130,7 +130,7 @@ int main()
 		
 		
 
-        printf("\n Recibo:   ");
+        printf("\n Recibo: /");
         
 
 		for(i=0;i<bytes_read;i++)              /*printing only the received characters*/
@@ -156,8 +156,6 @@ int main()
   int ret=0;
   int n;
   int con=0;
-
-
   
   
   //-- Wait for the data. A block of size bytes is expected to arrive
@@ -170,12 +168,10 @@ int main()
       timeout.tv_sec = 0;  
       timeout.tv_usec = timeout_usec;
       printf("\nret debe ser 0=:%i\n", ret);
-
       ret=select (FD_SETSIZE,&fds, NULL, NULL,&timeout);
       printf("\nret debe cambiar a 1=:%i\n", ret);
     	//-- If there are data waiting: read it
       if (ret==1) {
-
        		n=read (serial_fd + 1, &data[count], size-count); 
        		if (n>0){
         		count+=n;
