@@ -64,7 +64,7 @@ int main()
 	SerialPortSettings.c_oflag &= ~OPOST;/*No Output Processing*/
 		
 		/* Setting Time outs */
-	SerialPortSettings.c_cc[VMIN] =  10; /* Read at least 10 character */
+	SerialPortSettings.c_cc[VMIN] =  1; /* Read at least 10 character */
 	SerialPortSettings.c_cc[VTIME] = 0;  /* Wait indefinetly   */
 
 	int RTS_flag,DTR_flag;
@@ -89,7 +89,7 @@ int main()
 
  	/////////apartir de aqui va el programa//////////////////////////////////
 
-	char read_buffer[5];   /* Buffer to store the data received              */
+	char read_buffer[32];   /* Buffer to store the data received              */
     int  bytes_read = 0;    /* Number of bytes read by the read() system call */
     int i =0;
 	char com [300];
@@ -166,7 +166,7 @@ int main()
 
 		usleep(100000);
 
-		bytes_read = read(fd,read_buffer,9);
+		bytes_read = read(fd,read_buffer,32);
 		
 
 		//n=serial_read(fd,read_buffer,5,2000000);
@@ -259,7 +259,7 @@ int main()
 		}
 		printf ("\n acabe un ciclo");
 		tcflush(fd, TCIFLUSH);
-		sleep(2);
+		sleep(1);
 		
 	}
 	
