@@ -64,8 +64,8 @@ int main()
 	SerialPortSettings.c_oflag &= ~OPOST;/*No Output Processing*/
 		
 		/* Setting Time outs */
-	SerialPortSettings.c_cc[VMIN] =  1; /* Read at least 10 character */
-	SerialPortSettings.c_cc[VTIME] = 0;  /* Wait indefinetly   */
+	SerialPortSettings.c_cc[VMIN] =  32; /* Read at least 32 character */
+	SerialPortSettings.c_cc[VTIME] = 10;  /* Wait 1s   */
 
 	int RTS_flag,DTR_flag;
 
@@ -168,7 +168,7 @@ int main()
 		
 
 
-		usleep(100000);
+		usleep(50000);
 
 		bytes_read = read(fd,read_buffer,32);
 		
