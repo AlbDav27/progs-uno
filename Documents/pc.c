@@ -89,7 +89,7 @@ int main()
 
  	/////////apartir de aqui va el programa//////////////////////////////////
 
-	char read_buffer[32];   /* Buffer to store the data received              */
+	char read_buffer[33];   /* Buffer to store the data received              */
     int  bytes_read = 0;    /* Number of bytes read by the read() system call */
     int i =0;
 	char com [300];
@@ -109,8 +109,8 @@ int main()
 	char control[200];
 	strcpy (fuentes, "");
 	strcpy (control, "");
-	//tcflush(fd, TCIFLUSH);
-	//tcflush(fd, TCOFLUSH);
+	tcflush(fd, TCIFLUSH);
+	tcflush(fd, TCOFLUSH);
 	
 	
 	int dec=0;
@@ -166,7 +166,7 @@ int main()
 
 		usleep(100000);
 
-		bytes_read = read(fd,read_buffer,32);
+		bytes_read = read(fd,read_buffer,33);
 		
 
 		//n=serial_read(fd,read_buffer,5,2000000);
@@ -184,7 +184,7 @@ int main()
 		
 		bytes_read=0;
 
-		tcflush(fd, TCIFLUSH);
+		//tcflush(fd, TCIFLUSH);
 		
 		
 		
@@ -259,6 +259,7 @@ int main()
 		}
 		printf ("\n acabe un ciclo");
 		tcflush(fd, TCIFLUSH);
+		tcflush(fd, TCOFLUSH);
 		sleep(1);
 		
 	}
