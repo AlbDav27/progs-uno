@@ -91,7 +91,7 @@ int main()
 
  	/////////apartir de aqui va el programa//////////////////////////////////
 
-	char read_buffer[9];   /* Buffer to store the data received              */
+	char read_buffer[8];   /* Buffer to store the data received              */
     int  bytes_read = 0;    /* Number of bytes read by the read() system call */
     int i =0;
 	char com [300];
@@ -123,7 +123,7 @@ int main()
 
 		usleep(100000);
 
-		bytes_read = read(fd,read_buffer,9);
+		bytes_read = read(fd,read_buffer,8);
 
 		//n=serial_read(fd,read_buffer,5,2000000);
 		//printf("\nantes de leer");
