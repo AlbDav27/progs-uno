@@ -257,9 +257,9 @@ int main()
 			n++;
 			usleep(500000);
 		}
-		//usleep(500000);
+		printf ("\n acabe un ciclo");
 		tcflush(fd, TCIFLUSH);
-		//sleep(2);
+		sleep(2);
 		
 	}
 	
