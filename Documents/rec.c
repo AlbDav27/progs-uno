@@ -116,7 +116,7 @@ int main()
 
 	while (1)
 	{	
-		tcflush(fd, TCIFLUSH);
+		//tcflush(fd, TCIFLUSH);
 		printf("\n\n Listo para recibir");
 		
 
