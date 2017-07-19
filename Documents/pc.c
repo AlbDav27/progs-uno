@@ -126,8 +126,7 @@ int main()
 
 	while (1)
 	{	
-		tcflush(fd, TCIFLUSH);
-		tcflush(fd, TCOFLUSH);
+		
 		strcat(cmx,"");
 		printf("\n\n n= %i  f = %i    ", n , f);
 		if (f<7)
@@ -161,8 +160,8 @@ int main()
 		
 		bytes_written = write(fd,cmx,5);
 
-		tcflush(fd, TCIFLUSH);
-		tcflush(fd, TCOFLUSH);
+		tcflush(fd, TCIOFLUSH);
+		//tcflush(fd, TCOFLUSH);
 
 
 		printf("\n\n Listo para recibir");
@@ -263,10 +262,10 @@ int main()
 			usleep(500000);
 		}
 		printf ("\n acabe un ciclo");
-		
+		tcflush(fd, TCIOFLUSH);
 		sleep(1);
 		
 	}
 	
-        close(fd); /* Close the serial port */
+    close(fd); /* Close the serial port */
 }
