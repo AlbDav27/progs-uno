@@ -112,6 +112,7 @@ int main()
 	
 	
 	int dec=0;
+	sleep(5);
 
 
 	while (1)
