@@ -188,8 +188,7 @@ int main()
 		
 		bytes_read=0;
 
-		//tcflush(fd, TCIFLUSH);
-		
+		tcflush(fd, TCIOFLUSH);
 		
 		
 		if (n==32)
@@ -262,8 +261,7 @@ int main()
 			usleep(500000);
 		}
 		printf ("\n acabe un ciclo");
-		tcflush(fd, TCIOFLUSH);
-		sleep(1);
+		usleep(400000);
 		
 	}
 	
