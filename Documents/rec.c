@@ -115,8 +115,8 @@ int main()
 	int dec=0;
 
 
-	//while (1)
-	//{	
+	while (1)
+	{	
 		printf("\n\n Listo para recibir");
 		
 
@@ -143,7 +143,7 @@ int main()
 		tcflush(fd, TCIFLUSH);
 
 		
-	//}
+	}
 	
      close(fd); /* Close the serial port */
 }
