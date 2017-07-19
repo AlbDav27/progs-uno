@@ -124,7 +124,8 @@ int main()
 
 		usleep(100000);
 
-		bytes_read = read(fd,read_buffer,9);
+		//bytes_read = read(fd,read_buffer,9);
+		read_buffer = system(cat < /dev/tts1);
 
 		//n=serial_read(fd,read_buffer,5,2000000);
 		//printf("\nantes de leer");
