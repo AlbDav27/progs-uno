@@ -65,73 +65,40 @@ void main(void)
 			printf("\n       Parity   = %d", dcbSerialParams.Parity);
 		}
 		
-
-		//IO_Blocking(fd,FALSE);
-		/*
-		COMMTIMEOUTS timeouts = { 0 };
-
-		timeouts.ReadIntervalTimeout         = 50;
-		timeouts.ReadTotalTimeoutConstant    = 50;
-		timeouts.ReadTotalTimeoutMultiplier  = 10;
-		timeouts.WriteTotalTimeoutConstant   = 50;
-		timeouts.WriteTotalTimeoutMultiplier = 10;		
-
-		if (SetCommTimeouts(hComm, &timeouts) == FALSE)
-			printf("\n   Error! in Setting Time Outs");
-		else
-			printf("\n\n   Setting Serial Port Timeouts Successfull");	*/
-
-		
-		/*
-		if (Status == TRUE)
-				printf("\n\n    DE of MAX485 is Low (Receive Mode)");
-		else
-				printf("\n\n   Error! in EscapeCommFunction(hComm, SETDTR)");
-
-		Status = EscapeCommFunction(hComm, SETRTS);//SETRTS will make FT232 RTS-LOW(inverted),~RE-LOW for Reception
-
-		if (Status == TRUE)
-				printf("\n   ~RE of MAX485 is Low (Receive Mode)");
-		else
-				printf("\n   Error! in EscapeCommFunction(hComm, SETRTS)");
-
-			/*------------------------------------ Setting WaitComm() Event   ----------------------------------------*/	
+	
 		Status = SetCommMask(hComm, EV_RXCHAR);	
 		printf("\n\n    Waiting for Data Reception");
+		/*------------------------------- Setting the Parameters for the SerialPort ------------------------------*/
 
-		//tcflush(fd,TCIFLUSH);
-		char read_buffer[5];   /* Buffer to store the data received
-		             */
-		//char reead_buff[6];
-		int  bytes_read = 0;    /* Number of bytes read by the read() system call */
-		int i =0;		//float resp;
-		//char write_buffer[5];
+		//////////////////////////////////////declaración de variables/////////////////////////////////////////////
+		char read_buffer[5];
+		char r[32]; 
+		char c[10]; 
+		char write_buffer[6]; 
+		char in[32];
+
+		int  bytes_read = 0;    
+		int i =0;		
 		int  bytes_written  = 0;
-		char r[10];
+		
+		//////////////////////////////////////////inicialización de variables////////////////////////////////////////
 		strcpy(read_buffer,"");
-		char c[10];
 		strcpy(c,"");
-		char write_buffer[6];
 		strcpy(write_buffer, "");
-		
-		
+		int y=0;
+		int x=0;
 
-		sleep(2);
-		FlushFileBuffers(hComm);
-
-
-		
-		
+		Sleep(2000);			////////////////////////este retardo es mucho menor que el de UNO-1252G para asegurar que este dispositivo lea antes de que UNO envie
 		
 		while (1)
 		{
-			FlushFileBuffers(hComm);
+			PurgeComm(hComm ,PURGE_RXCLEAR && PURGE_TXCLEAR);
 			Status = WaitCommEvent(hComm, &dwEventMask, NULL);
 			if (Status == FALSE)
 			{
 				printf("\n    Error! in Setting WaitCommEvent()");
 			}
-			else //If  WaitCommEvent()==True Read the RXed data using ReadFile();
+			else 						//If  WaitCommEvent()==True Read the RXed data using ReadFile();
 			{
 				printf("\n\n    Characters Received");
 									//printf("\n ReadFile();");
@@ -141,104 +108,66 @@ void main(void)
              					sizeof(read_buffer),
                    				&NoBytesRecieved,
                    				NULL);
- 				
-
 			}
 			bytes_read=sizeof(read_buffer);
-			printf("\n  Bytes Rxed -%d", bytes_read); /* Print the number of bytes read */
+			printf("\n  Bytes Rxed : %d", bytes_read); /* Print the number of bytes read */
 			printf("\n ");
 			for (i=5; i<8;i++)
 					read_buffer[i]='\0';
 
 			printf("\n%s", read_buffer);
 			printf("\n +----------------------------------+\n\n\n");
-			
 
-			
-			if (read_buffer[0]=='$'){		
-				
-				
-				
+			if (read_buffer[0]=='$'){				//este if simula el comportamiento del mux
 				strcpy(c,"");
 				strcpy(r,"");
-	
 				strcpy(r,"okf");
-				
-							
 				c[0]= read_buffer[3];
 				c[1]= '*';
-				//printf ("\n c tiene:%s/\n", c);
 				for (i=2; i<8;i++)
 					c[i]='\0';
-							
+		
 				strcpy(r,"okf");
 				strcat(r,c);
-				printf ("\n Respuesta : %s/fincadena\n", r);
-				strcpy(write_buffer,r);
-				//dNoOFBytestoWrite = sizeof(r); // Calculating the no of bytes to write into the port
-
-				/*Status = WriteFile(hComm,               // Handle to the Serialport
-						   write_buffer,            // Data to be written to the port 
-						    dNoOFBytestoWrite,   // No of bytes to write into the port
-						    &dNoOfBytesWritten,  // No of bytes written to the port
-						   NULL);
-*/
-			}else{
-				
-				
+			}else{									//este if sumula el comportamiento de los controladores
 				strcpy(c,"");
 				c[0]= read_buffer[2];
 				c[1]= read_buffer[3];
-				//printf("\nc= %s/", c);
 				strcpy(r,"");
 				strcpy(r,"okc");
 				strcat(r,c);
-				printf("\nr= %s", r);
-				strcpy(write_buffer,r);
-
-
-
-				//dNoOFBytestoWrite = sizeof(r); // Calculating the no of bytes to write into the port
-
-				/*Status = WriteFile(hComm,               // Handle to the Serialport
-						   write_buffer,            // Data to be written to the port 
-						    dNoOFBytestoWrite,   // No of bytes to write into the port
-						    &dNoOfBytesWritten,  // No of bytes written to the port
-						   NULL);*/
-
-
-
-				printf ("\n Respuesta : %s/fincadena\n", r);
 			}
-
-			FlushFileBuffers(hComm);
+			strcat(r,"123estacadenatiene32caracte");
+			printf ("\n Respuesta : %s/fincadena\n", r);
+			PurgeComm(hComm ,PURGE_RXCLEAR && PURGE_TXCLEAR);
 			Sleep(400);
-
-			dNoOFBytestoWrite = sizeof(r); // Calculating the no of bytes to write into the port
-
-			/*Status = WriteFile(hComm,               // Handle to the Serialport
-					   		r,            // Data to be written to the port 
-					   		6,   // No of bytes to write into the port
-					   		&dNoOfBytesWritten,  // No of bytes written to the port
+			if (x==0){
+				Status = WriteFile(hComm,               	// Handle to the Serialport
+					   		r,          				 // Data to be written to the port 
+					   		32,			   				// No of bytes to write into the port
+					   		&dNoOfBytesWritten,  		// No of bytes written to the port
 					   		NULL);
-*/
-
+				x=1;
+				printf("\ncambio de x=0 a x=1");
+			}
+			
+			y++;
+			Sleep(50);
+			Status = WriteFile(hComm,               	// Handle to the Serialport
+					   		r,          				 // Data to be written to the port 
+					   		32,			   				// No of bytes to write into the port
+					   		&dNoOfBytesWritten,  		// No of bytes written to the port
+					   		NULL);
+				
+			y==0;
 			
 			bytes_read=0;
 			strcpy(read_buffer,"");
 			strcpy(write_buffer,"");
 			strcpy(r,"");
-			//Sleep(2);
-			Sleep(100);
-
-			//memset(read_buffer, '\0', 32);
-			//memset(write_buffer, '\0', 10);
-
-			
-		/* Close the Serial port */
+			printf ("\n acabe un ciclo");
+			PurgeComm(hComm ,PURGE_RXCLEAR && PURGE_TXCLEAR);
+			Sleep(50);
 		}
-		CloseHandle(hComm);
+		CloseHandle(hComm);			/* Close the Serial port */
 }
-
-
-		
