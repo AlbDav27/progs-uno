@@ -84,45 +84,43 @@ int main()
              
              printf("\n  BaudRate = 9600 \n  StopBits = 1 \n  Parity   = none");
  	}
-	
+	/*---------- Setting the Attributes of the serial port using termios structure --------- */
 	
 
- 	/////////apartir de aqui va el programa//////////////////////////////////
+ 	/////////declaración de variables//////////////////////////////////
 
 	char read_buffer[32];   /* Buffer to store the data received              */
-    int  bytes_read = 0;    /* Number of bytes read by the read() system call */
-    int i =0;
-	char com [300];
-	strcpy (com, "");
-	
-	
-	int n;
-	int f;
-	f = 1;
-	n = 1;
-	sleep(5);
-	
-	char cmx[5];	
-	int  bytes_written  = 0;  	/* Value for storing the number of bytes written to the port */ 
+    char com [300];
+    char cmx[5];
     char temp[3];
 	char fuentes[200];
 	char control[200];
-	strcpy (fuentes, "");
-	strcpy (control, "");
-	tcflush(fd, TCIFLUSH);
-	tcflush(fd, TCOFLUSH);
-	
-	
+
+    int  bytes_read = 0;    /* Number of bytes read by the read() system call */
+    int  bytes_written  = 0;  	/* Value for storing the number of bytes written to the port */
+    int i =0;
+    int n;
+	int f;
 	int dec=0;
 
+	/////////////////////////////////////////variables qque cambian paraa cada estación
+	int nc=36;					//número de controladores de la estación
+	int id_st=0;				//identificador de la estación
 	
-
-/*------------------------------- Read data from serial port -----------------------------*/ 
-//Este es el bucle que se va a repetir para estar recibiendo constantemente información
-
- 
+	//////////////Inicialización de variables/////////////////////////////
+	strcpy (com, "");
+	strcpy (fuentes, "");
+	strcpy (control, "");
+	f = 1;
+	n = 1;
 	
-// se debe de verificar si linux permite que se ejecute indefinidamente el programa, o hay que ejecutar periodicamente el mismo
+	sleep(5);				 ////////retardo para asegurar que se envie una vez que el receptor este listo para recibir
+	
+	tcflush(fd, TCIFLUSH);			//limpiar buffer de entrada
+	tcflush(fd, TCOFLUSH);			//limpiar buffer de salida
+		
+	
+//Este es el bucle que se va a repetir para estar enviando y recibiendo constantemente información
 
 	while (1)
 	{	
@@ -134,13 +132,8 @@ int main()
 			sprintf(temp,"%d",f);
 			strcpy(cmx, "$AA");					
 			strcat(cmx, temp);
-			
-			
 			strcat(cmx,"*");
 			printf("\nSolicitud: %s/findecad", cmx);
-			//sleep(5);
-		
-	
 			
 		}else{
 			strcpy(cmx, "c:");
@@ -148,50 +141,27 @@ int main()
 			if (dec==0){
 				strcat(cmx,"0");	
 			}
-			sprintf(temp,"%d",n);
-								
+			sprintf(temp,"%d",n);					
 			strcat(cmx, temp);
-			
 			strcat(cmx,"*");
 			printf("\nSolicitud: %s/findecad", cmx);
-			//sleep(5);
-		
 		}
 		
-		bytes_written = write(fd,cmx,5);
-
+		bytes_written = write(fd,cmx,5);			//enviar cadena cmx
 		tcflush(fd, TCIOFLUSH);
-		//tcflush(fd, TCOFLUSH);
-
-
 		printf("\n\n Listo para recibir");
-		
-
-
 		usleep(50000);
 
-		bytes_read = read(fd,read_buffer,32);
-		
-
-		//n=serial_read(fd,read_buffer,5,2000000);
-		//printf("\nantes de leer");
-		
-		
-
+		bytes_read = read(fd,read_buffer,32);		//leer datos y almacenarlos en el array read_buffer
         printf("\n Recibo: /");
         
-
 		for(i=0;i<bytes_read;i++)              /*printing only the received characters*/
 			printf("%c",read_buffer[i]);
 
 		printf("/fincadena \n +----------------------------------+\n\n");
-		
 		bytes_read=0;
-
 		tcflush(fd, TCIOFLUSH);
-		
-		
-		if (n==32)
+		if (n==32)								//si es el último controlador
 		{
 			n=1;
 			f=1;
@@ -205,11 +175,7 @@ int main()
 			printf("\n cadena datos fuentes = %s \n",fuentes);
 			printf("\n cadena datos controladores = %s \n", control);
 			sleep(2);
-			
-			//memset(com1, 0, 250);
 			strcpy (com, "");
-			//esta parte envia la información de controladores y fuentes//
-			//strcpy (fin," '");
 			strcat(com,"mosquitto_pub -h iot.eclipse.org -t estacion1/fuentes -m 'recibo por rs485:");
 			printf("\n antes de 1er cat %s\n",com);
 			sleep(2);
@@ -221,8 +187,6 @@ int main()
 			system(com);
 			//system("clear");
 			strcpy (com, "");
-			//memset(com1, 0, 250);
-			
 			
 			strcat (com,"mosquitto_pub -h iot.eclipse.org -t estacion1/controladores -m 'recibo por rs485:");
 			printf("\n antes de 1er cat \n");
@@ -234,15 +198,15 @@ int main()
 			printf("\n %s \n",com);
 			system(com);
 			//system("clear");
+
+			//reinicio de las variables, vaciar los buffers
 			strcpy (com, "  ");
-			
 			strcpy(fuentes, "  ");
 			strcpy(control, "  ");
-			
-			//tcflush(fd, TCIFLUSH);
+		
 			sleep(2);
 		}
-		else if (f<=6)
+		else if (f<=6)							//almacena la información de las fuentes
 		{
 			if(f!=1){
 				strcat(fuentes, "; ");
@@ -252,7 +216,7 @@ int main()
 			usleep(500000); //aqui se ingresa el tiempo de espera en segundos entre la solicitud a un controlador 
 			//para que cada minuto se solicite 1 vez la info de cada disp se divide 60s / 38 disp = 1.57
 
-		}else{
+		}else{									//almacena la información de los controladores, excepto el último
 			if(n!=1){
 				strcat(control, "; ");
 			}
@@ -261,7 +225,7 @@ int main()
 			usleep(500000);
 		}
 		printf ("\n acabe un ciclo");
-		usleep(400000);
+		usleep(400000);						//este reatardo debe ser mucho mayor que el de los controladores para que cuando vuelva a enviar info el receptor ya este leyendo
 		
 	}
 	
