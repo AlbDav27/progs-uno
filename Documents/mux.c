@@ -17,7 +17,7 @@ void main(void)
 
 		/* Change /dev/ttyUSB0 to the one corresponding to your system */
 
-        	fd = open("/dev/ttyUSB0",O_RDWR | O_NOCTTY);	/* ttyUSB0 is the FT232 based USB2SERIAL Converter   */
+        	fd = open("/dev/ttyS0",O_RDWR | O_NOCTTY);	/* ttyUSB0 is the FT232 based USB2SERIAL Converter   */
 			   						/* O_RDWR Read/Write access to serial port           */
 									/* O_NOCTTY - No terminal will control the process   */
 									                                
