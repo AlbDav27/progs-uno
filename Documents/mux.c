@@ -65,7 +65,7 @@ void main(void)
 
 		char write_buffer[7];	/* Buffer containing characters to write into port	     */	
 		char readb[9];
-		strcpy(write_buffer, "cr07/***");
+		strcpy(write_buffer, "$016");
 		write_buffer[4]=13;
 		printf("\n\n envio a ADAM4053 : %s \n", write_buffer);
 		
