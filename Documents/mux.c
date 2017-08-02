@@ -65,10 +65,9 @@ void main(void)
 
 		char write_buffer[7];	/* Buffer containing characters to write into port	     */	
 		char readb[9];
-		strcpy(write_buffer, "$016");
+		strcpy(write_buffer, "cr07/***");
 		write_buffer[4]=13;
 		printf("\n\n envio a ADAM4053 : %s \n", write_buffer);
-		printf("\njust debuging \n");
 		
 		int  bytes_written  = 0;  	/* Value for storing the number of bytes written to the port */
 		int bytes_read=0; 
