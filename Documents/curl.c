@@ -3,7 +3,7 @@
 #include <sys/ioctl.h>   /* ioctl() */
 #include <unistd.h> 	//para funcion sleep()  ...delay
 #include <string.h>
-#include <json/json.h>
+//#include <json/json.h>
 
 int main(){
 	char com[250];
