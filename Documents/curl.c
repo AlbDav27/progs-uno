@@ -20,7 +20,7 @@ int main(){
 		num=rand()%100;
 		sprintf(t,"%d",num);
 		strcat(com, t);
-		strcat(com, "}' http://things.ubidots.com/api/v1.6/variables/5980b617c03f972586d81d43/values?token=A1E-j6ajtC9PV1TyqrCBsx4quttdB8CFt3 >/home/alberto/Documents/cu/response");
+		strcat(com, "}' http://things.ubidots.com/api/v1.6/variables/5980b617c03f972586d81d43/values?token=A1E-j6ajtC9PV1TyqrCBsx4quttdB8CFt3 >/home/root/progs-uno/Documents/response");
 		printf("\n\n\nejecuto post %d : %s \n", n, com);
 		lt= strlen(com);
 		printf("\n la longitud del comando es : %d", lt);
