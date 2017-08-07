@@ -13,19 +13,17 @@ void def_table1(int n){
 	int z,y;
 	int num;
 	int r;
-	for (y=1; y<=n; y++){
-		control[y][0]=y;
-		r=rand()%7;						//este numero es para que no se publique todas las Lock controller
-	}
-	if (r==1){
-		for (z=1;z<5;z++){
-			for (y=1;y<37;y++){
-				
-				control[y][z]=rand()%100;
+	for (z=1;z<=n;z++){
+		r=rand()%4;
+		if (r!=1)
+		{			
+			for (y=1;y<5;y++){
+				control[z][y]=rand()%100;
 			}
-
 		}
+
 	}
+	
 	
 }
 void def_table(int n){
@@ -51,42 +49,48 @@ void df_tabl(int n){
 void def_table2(int n){
 	int z,y;
 	int num;
-	for (y=1; y<=n; y++){
-		fuente[y][0]=y;
-	}
-	for (z=1;z<3;z++){
-		for (y=1;y<7;y++){
-			fuente[y][z]=rand()%1;
+	int r;
+	for (z=1;z<=n;z++){
+		r=rand()%25;
+		if (r==1)
+		{
+			fuente[z][1]=rand()%2;
+			fuente[z][2]=rand()%2;
+		}else {
+			fuente[z][1]=0;
+			fuente[z][2]=0;
 		}
 
 	}
 }
 
-void getgval(){
+void getgval(int nc, int nf){
 	int s=1;
 	slots=0;
 	st=0;
-	while (s<=36){
+	while (s<=nc){
 		if (control[s][4]==0){
 			slots++;				//cuando una lock no tiene e-bike conectada
 		}
+		s++;
 	}
 	s=1;
-	while (s<=6){
+	while (s<=nf){
 		if(fuente[s][1]==1||fuente[s][2]==1){
 			st++;
 		}
+		s++;
 	}
-	b=36-slots;
+	b=nc-slots;
 }
 
 
-void to_jsonc(){
+void to_jsonc(int is){
 	char t [5];
 	int q;
 	strcpy(js,"");
 	strcpy(js,"{\"id_st\":");
-	sprintf(t,"%d",27);
+	sprintf(t,"%d",is);
 	strcat(js, t);
 	if (st==0){
 		strcat(js, ", \"status\":\"ok\", \"bikes\":");
@@ -149,25 +153,27 @@ int main(){
 	char res[2500];
 	char t[4];
 	int is;
-	is = rand()%60;
 	strcpy(com,"");
 	strcpy(res,"");
 	int nc=36;
 	int nf=6;
-	def_table(nc);
-	df_tabl(nf);
-	def_table2(nf);
-	def_table1(nc);
-	to_jsonc();
 	int n=1;
 	int lt, lr;
 	FILE *fp;
 	while (n<5){
+		is = rand()%61;
+		def_table(nc);
+		df_tabl(nf);
+		def_table2(nf);
+		def_table1(nc);
+		getgval(nc, nf);
+		to_jsonc(is);
 		strcpy(com, "curl -X POST -H \"Content-Type: application/json\" -d '");
 		strcat(com, js);
 		strcat(com, "' https://my.rayven.io:8082/api/main?uid=111848e7eda9ff3b47e3aba02197e37a6a94&deviceid=st_");
 		sprintf(t,"%d",is);
-		strcat(com, " >/Users/albertodaniel/Desktop");
+		strcat(com, t);
+		strcat(com, " >/home/alberto/Documents/rayven/response");
 		printf("\n\n\nejecuto post %d : %s \n", n, com);
 		lt= strlen(com);
 		printf("\n la longitud del comando es : %d", lt);
@@ -179,7 +185,7 @@ int main(){
 		printf("\n la longitud de la cadena recibida es : %d", lr);
 		printf("\n la cadena recibida es: %s", res);
 		n++;
-		sleep(60);
+		sleep(6);
 	}
 	printf ("\n\n");
 }
