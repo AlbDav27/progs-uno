@@ -417,7 +417,7 @@ int main()
     char com [3000];
     char cmx[10];
     char temp[3];
-    char t[3];
+    char t[5];
 	char subs[5];
 	char sol[70];
 	char ci[30];
@@ -471,21 +471,11 @@ int main()
 		if (cp==pbr)
 		{
 			//Primero se realiza una solicitud de la info de conf a la plataforma
-			strcpy(com, "curl GET http://rayven.com/imaatech/estacion");
-			cen = id_st/100;
-			if (cen == 0){
-				strcat(com, "0");	
-			}
-			res = id_st-(cen*100);
-			dec = res/10;
-			if (dec==0){
-				strcat(com,"0");	
-			}
+			strcpy(com, "curl GET https://my.rayven.io:8082/api/main?uid=111848e7eda9ff3b47e3aba02197e37a6a94&deviceid=st_");
 			sprintf(temp,"%d",id_st);
-			strcat (com, temp);	
-			strcat(com, "/conf_info");
+			strcat (com, temp);
 			printf("\n%s\n", com);
-			//ci = system(sol);		///esta instruccion ejecuta la solicitud rest desde sh y recibe en ci el resultado
+			//system(com);		///esta instruccion ejecuta la solicitud rest desde sh y recibe en ci el resultado
 			strcpy (com, "");
 			strcpy(ci, "{'rel_r':50,'b_s':27}");		//esta cadena simula la respuesta de la plataforma con los parametros de configuración
 			json_object * jobj = json_tokener_parse(ci);     
@@ -594,50 +584,63 @@ int main()
 
         	//almacena la información de los controladores
 			
+			if (bytes_read>0)
+			{
+				control[n][0]= n;					//id_c : id del controlador
 
-			control[n][0]= n;					//id_c : id del controlador
+				subs[0]=read_buffer[4];				//st_ch : estado de carga
+				subs[1]=read_buffer[5];
+				subs[2]=read_buffer[6];
+				num=conv_st_int3(subs);
+				control[n][1]=num;
+				strcpy(subs,"");
 
-			subs[0]=read_buffer[4];				//st_ch : estado de carga
-			subs[1]=read_buffer[5];
-			subs[2]=read_buffer[6];
-			num=conv_st_int3(subs);
-			control[n][1]=num;
-			strcpy(subs,"");
+				subs[0]=read_buffer[8];				//hs_ba : estado de salud de la bateria
+				subs[1]=read_buffer[9];
+				subs[2]=read_buffer[10];
+				num=conv_st_int3(subs);
+				control[n][2]=num;
+				strcpy(subs,"");
 
-			subs[0]=read_buffer[8];				//hs_ba : estado de salud de la bateria
-			subs[1]=read_buffer[9];
-			subs[2]=read_buffer[10];
-			num=conv_st_int3(subs);
-			control[n][2]=num;
-			strcpy(subs,"");
+				subs[0]=read_buffer[12];			//nc : numero de ciclos
+				subs[1]=read_buffer[13];
+				subs[2]=read_buffer[14];
+				subs[3]=read_buffer[15];
+				subs[4]=read_buffer[16];
+				num=conv_st_int5(subs);
+				control[n][3]=num;
+				strcpy(subs,"");
 
-			subs[0]=read_buffer[12];			//nc : numero de ciclos
-			subs[1]=read_buffer[13];
-			subs[2]=read_buffer[14];
-			subs[3]=read_buffer[15];
-			subs[4]=read_buffer[16];
-			num=conv_st_int5(subs);
-			control[n][3]=num;
-			strcpy(subs,"");
-
-			subs[0]='0';
-			subs[1]=read_buffer[18];			//id_b : E-Bike ID
-			subs[2]=read_buffer[19];
-			subs[3]=read_buffer[20];
-			subs[4]=read_buffer[21];
-			num=conv_st_int5(subs);
-			control[n][4]=num;
-			strcpy(subs,"");
+				subs[0]='0';
+				subs[1]=read_buffer[18];			//id_b : E-Bike ID
+				subs[2]=read_buffer[19];
+				subs[3]=read_buffer[20];
+				subs[4]=read_buffer[21];
+				num=conv_st_int5(subs);
+				control[n][4]=num;
+				strcpy(subs,"");	
+			}
+			
 			if (n==nc)								//si es el último controlador
 			{
-				/////////////////////////////////////////////aqui se debe de enviar la informacion
+
 				getgval();
 				to_jsonc();
+				/////////////////////////////////////////////aqui se debe de enviar la informacion
+				strcpy(com, "curl -X POST -H \"Content-Type: application/json\" -d '");
+				strcat(com, js);
+				strcat(com, "' https://my.rayven.io:8082/api/main?uid=111848e7eda9ff3b47e3aba02197e37a6a94&deviceid=st_");
+				sprintf(t,"%d",id_st);
+				strcat(com, t);
+				strcat(com, " >/home/alberto/Documents/rayven/response");
+				printf("\n\n\nejecuto post %d : %s \n", n, com);
+				system (com);
+				//////////////////////////////////////
 				//reinicio de las variables, vaciar los buffers
 				strcpy (com, "");
 				cp++;
 				n=0;
-				f=0;
+				f=1;
 				def_table(nc);		//estabñece en la tabla control los valores por default
 				df_tabl(nf);			//establece en la tabla fuente los valores por default
 				sleep(2);
