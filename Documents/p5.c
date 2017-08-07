@@ -6,12 +6,12 @@
 #include <errno.h>           /* ERROR Number Definitions           */
 #include <sys/ioctl.h>   /* ioctl() */
 #include <unistd.h> 	//para funcion sleep()  ...delay
-#include <string>
+#include <string.h>
 #include <json/json.h>
 
 ///////////variables globales/////////////////////////
 int control[37][5];		//tabla donde se almacenan los datos de las Lock Controller
-int fuente[8][3];		//tabla donde se almacenan los datos de las fuentes
+int fuente[9][3];		//tabla donde se almacenan los datos de las fuentes
 int v[2];				//2 valores de configuración recibidos
 int x =0;				//variable que distingue entr variables de configuración
 char js[2000];			//cadena json a enviar
@@ -145,7 +145,7 @@ void df_tabl(int n){
 }
 
 ///////////////////////esta funcion determina los valores generales de la estación/////////////////
-void getgval(){
+void getgval(int nc){
 	int s=1;
 	slots=0;
 	st=0;
@@ -153,14 +153,16 @@ void getgval(){
 		if (control[s][4]==0){
 			slots++;				//cuando una lock no tiene e-bike conectada
 		}
+		s++;
 	}
 	s=1;
 	while (s<=6){
 		if(fuente[s][1]==1||fuente[s][2]==1){
 			st++;
 		}
+		s++;
 	}
-	b=36-slots;
+	b=nc-slots;
 }
 ///////////////////////////////////////////////////////// Esta funcion genera la cadena json que se va a publicar
 void to_jsonc(){
@@ -226,7 +228,7 @@ void to_jsonc(){
 	strcat(js, "}");
 }
 
-void f_data(char cad[5]){
+void f_data(char cad[8]){
 	int n=1;
 	int v=8;
 
@@ -238,99 +240,100 @@ void f_data(char cad[5]){
 			fuente [v][1]=0;			//fuente[v][1]  aqui se encuentra la variable temperautre
 			fuente [v][2]=0;			//fuente[v][2]	aqui se encuentra la variable status
 			fuente [v-1][1]=0;
-			fuente [v-2][2]=0;
+			fuente [v-1][2]=0;
 		}
 		else if (cad[n-1]=='1'){
 			fuente [v][1]=1;
 			fuente [v][2]=0;
 			fuente [v-1][1]=0;
-			fuente [v-2][2]=0;
+			fuente [v-1][2]=0;
 		}
 		else if (cad[n-1]=='2'){
 			fuente [v][1]=0;
 			fuente [v][2]=1;
 			fuente [v-1][1]=0;
-			fuente [v-2][2]=0;
+			fuente [v-1][2]=0;
 		}
 		else if (cad[n-1]=='3'){
 			fuente [v][1]=1;
 			fuente [v][2]=1;
 			fuente [v-1][1]=0;
-			fuente [v-2][2]=0;
+			fuente [v-1][2]=0;
 		}
 		else if (cad[n-1]=='4'){
 			fuente [v][1]=0;
 			fuente [v][2]=0;
 			fuente [v-1][1]=1;
-			fuente [v-2][2]=0;
+			fuente [v-1][2]=0;
 		}
 		else if (cad[n-1]=='5'){
 			fuente [v][1]=1;
 			fuente [v][2]=0;
 			fuente [v-1][1]=1;
-			fuente [v-2][2]=0;
+			fuente [v-1][2]=0;
 		}
 		else if (cad[n-1]=='6'){
 			fuente [v][1]=0;
 			fuente [v][2]=1;
 			fuente [v-1][1]=1;
-			fuente [v-2][2]=0;
+			fuente [v-1][2]=0;
 		}
 		else if (cad[n-1]=='7'){
 			fuente [v][1]=1;
 			fuente [v][2]=1;
 			fuente [v-1][1]=1;
-			fuente [v-2][2]=0;
+			fuente [v-1][2]=0;
 		}
 		else if (cad[n-1]=='8'){
 			fuente [v][1]=0;
 			fuente [v][2]=0;
 			fuente [v-1][1]=0;
-			fuente [v-2][2]=1;
+			fuente [v-1][2]=1;
 		}
 		else if (cad[n-1]=='9'){
 			fuente [v][1]=1;
 			fuente [v][2]=0;
 			fuente [v-1][1]=0;
-			fuente [v-2][2]=1;
+			fuente [v-1][2]=1;
 		}
 		else if (cad[n-1]=='A'){
 			fuente [v][1]=0;
 			fuente [v][2]=1;
 			fuente [v-1][1]=0;
-			fuente [v-2][2]=1;
+			fuente [v-1][2]=1;
 		}
 		else if (cad[n-1]=='B'){
 			fuente [v][1]=1;
 			fuente [v][2]=1;
 			fuente [v-1][1]=0;
-			fuente [v-2][2]=1;
+			fuente [v-1][2]=1;
 		}
 		else if (cad[n-1]=='C'){
 			fuente [v][1]=0;
 			fuente [v][2]=0;
 			fuente [v-1][1]=1;
-			fuente [v-2][2]=1;
+			fuente [v-1][2]=1;
 		}
 		else if (cad[n-1]=='D'){
 			fuente [v][1]=1;
 			fuente [v][2]=0;
 			fuente [v-1][1]=1;
-			fuente [v-2][2]=1;
+			fuente [v-1][2]=1;
 		}
 		else if (cad[n-1]=='E'){
 			fuente [v][1]=0;
 			fuente [v][2]=1;
 			fuente [v-1][1]=1;
-			fuente [v-2][2]=1;
+			fuente [v-1][2]=1;
 		}
 		else if (cad[n-1]=='F'){
 			fuente [v][1]=1;
 			fuente [v][2]=1;
 			fuente [v-1][1]=1;
-			fuente [v-2][2]=1;
+			fuente [v-1][2]=1;
 		}
-		n--;n--;
+		v--;v--;
+		n++;
 	}
 }
 
@@ -451,15 +454,15 @@ int main()
 	strcpy (ci, "");
 	strcpy (subs, "");
 
-	f = 0;
+	f = 1;
 	n = 1;
 	
 	sleep(5);				 ////////retardo para asegurar que se envie una vez que el receptor este listo para recibir
 	
 	tcflush(fd, TCIFLUSH);			//limpiar buffer de entrada
 	tcflush(fd, TCOFLUSH);			//limpiar buffer de salida
-	def_table();
-	df_tabl();
+	def_table(nc);
+	df_tabl(nf);
 
 /////////////////////Este es el bucle que se va a repetir para estar enviando y recibiendo constantemente información
 
@@ -536,17 +539,21 @@ int main()
 		if (f==1)
 		{		
 			strcpy(cmx, "$016");
-			cmx[4]=13;					
 			printf("\nSolicitud: %s/findecad", cmx);
+			cmx[4]=13;					
+			
 			bytes_written = write(fd,cmx,5);
 			bytes_read = read(fd,read_buffer,8);		//leer datos y almacenarlos en el array read_buffer
-			subs[0]=read_buffer[1];
-			subs[1]=read_buffer[2];
-			subs[2]=read_buffer[3];
-			subs[3]=read_buffer[4];
-			f_data(subs);
+			if (bytes_read>0)
+			{
+				subs[0]=read_buffer[1];
+				subs[1]=read_buffer[2];
+				subs[2]=read_buffer[3];
+				subs[3]=read_buffer[4];
+				f_data(subs);
+			}
+			
 			strcpy(subs,"");
-
 			tcflush(fd, TCIOFLUSH);
 			strcpy(cmx, "");
         	printf("\n Recibo: /");
@@ -620,11 +627,10 @@ int main()
 				control[n][4]=num;
 				strcpy(subs,"");	
 			}
-			
 			if (n==nc)								//si es el último controlador
 			{
 
-				getgval();
+				getgval(nc);
 				to_jsonc();
 				/////////////////////////////////////////////aqui se debe de enviar la informacion
 				strcpy(com, "curl -X POST -H \"Content-Type: application/json\" -d '");
@@ -634,7 +640,7 @@ int main()
 				strcat(com, t);
 				strcat(com, " >/home/alberto/Documents/rayven/response");
 				printf("\n\n\nejecuto post %d : %s \n", n, com);
-				system (com);
+				//system (com);
 				//////////////////////////////////////
 				//reinicio de las variables, vaciar los buffers
 				strcpy (com, "");
@@ -643,12 +649,13 @@ int main()
 				f=1;
 				def_table(nc);		//estabñece en la tabla control los valores por default
 				df_tabl(nf);			//establece en la tabla fuente los valores por default
+				printf ("\n acabe un ciclo de todos los dispositivos");
 				sleep(2);
 			}
 			n++;
 			usleep(500000);
 		}
-		printf ("\n acabe un ciclo");
+		printf ("\n acabe un disp");
 		usleep(400000);						//este reatardo debe ser mucho mayor que el de los controladores para que cuando vuelva a enviar info el receptor ya este leyendo
 	}
     close(fd); /* Close the serial port */
