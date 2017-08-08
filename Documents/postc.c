@@ -29,22 +29,23 @@ void def_table1(int n){
 	int r;
 	for (z=1;z<=n;z++){
 		r=rand()%2;
+		d=rand()%401;
 		if (r!=1)
 		{			
-			for (y=1;y<5;y++){
-				w=rand()%100;
-				d=rand()%401;
-				if (y==4){
-					if (bike[d]==0){
-						bike[d]=1;
-						bilckd++;
-						control[z][y]=d;
+			if (bike[d]==0){
+				bilckd++;
+				bike[d]=1;
+				for (y=1;y<5;y++){
+					w=rand()%100;
+					if (y==4){
+						control [z][y]=d;
+					}
+					else{
+						control[z][y]=w;
 					}
 				}
-				else{
-					control[z][y]=w;
-				}
 			}
+			
 		}
 
 	}
@@ -226,6 +227,7 @@ void def_tableb(int ib){
 }
 
 int main(){
+	srand(time(NULL));
 	vac_bike();
 	int btot;
 	char com[3000];
