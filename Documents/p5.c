@@ -435,6 +435,9 @@ int main()
 	int res=0;
 	int num;
 	int cp=420;
+	int lr;
+
+	FILE *fp;
 
 	/////////////////////////////////////////variables qque cambian paraa cada estación
 	int nc=36;					//número de controladores de la estación
@@ -474,13 +477,18 @@ int main()
 		if (cp==pbr)
 		{
 			//Primero se realiza una solicitud de la info de conf a la plataforma
-			strcpy(com, "curl GET https://my.rayven.io:8082/api/main?uid=111848e7eda9ff3b47e3aba02197e37a6a94&deviceid=st_");
-			sprintf(temp,"%d",id_st);
-			strcat (com, temp);
+			strcpy(com, "curl GET https://my.rayven.io:8082/api/main?uid=111848e7eda9ff3b47e3aba02197e37a6a94&deviceid=conf_data >/home/../response");
+			
 			printf("\n%s\n", com);
+			fp = fopen ("response","r");
+			fgets(ci, 100, fp);
+			fclose(fp);
+			lr=strlen(ci);
+			printf("\n la longitud de la cadena recibida es : %d", lr);
+			printf("\n la cadena recibida es: %s", ci);
 			//system(com);		///esta instruccion ejecuta la solicitud rest desde sh y recibe en ci el resultado
 			strcpy (com, "");
-			strcpy(ci, "{'rel_r':50,'b_s':27}");		//esta cadena simula la respuesta de la plataforma con los parametros de configuración
+			strcpy(ci, "{'b_s':27,'rel_r':72}");		//esta cadena simula la respuesta de la plataforma con los parametros de configuración
 			json_object * jobj = json_tokener_parse(ci);     
 			json_parse(jobj);
 			printf("\nLos valores del json son: %i, %i\n", v[0], v[1]);
