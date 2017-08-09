@@ -418,12 +418,14 @@ int main()
 
 	char read_buffer[22];   /* Buffer to store the data received              */
     char com [3000];
+    char re[200];
     char cmx[10];
     char temp[3];
     char t[5];
 	char subs[5];
 	char sol[70];
 	char ci[30];
+	char caracter;
 
     int  bytes_read = 0;    /* Number of bytes read by the read() system call */
     int  bytes_written  = 0;  	/* Value for storing the number of bytes written to the port */
@@ -435,7 +437,9 @@ int main()
 	int res=0;
 	int num;
 	int cp=420;
-	int lr;
+	int lr,lt;
+	int z=0;
+	int y;
 
 	FILE *fp;
 
@@ -452,6 +456,7 @@ int main()
 	cp=pbr;
 	//////////////Inicialización de variables/////////////////////////////
 	strcpy (com, "");
+	strcpy (re, "");
 	strcpy (read_buffer, "");
 	strcpy (cmx, "");
 	strcpy (ci, "");
@@ -477,18 +482,41 @@ int main()
 		if (cp==pbr)
 		{
 			//Primero se realiza una solicitud de la info de conf a la plataforma
-			strcpy(com, "curl GET https://my.rayven.io:8082/api/main?uid=111848e7eda9ff3b47e3aba02197e37a6a94&deviceid=conf_data >/home/../response");
-			
-			printf("\n%s\n", com);
-			fp = fopen ("response","r");
-			fgets(ci, 100, fp);
+			z=0;
+			strcpy(com, "curl -X GET \"https://my.rayven.io:8082/api/main?uid=111848e7eda9ff3b47e3aba02197e37a6a94&deviceid=conf_data\" >/home/.../response.txt");
+			printf("\n\n\nejecuto post %d : %s \n", n, com);
+			lt= strlen(com);
+			printf("\n la longitud del comando es : %d\n\n", lt);
+			system (com);
+			fp = fopen ("response.txt","r");
+			//fgets(res, 100, fp);
+			while((caracter = fgetc(fp)) != EOF)
+			{		
+				printf("%c",caracter);
+				re[n]=caracter;
+				n++;
+				
+			}
+			n=107;
+			//printf("\n\n la cadena recibida guardadA en res es : ");
+			while ((n<164)&&(z<83)){		
+				//printf("%d-%c  ", n, re[n]);
+				y=n%2;
+				if (y==0&&n!=106&&n!=160){
+					if (re[n]!=92)
+					{
+						ci[z]=re[n];
+						z++;
+					}
+				}
+				n++;
+			}
+			ci[z]='\0';
 			fclose(fp);
 			lr=strlen(ci);
-			printf("\n la longitud de la cadena recibida es : %d", lr);
-			printf("\n la cadena recibida es: %s", ci);
-			//system(com);		///esta instruccion ejecuta la solicitud rest desde sh y recibe en ci el resultado
-			strcpy (com, "");
-			strcpy(ci, "{'b_s':27,'rel_r':72}");		//esta cadena simula la respuesta de la plataforma con los parametros de configuración
+			printf("\n la longitud de la cadena recibida ci es : %d", lr);
+			printf("\n la cadena recibida ci es: %s", ci);
+			n++;
 			json_object * jobj = json_tokener_parse(ci);     
 			json_parse(jobj);
 			printf("\nLos valores del json son: %i, %i\n", v[0], v[1]);
