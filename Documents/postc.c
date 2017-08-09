@@ -223,7 +223,13 @@ void def_tableb(int ib){
 	}else{
 		bd[4]=0;
 	}
-	bd[5]=rand()%2;
+	if (bd[3]<30){
+		bd[5]=1;	
+	}
+	else{
+		bd[5]=0;	
+	}	
+	//bd[5]=rand()%2;
 }
 
 int main(){
@@ -231,11 +237,11 @@ int main(){
 	vac_bike();
 	int btot;
 	char com[3000];
-	char res[2500];
+	//char res[2500];
 	char t[4];
 	int is;
 	strcpy(com,"");
-	strcpy(res,"");
+	//strcpy(res,"");
 	int nc=36;
 	int nf=6;
 	int n=1;
