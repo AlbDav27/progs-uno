@@ -20,8 +20,7 @@ int main(){
 
 	printf("\n");
 	fgets(lin, 100, fp);
-		printf(" %s  //", n, lin);
-		n++;
+		printf(" %s  //", lin);
 	}
 	fclose(fp);
 }
