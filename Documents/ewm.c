@@ -13,7 +13,7 @@ int main(){
 	FILE *fp;
 
 	system ("/usr/advantech/utility/3g-module/3g_ublox.sh >/home/root/progs-uno/Documents/cnf.txt");
-	sleep(10);
+	sleep(8);
 	system ("sed '1,41d' /home/root/progs-uno/Documents/cnf.txt >/home/root/progs-uno/Documents/cn.txt");
 
 	fp = fopen ("cn.txt","r");
