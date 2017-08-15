@@ -13,13 +13,12 @@ int main(){
 	FILE *fp;
 
 	system ("/usr/advantech/utility/3g-module/3g_ublox.sh >/home/root/progs-uno/Documents/cnf.txt");
-	system ("sed '1,16d' cnf.txt >/home/root/progs-uno/Documents/cn.txt");
 
-	fp = fopen ("cn.txt","r");
+	fp = fopen ("cnf.txt","r");
 
 	printf("\n");
-	while ((fgets(lin, 100, fp))!= NULL){
-				
+	while ((n<9999)){
+		caracter=fgetc(fp);
 		printf("n= %d , %c  //", n, caracter);
 		n++;
 	}
