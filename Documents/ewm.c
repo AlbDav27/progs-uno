@@ -20,6 +20,7 @@ int main(){
 		printf("\nn = %d\n", n);
 		if((caracter = fgetc(fp)) == EOF){		
 			n++;
+			printf("%c",caracter);
 		}
 		if (n==41){
 			while((caracter = fgetc(fp)) != EOF)
