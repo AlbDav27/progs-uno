@@ -24,6 +24,13 @@ int main(){
 		}
 		n++;
 	}
+	while (fgets(lin, 100, fp) != NULL){
+		printf("\nn= %d , %s\n", n, lin);
+		if (n==42){
+			strcpy (res, lin);
+		}
+		n++;
+	}
 	fclose(fp);
 	printf("\nLa cadena de DNS: %s\n", res);
 }
