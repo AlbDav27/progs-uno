@@ -19,12 +19,12 @@ int main(){
 	
 	while (n<44){
 		fgets(lin,100,fp);
-		if (n=41){
+		printf("\nn=%d , %s\n", n, lin);
+		if (n==41){
 			strcpy (res, lin);
 		}
 		n++;
 	}
-	printf("\n%s\n", res);
 	printf("\n%s\n", res);
 	
 	fclose(fp);
