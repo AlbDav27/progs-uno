@@ -18,11 +18,12 @@ int main(){
 
 	
 	while (fgets(lin, 100, fp) != NULL){
-		printf("\nn=%d , %s\n", n, lin);
-		if (n==41){
+		printf("\nn= %d , %s\n", n, lin);
+		if (n==42){
 			strcpy (res, lin);
 		}
+		n++;
 	}
-	printf("\n%s\n", res);
 	fclose(fp);
+	printf("\nLa cadena de DNS: %s\n", res);
 }
