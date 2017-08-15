@@ -17,8 +17,7 @@ int main(){
 	
 	while (n<44){
 		printf("\nn = %d\n", n);
-		caracter = fgetc(fp) != EOF;
-		if{		
+		if((caracter = fgetc(fp)) == EOF){		
 			n++;
 		}
 		if (n==41){
@@ -26,37 +25,13 @@ int main(){
 			{		
 				printf("%c",caracter);
 				res[n]=caracter;
-				n++;
-				
 			}
+			n++;
 			strcpy (res, lin);
 		}
-		n++;
 	}
 	printf("\n%s\n", res);
 	
 	fclose(fp);
 
-//fgets(res, 100, fp);
-	/*while((caracter = fgetc(fp)) != EOF)
-	{		
-		printf("%c",caracter);
-		res[n]=caracter;
-		n++;
-		
-	}
-	n=107;
-	printf("\n\n la cadena recibida guardadA en res es : ");
-	while ((n<164)&&(z<83)){		
-		printf("%d-%c  ", n, res[n]);
-		y=n%2;
-		if (y==0&&n!=106&&n!=160){
-			if (res[n]!=92)
-			{
-				ci[z]=res[n];
-				z++;
-			}
-		}
-		n++;
-	}*/
 }
