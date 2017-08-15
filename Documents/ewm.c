@@ -16,10 +16,10 @@ int main(){
 
 	fp = fopen ("cnf.txt","r");
 
-	
-	while (n<9999){
+	printf("\n");
+	while (n<999){
 		caracter = fgetc(fp);		
-		printf("\nn= %d , %c\n", n, caracter);
+		printf("n= %d , %c  //", n, caracter);
 		n++;
 	}
 	fclose(fp);
