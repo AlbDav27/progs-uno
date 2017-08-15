@@ -6,6 +6,7 @@
 
 int main(){
 	char com[100];
+	char lin[100];
 	char res[100];
 	char caracter;
 	int n=0;
@@ -17,20 +18,13 @@ int main(){
 
 	
 	while (n<44){
-		printf("\nn = %d\n", n);
-		if((caracter = fgetc(fp)) == EOF){		
-			n++;
-			printf("%c",caracter);
+		fgets(lin,100,fp);
+		if (n=41){
+			strcpy (res, lin);
 		}
-		if (n==41){
-			while((caracter = fgetc(fp)) != EOF)
-			{		
-				printf("%c",caracter);
-				res[n]=caracter;
-			}
-			n++;
-		}
+		n++;
 	}
+	printf("\n%s\n", res);
 	printf("\n%s\n", res);
 	
 	fclose(fp);
