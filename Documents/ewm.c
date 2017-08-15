@@ -18,7 +18,7 @@ int main(){
 	fp = fopen ("cn.txt","r");
 
 	printf("\n");
-	while ((fgets(lin, 100, fp))!= EOF){
+	while ((fgets(lin, 100, fp))!= NULL){
 		printf("n= %d , %s  //", n, lin);
 		n++;
 	}
