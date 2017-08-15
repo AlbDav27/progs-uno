@@ -12,7 +12,7 @@ int main(){
 	FILE *fp;
 
 	system ("cd");
-	system ("cd /etc/advantech/utility/3g-module");
+	system ("cd /usr/advantech/utility/3g-module");
 	system ("./3g_ublox.sh >/home/cnf.txt");
 
 	fp = fopen ("response.txt","r");
