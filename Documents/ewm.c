@@ -7,6 +7,7 @@
 int main(){
 	char com[100];
 	char res[100];
+	char caracter;
 	int n=0;
 	FILE *fp;
 
@@ -27,7 +28,6 @@ int main(){
 				res[n]=caracter;
 			}
 			n++;
-			strcpy (res, lin);
 		}
 	}
 	printf("\n%s\n", res);
