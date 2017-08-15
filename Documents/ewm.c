@@ -17,16 +17,12 @@ int main(){
 	fp = fopen ("cnf.txt","r");
 
 	
-	while (n<44){
-		fgets(lin,100,fp);
+	while (fgets(lin, 100, fp) != NULL){
 		printf("\nn=%d , %s\n", n, lin);
 		if (n==41){
 			strcpy (res, lin);
 		}
-		n++;
 	}
 	printf("\n%s\n", res);
-	
 	fclose(fp);
-
 }
