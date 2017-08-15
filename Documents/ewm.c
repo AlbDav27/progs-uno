@@ -16,12 +16,13 @@ int main(){
 	fp = fopen ("response.txt","r");
 
 	
-	while (n<50){
+	while (n<44){
 		printf("\nn = %d\n", n);
 		fgets(lin,100,fp);
-		if (n=27){
+		if (n==41){
 			strcpy (res, lin);
 		}
+		n++;
 	}
 	printf("\n%s\n", res);
 	
