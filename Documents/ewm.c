@@ -19,7 +19,7 @@ int main(){
 	
 	while (n<9999){
 		caracter = fgetc(fp);		
-		printf("\nn= %d , %s\n", n, lin);
+		printf("\nn= %d , %c\n", n, caracter);
 		n++;
 	}
 	fclose(fp);
