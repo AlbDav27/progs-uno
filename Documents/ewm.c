@@ -12,18 +12,14 @@ int main(){
 	int n=0;
 	FILE *fp;
 
-	system ("/usr/advantech/utility/3g-module/3g_ublox.sh >/home/root/progs-uno/Documents/cn.txt");
-	system ("cat /home/root/progs-uno/Documents/cn.txt >/home/root/progs-uno/Documents/cnf.txt")
+	system ("/usr/advantech/utility/3g-module/3g_ublox.sh >/home/root/progs-uno/Documents/cnf.txt");
 
 	fp = fopen ("cnf.txt","r");
 
 	
-	while (n<44){
-		fgets(lin, 100, fp);		
+	while (n<9999){
+		caracter = fgetc(fp);		
 		printf("\nn= %d , %s\n", n, lin);
-		if (n==42){
-			strcpy (res, lin);
-		}
 		n++;
 	}
 	fclose(fp);
