@@ -13,15 +13,15 @@ int main(){
 	FILE *fp;
 
 	system ("/usr/advantech/utility/3g-module/3g_ublox.sh >/home/root/progs-uno/Documents/cnf.txt");
-	system ("sed '1,16d' /home/root/progs-uno/Documents/cnf.txt >/home/root/progs-uno/Documents/cn.txt");
+	sleep(2);
+	system ("sed '1,41d' /home/root/progs-uno/Documents/cnf.txt >/home/root/progs-uno/Documents/cn.txt");
 
 	fp = fopen ("cn.txt","r");
 
 	printf("\n");
-	while ((fgets(lin, 100, fp))!= NULL){
-		printf("n= %d , %s  //", n, lin);
+	fgets(lin, 100, fp);
+		printf(" %s  //", n, lin);
 		n++;
 	}
 	fclose(fp);
-	printf("\nLa cadena de DNS: %s\n", res);
 }
