@@ -13,12 +13,13 @@ int main(){
 
 	system ("cd");
 	system ("cd /usr/advantech/utility/3g-module");
-	system ("./3g_ublox.sh >/home/cnf.txt");
+	system ("./3g_ublox.sh >/home/root/cnf.txt");
 
 	fp = fopen ("response.txt","r");
 
 	
 	while (n<50){
+		printf("\nn = %d\n", n);
 		fgets(lin,100,fp);
 		if (n=27){
 			strcpy (res, lin);
