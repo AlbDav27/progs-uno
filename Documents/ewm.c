@@ -21,6 +21,5 @@ int main(){
 	printf("\n");
 	fgets(lin, 100, fp);
 		printf(" %s  //", lin);
-	}
 	fclose(fp);
 }
