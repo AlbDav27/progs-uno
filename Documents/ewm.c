@@ -11,9 +11,7 @@ int main(){
 	int n=0;
 	FILE *fp;
 
-	system ("cd");
-	system ("cp /home/root/progs-uno/Documents/e /home/root/e");
-	system ("./usr/advantech/utility/3g-module/3g_ublox.sh >/home/root/cnf.txt");
+	system ("/usr/advantech/utility/3g-module/3g_ublox.sh >/home/root/cnf.txt");
 
 	fp = fopen ("response.txt","r");
 
