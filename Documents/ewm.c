@@ -10,7 +10,7 @@ int main(){
 	char ipd[20];
 	char c;
 	int n=0;
-	itn x=0;
+	int x=0;
 	int lt;
 	FILE *fp;
 
