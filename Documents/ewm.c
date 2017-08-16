@@ -31,12 +31,13 @@ int main(){
 	printf("\n la longitud de la cadena completa es: %d\n", lt);
 	while (n<lt){
 		c=lin[n];
-		if (c=='1'||c=='2'||c=='3'||c=='4'||c=='5'||c=='6'||c=='7'||c=='8'||c=='9'||c=='.'){
+		if (c=='1'||c=='2'||c=='3'||c=='4'||c=='5'||c=='6'||c=='7'||c=='8'||c=='9'||c=='0'||c=='.'){
 			ipd[x]=c;
 			x++;
 		}
 		n++;
 	}
+	ipd[x]='\0';
 	lt = strlen(ipd);
 	printf("\n la dir ip del ser dns es: %s\n", ipd);
 	printf("\n la long de la dir ip: %d\n", lt);
