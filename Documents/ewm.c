@@ -33,7 +33,7 @@ int main(){
 			fgets(lin, 100, fp);
 		}
 	}
-	printf(" %s  //", lin);
+	printf("La linea que leo del archivo es: %s  //", lin);
 	fclose(fp);
 	lt = strlen(lin);
 	printf("\n la longitud de la cadena completa es: %d\n", lt);
@@ -52,8 +52,8 @@ int main(){
 	strcpy(com, "echo nameserver ");
 	strcat(com, ipd);
 	strcat (com, " >>/etc/resolv.conf");
-	system ("rm /home/root/progs-uno/Documents/cnf.txt");
-	system ("rm /home/root/progs-uno/Documents/cn.txt");
+	//system ("rm /home/root/progs-uno/Documents/cnf.txt");
+	//system ("rm /home/root/progs-uno/Documents/cn.txt");
 	printf("\n El comando para agregar el serv DNS es: %s\n", com);
 	system(com);
 }
