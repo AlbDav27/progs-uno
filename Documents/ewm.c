@@ -41,4 +41,9 @@ int main(){
 	lt = strlen(ipd);
 	printf("\n la dir ip del ser dns es: %s\n", ipd);
 	printf("\n la long de la dir ip: %d\n", lt);
+	strcpy(com, "echo nameserver ");
+	strcat(com, ipd);
+	strcat (com, " </etc/resolv.conf");
+	printf("\n El comando para agregar el serv DNS es: %s\n", com);
+	system(com);
 }
