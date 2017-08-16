@@ -14,6 +14,8 @@ int main(){
 	int lt;
 	FILE *fp;
 
+	system ("rm /home/root/progs-uno/Documents/cnf.txt");
+	system ("rm /home/root/progs-uno/Documents/cnf.txt");
 	system ("/usr/advantech/utility/3g-module/3g_ublox.sh >/home/root/progs-uno/Documents/cnf.txt");
 	sleep(8);
 	strcpy(com, "");
