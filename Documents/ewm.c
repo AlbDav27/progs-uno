@@ -15,7 +15,7 @@ int main(){
 	FILE *fp;
 
 	system ("/usr/advantech/utility/3g-module/3g_ublox.sh >/home/root/progs-uno/Documents/cnf.txt");
-	sleep(7);
+	sleep(8);
 	strcpy(com, "");
 	strcpy(lin, "");
 	strcpy(ipd, "");
