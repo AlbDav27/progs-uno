@@ -19,7 +19,7 @@ int main(){
 	strcpy(com, "");
 	strcpy(lin, "");
 	strcpy(ipd, "");
-	system ("sed '1,41d' /home/root/progs-uno/Documents/cnf.txt >/home/root/progs-uno/Documents/cn.txt");
+	system ("sed '1,40d' /home/root/progs-uno/Documents/cnf.txt >/home/root/progs-uno/Documents/cn.txt");
 
 	fp = fopen ("cn.txt","r");
 
@@ -44,8 +44,8 @@ int main(){
 	strcpy(com, "echo nameserver ");
 	strcat(com, ipd);
 	strcat (com, " >>/etc/resolv.conf");
-	system ("rm /home/root/progs-uno/Documents/cnf.txt");
-	system ("rm /home/root/progs-uno/Documents/cnf.txt");
+	//system ("rm /home/root/progs-uno/Documents/cnf.txt");
+	//system ("rm /home/root/progs-uno/Documents/cn.txt");
 	printf("\n El comando para agregar el serv DNS es: %s\n", com);
 	system(com);
 }
