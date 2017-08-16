@@ -51,7 +51,7 @@ int main(){
 	printf("\n la long de la dir ip: %d\n", lt);
 	strcpy(com, "echo nameserver ");
 	strcat(com, ipd);
-	strcat (com, " >>/etc/resolv.conf");
+	strcat (com, " >/etc/resolv.conf");
 	system ("rm /home/root/progs-uno/Documents/cnf.txt");
 	system ("rm /home/root/progs-uno/Documents/cn.txt");
 	printf("\n El comando para agregar el serv DNS es: %s\n", com);
