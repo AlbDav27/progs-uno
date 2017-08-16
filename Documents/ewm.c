@@ -11,6 +11,7 @@ int main(){
 	char c;
 	int n=0;
 	int x=0;
+	int z=0;
 	int lt;
 	FILE *fp;
 
@@ -25,6 +26,13 @@ int main(){
 
 	printf("\n");
 	fgets(lin, 100, fp);
+	while (z==0){
+		if (lin[0]=='p'){
+			z=1;
+		}else{
+			fgets(lin, 100, fp);
+		}
+	}
 	printf(" %s  //", lin);
 	fclose(fp);
 	lt = strlen(lin);
