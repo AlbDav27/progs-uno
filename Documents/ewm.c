@@ -20,7 +20,7 @@ int main(){
 	strcpy(com, "");
 	strcpy(lin, "");
 	strcpy(ipd, "");
-	system ("sed '1,40d' /home/root/progs-uno/Documents/cnf.txt >/home/root/com/cn.txt");
+	system ("sed '1,40d' /home/root/com/cnf.txt >/home/root/com/cn.txt");
 
 	fp = fopen ("cn.txt","r");
 
