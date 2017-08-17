@@ -1,0 +1,8 @@
+#!/bin/bash
+cd /home/alberto/Documents/ecob/scr
+echo "estoy en scr"
+#./e
+sleep 15
+cd
+echo "estoy en home" 
+#./p

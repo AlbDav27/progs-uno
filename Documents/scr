@@ -1,0 +1,6 @@
+#!/bin/bash
+cd /home/root/com
+./e
+sleep 15
+cd /home/root/prog
+./p
