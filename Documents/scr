@@ -1,6 +1,20 @@
 #!/bin/bash
-cd /home/root/com
-./e
 sleep 15
-cd /home/root/prog
-./p
+x=0
+while [ $x -le 0 ]
+do
+  	echo "Welcome"
+  	/home/root/com/e
+	sleep 15
+	if ping -c1 google.com &>/dev/null; 
+	then 
+    	echo "Hay conexión"; 
+  		x=$(( $x + 1 ))
+  	else 
+        echo "no tienes conexion"; 
+	fi
+done
+echo "ya esta lista la conexión";
+/home/root/udp/u;
+sleep 10;
+/home/root/prog/p;
