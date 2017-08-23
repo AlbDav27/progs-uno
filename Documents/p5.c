@@ -400,6 +400,7 @@ int main(){
 	int lr,lt;
 	int z=0;
 	int y;
+	int disp=0;
 
 	FILE *fp;
 
@@ -445,12 +446,14 @@ int main(){
 		{
 			//Primero se realiza una solicitud de la info de conf a la plataforma
 			z=0;
-			strcpy(com, "curl -X GET \"https://my.rayven.io:8082/api/main?uid=111848e7eda9ff3b47e3aba02197e37a6a94&deviceid=conf_data\" >/home/alberto/Documents/UNO/response.txt");
-			printf("\n\n\nejecuto post %d : %s \n", n, com);
+			strcpy(com, "curl -X GET \"https://my.rayven.io:8082/api/main?uid=111848e7eda9ff3b47e3aba02197e37a6a94&deviceid=conf_data\" >/home/alberto/Documents/ecob/UNO/response.txt");
+			//strcpy(com, "curl -X GET \"https://my.rayven.io:8082/api/main?uid=111848e7eda9ff3b47e3aba02197e37a6a94&deviceid=conf_data\" >/home/root/prog/response.txt");
+			printf("\n\n\nejecuto post : %s \n", com);
 			lt= strlen(com);
 			printf("\n la longitud del comando es : %d\n\n", lt);
 			system (com);
 			fp = fopen ("response.txt","r");
+			//fp = fopen ("/home/root/prog/response.txt","r");
 			//fgets(res, 100, fp);
 			n=0;
 			while((caracter = fgetc(fp)) != EOF)
@@ -548,6 +551,7 @@ int main(){
 				subs[2]=read_buffer[3];
 				subs[3]=read_buffer[4];
 				f_data(subs);
+				disp++;
 			}
 			strcpy(subs,"");
 			tcflush(fd, TCIOFLUSH);
@@ -615,9 +619,11 @@ int main(){
 				control[n][4]=num;
 				strcpy(subs,"");	
 
+				disp++;
 			}
 			if (n==nc)								//si es el último controlador
 			{
+				
 				getgval(nc);
 				to_jsonc();
 
@@ -625,12 +631,12 @@ int main(){
 
 				strcpy(com, "curl -X POST -H \"Content-Type: application/json\" -d '");
 				strcat(com, js);
-				strcat(com, "' https://my.rayven.io:8082/api/main?uid=111848e7eda9ff3b47e3aba02197e37a6a94&deviceid=st_");
+				strcat(com, "' \"https://my.rayven.io:8082/api/main?uid=111848e7eda9ff3b47e3aba02197e37a6a94&deviceid=st_");
 				sprintf(t,"%d",id_st);
 				strcat(com, t);
-				strcat(com, " >/home/alberto/Documents/rayven/response");
-				printf("\n\n\nejecuto post %d : %s \n", n, com);
-				//system (com);
+				strcat(com, "\"");
+				printf("\n\n\nejecuto post : %s \n", com);
+				system (com);
 
 				//////////////////////////////////////
 
@@ -643,6 +649,17 @@ int main(){
 				def_table(nc);		//estabñece en la tabla control los valores por default
 				df_tabl(nf);			//establece en la tabla fuente los valores por default
 				printf ("\n acabe un ciclo de todos los dispositivos");
+
+				printf("\n se monitorearon %d dispositivos\n", disp);
+				if (disp==0){
+					printf("\n ERROR NO HAY NINGUN DISPOSITIVO QUE ENVIE DATOS \n");
+					break;
+					break;
+					break;
+					break;
+				}
+				
+				disp=0;
 				sleep(2);
 			}
 			n++;
