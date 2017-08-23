@@ -7,7 +7,6 @@
 #include <sys/ioctl.h>   /* ioctl() */
 #include <unistd.h> 	//para funcion sleep()  ...delay
 #include <string.h>
-#include <json/json.h>
 #include <math.h>
 
 FILE *fp;
