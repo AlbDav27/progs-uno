@@ -4,7 +4,7 @@ x=0
 while [ $x -le 0 ]
 do
   	echo "Welcome"
-  	/home/root/com/e
+  	/home/com/e
 	sleep 15
 	if ping -c1 google.com &>/dev/null; 
 	then 
@@ -15,6 +15,6 @@ do
 	fi
 done
 echo "ya esta lista la conexión";
-/home/root/upd/u;
+/home/upd/u;
 sleep 10;
-/home/root/prog/p;
+/home/prog/p;
