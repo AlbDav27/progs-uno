@@ -15,6 +15,6 @@ do
 	fi
 done
 echo "ya esta lista la conexión";
-/home/root/udp/u;
+/home/root/upd/u;
 sleep 10;
 /home/root/prog/p;
