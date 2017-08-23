@@ -97,13 +97,13 @@ void act_sflc(){
 	char mx[30];
 	char bin[25];
 
-	strcpy(xm, "curl -X GET \"https://my.rayven.io:8082/api/main?uid=111848e7eda9ff3b47e3aba02197e37a6a94&deviceid=lc_prog\" >/home/root/update/lc.c");
+	strcpy(xm, "curl -X GET \"https://my.rayven.io:8082/api/main?uid=111848e7eda9ff3b47e3aba02197e37a6a94&deviceid=lc_prog\" >/home/upd/lc.c");
 	printf("\n\n\nejecuto post : %s \n", xm);
 	ll= strlen(xm);
 	printf("\n la longitud del comando es : %d\n\n", ll);
 	system (xm);
 	if (ck==1){
-		fp = fopen ("/home/root/update/lc.c","r");
+		fp = fopen ("/home/upd/lc.c","r");
 		fseek(fp, 0L, SEEK_END);
 		lll=ftell(fp);
 		conv(ll);
@@ -129,13 +129,13 @@ void act_sfcn(){
 	char mx[30];
 	char bin[25];
 
-	strcpy(xm, "curl -X GET \"https://my.rayven.io:8082/api/main?uid=111848e7eda9ff3b47e3aba02197e37a6a94&deviceid=cn_prog\" >/home/root/update/cn.c");
+	strcpy(xm, "curl -X GET \"https://my.rayven.io:8082/api/main?uid=111848e7eda9ff3b47e3aba02197e37a6a94&deviceid=cn_prog\" >/home/upd/cn.c");
 	printf("\n\n\nejecuto post : %s \n", xm);
 	ll= strlen(xm);
 	printf("\n la longitud del comando es : %d\n\n", ll);
 	system (xm);
 	if (ck==1){
-		fp = fopen ("/home/root/update/cn.c","r");
+		fp = fopen ("/home/upd/cn.c","r");
 		fseek(fp, 0L, SEEK_END);
 		lll=ftell(fp);
 		conv(ll);
@@ -158,16 +158,16 @@ void act_sfsm(){
 	char mx[30];
 	char bin[25];
 
-	strcpy(xm, "curl -X GET \"https://my.rayven.io:8082/api/main?uid=111848e7eda9ff3b47e3aba02197e37a6a94&deviceid=sm_prog\" >/home/root/update/sm.c");
+	strcpy(xm, "curl -X GET \"https://my.rayven.io:8082/api/main?uid=111848e7eda9ff3b47e3aba02197e37a6a94&deviceid=sm_prog\" >/home/upd/sm.c");
 	printf("\n\n\nejecuto post : %s \n", xm);
 	ll= strlen(xm);
 	printf("\n la longitud del comando es : %d\n\n", ll);
 	system (xm);
 	if (ck==1){
-		system ("rm /home/root/prog/prog.c");
-		system ("rm /home/root/prog/p");
-		system ("mv /home/root/update/sm.c /home/root/prog/prog.c");
-		system("gcc /home/root/prog/prog.c -o /home/root/prog/p -l json");
+		system ("rm /home/prog/p5.c");
+		system ("rm /home/prog/p");
+		system ("mv /home/upd/sm.c /home/prog/p5.c");
+		system("gcc /home/prog/p5.c -o /home/prog/p");
 		//fp = fopen ("sm.c","r");
 	
 		sleep(2);
