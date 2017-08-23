@@ -17,42 +17,63 @@ int x =0;				//variable que distingue entr variables de configuración
 char js[2000];			//cadena json a enviar
 int b, slots, st;
 /////////////////////////////////////////////////////funciones para parseo JSON////////////////////////////////////////////////////////////////////////
-void print_json_value(json_object *jobj){
-	enum json_type type;
-	//printf("\ntype: ");
-	type = json_object_get_type(jobj); /*Getting the type of the json object*/
-	switch (type) {
-    	case json_type_boolean:
-                         break;
-    	case json_type_double: 
-                         break;
-    	case json_type_int: 
-						v[x]=json_object_get_int(jobj);
-                         break;
-    	case json_type_string: 
-                         break;
-	}
-	if (x==0){
-  		x++;	
 
+void transform(char dat1[3], char dat2[3]){
+	int un=0;
+	int de=0;
+	int ce=0;
+	int dat;
+	if (dat1[2]!='\0'){
+		ce=dat1[0]-48;
+		de=dat1[1]-48;
+		un=dat1[2]-48;
 	}else{
-  		x=0;
+		de=dat1[0]-48;
+		un=dat1[1]-48;
 	}
+	dat=(100*ce)+(10*de)+un;
+	v[0]=dat;					// dato de porcentaje de carga
+
+	if (dat2[2]!='\0'){
+		ce=dat2[0]-48;
+		de=dat2[1]-48;
+		un=dat2[2]-48;
+	}else{
+		de=dat2[0]-48;
+		un=dat2[1]-48;
+	}
+	dat=(100*ce)+(10*de)+un;
+	v[1]=dat;					//dato de velocidad de la E/Bike
 }
-/*Parsing the json object*/
-void json_parse(json_object * jobj) {
-	enum json_type type;
-	json_object_object_foreach(jobj, key, val) { //Passing through every array element//
-    	type = json_object_get_type(val);
-    	switch (type) {
-    		case json_type_boolean: 
-    		case json_type_double: 
-    		case json_type_int: 
-    		case json_type_string: print_json_value(val);
-                         break; 
-    	}
+
+void getdata(char ci[30]){
+	int y=0;
+	int u=0;
+	int l=0;
+	char dat1[3];
+	char dat2[3];
+	dat1[2]='\0';
+	dat2[2]='\0';
+	while (ci[y]!='\0'){
+		if (ci[y]==','){
+			u=1;l=0;
+		}
+		if (ci[y]=='0'||ci[y]=='1'||ci[y]=='2'||ci[y]=='3'||ci[y]=='4'
+			||ci[y]=='5'||ci[y]=='6'||ci[y]=='7'||ci[y]=='8'||ci[y]=='9'){
+			if (u==0){
+				dat1[l]=ci[y];
+				l++;
+			}
+			if (u==1){
+				dat2[l]=ci[y];
+				l++;
+			}
+		}
+		y++;
 	}
-} 
+	transform(dat1,dat2);
+}
+
 /////////////////////////////////////////////////////////////////funciones para transformar cadena recibida a valores enteros
 int conv_st_int3(char str[3]){
 	int num;
@@ -482,8 +503,7 @@ int main(){
 			printf("\n la longitud de la cadena recibida ci es : %d", lr);
 			printf("\n la cadena recibida ci es: %s", ci);
 			n++;
-			json_object * jobj = json_tokener_parse(ci);     
-			json_parse(jobj);
+			getdata(ci);
 			printf("\nLos valores del json son: %i, %i\n", v[0], v[1]);
 			strcpy (com, "");
 			///////////se envian los datos a los controladores en Broadcast/////////////////////////////////////
