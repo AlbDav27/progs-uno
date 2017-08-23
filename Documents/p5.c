@@ -467,14 +467,14 @@ int main(){
 		{
 			//Primero se realiza una solicitud de la info de conf a la plataforma
 			z=0;
-			strcpy(com, "curl -X GET \"https://my.rayven.io:8082/api/main?uid=111848e7eda9ff3b47e3aba02197e37a6a94&deviceid=conf_data\" >/home/alberto/Documents/ecob/UNO/response.txt");
-			//strcpy(com, "curl -X GET \"https://my.rayven.io:8082/api/main?uid=111848e7eda9ff3b47e3aba02197e37a6a94&deviceid=conf_data\" >/home/root/prog/response.txt");
+			//strcpy(com, "curl -X GET \"https://my.rayven.io:8082/api/main?uid=111848e7eda9ff3b47e3aba02197e37a6a94&deviceid=conf_data\" >/home/alberto/Documents/ecob/UNO/response.txt");
+			strcpy(com, "curl -X GET \"https://my.rayven.io:8082/api/main?uid=111848e7eda9ff3b47e3aba02197e37a6a94&deviceid=conf_data\" >/home/prog/response.txt");
 			printf("\n\n\nejecuto post : %s \n", com);
 			lt= strlen(com);
 			printf("\n la longitud del comando es : %d\n\n", lt);
 			system (com);
-			fp = fopen ("response.txt","r");
-			//fp = fopen ("/home/root/prog/response.txt","r");
+			//fp = fopen ("response.txt","r");
+			fp = fopen ("/home/prog/response.txt","r");
 			//fgets(res, 100, fp);
 			n=0;
 			while((caracter = fgetc(fp)) != EOF)
