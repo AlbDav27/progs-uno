@@ -1,11 +1,12 @@
 #!/bin/bash
 sleep 15
+/home/com/e
 x=0
+sleep 5
 while [ $x -le 0 ]
 do
   	echo "Welcome"
   	/home/com/e
-	sleep 15
 	if ping -c1 google.com; 
 	then 
     	echo "Hay conexión"; 
