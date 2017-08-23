@@ -15,14 +15,16 @@ int main(){
 	int lt;
 	FILE *fp;
 
-	system ("/usr/advantech/utility/3g-module/3g_ublox.sh >/home/root/com/cnf.txt");
+	printf("\nantes de ejecutar 3g_ublox\n");
+	system ("/usr/advantech/utility/3g-module/3g_ublox.sh >/home/com/cnf.txt");
+	printf("\nproblema en la conf de DNS\n");
 	sleep(8);
 	strcpy(com, "");
 	strcpy(lin, "");
 	strcpy(ipd, "");
-	system ("sed '1,40d' /home/root/com/cnf.txt >/home/root/com/cn.txt");
+	system ("sed '1,40d' /home/com/cnf.txt >/home/com/cn.txt");
 
-	fp = fopen ("cn.txt","r");
+	fp = fopen ("/home/com/cn.txt","r");
 
 	printf("\n");
 	fgets(lin, 100, fp);
@@ -52,8 +54,8 @@ int main(){
 	strcpy(com, "echo nameserver ");
 	strcat(com, ipd);
 	strcat (com, " >/etc/resolv.conf");
-	system ("rm /home/root/com/cnf.txt");
-	system ("rm /home/root/com/cn.txt");
+	system ("rm /home/com/cnf.txt");
+	system ("rm /home/com/cn.txt");
 	printf("\n El comando para agregar el serv DNS es: %s\n", com);
 	system(com);
 }
