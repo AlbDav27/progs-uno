@@ -90,7 +90,7 @@ void conv(int numero){
 
 void act_sflc(){
 	long lll;
-	int ll
+	int ll;
 	int ck=0;
 	int bytes_written;
 	char xm[170];
@@ -122,7 +122,7 @@ void act_sflc(){
 }
 void act_sfcn(){
 	long lll;
-	int ll
+	int ll;
 	int ck=0;
 	int bytes_written;
 	char xm[170];
