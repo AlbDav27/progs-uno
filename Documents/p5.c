@@ -7,7 +7,7 @@
 #include <sys/ioctl.h>   /* ioctl() */
 #include <unistd.h> 	//para funcion sleep()  ...delay
 #include <string.h>
-#include <json/json.h>
+
 
 ///////////variables globales/////////////////////////
 int control[37][5];		//tabla donde se almacenan los datos de las Lock Controller
