@@ -17,7 +17,7 @@ int main(){
 
 	printf("\nantes de ejecutar 3g_ublox\n");
 	system ("/usr/advantech/utility/3g-module/3g_ublox.sh >/home/com/cnf.txt");
-	printf("\nproblema en la conf de DNS\n");
+	//printf("\nproblema en la conf de DNS\n");
 	sleep(8);
 	strcpy(com, "");
 	strcpy(lin, "");
