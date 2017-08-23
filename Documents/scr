@@ -6,7 +6,7 @@ do
   	echo "Welcome"
   	/home/com/e
 	sleep 15
-	if ping -c1 google.com &>/dev/null; 
+	if ping -c1 google.com; 
 	then 
     	echo "Hay conexión"; 
   		x=$(( $x + 1 ))
