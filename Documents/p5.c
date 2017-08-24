@@ -175,12 +175,12 @@ void getgval(int nc){
 
 ///////////////////////////////////////////////////////// Esta funcion genera la cadena json que se va a publicar
 
-void to_jsonc(){
+void to_jsonc(int nc, int nf, int id_st){
 	char t [5];
 	int q;
 	strcpy(js,"");
 	strcpy(js,"{\"id_st\":");
-	sprintf(t,"%d",27);
+	sprintf(t,"%d",id_st);
 	strcat(js, t);
 	if (st==0){
 		strcat(js, ", \"status\":\"ok\", \"bikes\":");
@@ -191,19 +191,24 @@ void to_jsonc(){
 	strcat(js, t);
 	strcat(js, ", \"slots\":");
 	sprintf(t,"%d", slots);
-	strcat(js, t); 
+	strcat(js, t);
+	if (fuente[8][2]==0){
+		strcat(js, ", \"door\":\"closed\"");
+	}else{
+		strcat(js, ", \"door\":\"opened\"");
+	}
 	strcat(js, ", \"chargers\":[");
-	for(q=1;q<=6;q++){
+	for(q=1;q<=nf;q++){
 		strcat(js,"{\"id_f\":");
-		sprintf(t,"%d",fuente[q][0]);			//id_c se encuentra en las posiciones [0][q] de control
+		sprintf(t,"%d",fuente[q][0]);			//id_f se encuentra en las posiciones [0][q] de fuente
 		strcat(js, t);
 		strcat(js,", \"temperature\":");
-		sprintf(t,"%d",fuente[q][1]);			//id_b se encuentra en las posiciones [4][q] de control
+		sprintf(t,"%d",fuente[q][2]);			//t se encuentra en las posiciones [q][2] de fuente
 		strcat(js, t);
 		strcat(js,", \"status\":");
-		sprintf(t,"%d",fuente[q][2]);			//st_ch se encuentra en las posiciones [1][q] de control
+		sprintf(t,"%d",fuente[q][1]);			//ok se encuentra en las posiciones [q][1] de fuente
 		strcat(js, t);
-		if (q<6){
+		if (q<nf){
 			strcat(js, "},");
 		}
 		else {
@@ -213,23 +218,23 @@ void to_jsonc(){
 
 	strcat(js, "\"locks\":[");
 
-	for(q=1;q<=36;q++){
+	for(q=1;q<=nc;q++){
 		strcat(js,"{\"id_c\":");
-		sprintf(t,"%d",control[q][0]);			//id_c se encuentra en las posiciones [0][q] de control
+		sprintf(t,"%d",control[q][0]);			//id_c se encuentra en las posiciones [q][0] de control
 		strcat(js, t);
 		strcat(js,", \"id_b\":");
-		sprintf(t,"%d",control[q][4]);			//id_b se encuentra en las posiciones [4][q] de control
+		sprintf(t,"%d",control[q][4]);			//id_b se encuentra en las posiciones [q][4] de control
 		strcat(js, t);
 		strcat(js,", \"st_ch\":");
-		sprintf(t,"%d",control[q][1]);			//st_ch se encuentra en las posiciones [1][q] de control
+		sprintf(t,"%d",control[q][1]);			//st_ch se encuentra en las posiciones [q][1] de control
 		strcat(js, t);
 		strcat(js,", \"hs_ba\":");
-		sprintf(t,"%d",control[q][2]);			//hs_ba se encuentra en las posiciones [2][q] de control
+		sprintf(t,"%d",control[q][2]);			//hs_ba se encuentra en las posiciones [q][2] de control
 		strcat(js, t);
 		strcat(js,", \"nc\":");
-		sprintf(t,"%d",control[q][3]);			//nc se encuentra en las posiciones [3][q] de control
+		sprintf(t,"%d",control[q][3]);			//nc se encuentra en las posiciones [q][3] de control
 		strcat(js, t);
-		if (q<36){
+		if (q<nc){
 			strcat(js, "},");
 		}
 		else {
@@ -430,9 +435,9 @@ int main(){
 
 	/////////////////////////////////////////variables qque cambian paraa cada estación
 
-	int nc=36;					//número de controladores de la estación
+	int nc=36;					//número de lock controllers de la estación
 	int id_st=1;				//identificador de la estación
-	int nf = 8;					//numero de fuentes
+	int nf = 4;					//numero de fuentes
 	
 	///////////////////////este valor es el mismo para todas las estaciones inicialmente
 
@@ -650,7 +655,7 @@ int main(){
 			{
 				
 				getgval(nc);
-				to_jsonc();
+				to_jsonc(nc, nf, id_st);
 
 				/////////////////////////////////////////////aqui se debe de enviar la informacion
 
