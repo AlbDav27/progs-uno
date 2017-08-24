@@ -39,7 +39,7 @@ int main(){
 		}
 	}
 	fclose(fp);
-	if (u!=0){
+	if (u==0){
 		printf("La linea que leo del archivo es: %s  //", lin);
 		
 		lt = strlen(lin);
@@ -64,7 +64,7 @@ int main(){
 	}else{
 		printf("\nerror al leer archivo de DNS\n");
 	}
-	system ("rm /home/com/cnf.txt");
-	system ("rm /home/com/cn.txt");
-	system ("ping google.com");
+	//system ("rm /home/com/cnf.txt");
+	//system ("rm /home/com/cn.txt");
+	//system ("ping google.com");
 }
