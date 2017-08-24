@@ -66,4 +66,5 @@ int main(){
 	}
 	system ("rm /home/com/cnf.txt");
 	system ("rm /home/com/cn.txt");
+	system ("ping google.com");
 }
