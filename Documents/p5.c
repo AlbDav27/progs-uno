@@ -386,6 +386,9 @@ int main(){
 		DTR_flag = TIOCM_DTR;	/* Modem Constant for DTR pin 
 		ioctl(fd,TIOCMBIS,&RTS_flag);/* ~RTS = 1,So ~RE pin of MAX485 is HIGH                       
 		ioctl(fd,TIOCMBIS,&DTR_flag);/* ~DTR = 1,So  DE pin of MAX485 is HIGH,Transmit Mode enabled */ 
+	
+	fcntl(fd, F_SETFL,FNDELAY);
+
 	if((tcsetattr(fd,TCSANOW,&SerialPortSettings)) != 0){ 
 		    printf("\n  ERROR ! in Setting attributes");
 	}
@@ -563,6 +566,7 @@ int main(){
 			printf("\nSolicitud: %s/findecad", cmx);
 			cmx[4]=13;					
 			bytes_written = write(fd,cmx,5);
+			usleep(1000000);
 			bytes_read = read(fd,read_buffer,8);		//leer datos y almacenarlos en el array read_buffer
 			if (bytes_read>0)
 			{
@@ -593,7 +597,8 @@ int main(){
 			strcat(cmx, temp);
 			strcat(cmx,"/***");
 			printf("\nSolicitud: %s/findecad", cmx);
-			bytes_written = write(fd,cmx,8);	
+			bytes_written = write(fd,cmx,8);
+			usleep(1000000);	
 			bytes_read = read(fd,read_buffer,22);		//leer datos y almacenarlos en el array read_buffer
         	printf("\n Recibo: /");
         	for(i=0;i<bytes_read;i++)              /*printing only the received characters*/
