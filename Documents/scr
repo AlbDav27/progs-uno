@@ -1,21 +1,22 @@
 #!/bin/bash
 sleep 15
 /home/com/e
-x=0
-sleep 5
-while [ $x -le 0 ]
-do
-  	echo "Welcome"
-  	/home/com/e
-	if ping -c1 google.com; 
+if ping -c1 google.com; 
+then 
+   	echo "Hay conexión"; 
+	x=$(( $x + 1 ))
+	/home/upd/u;
+	sleep 10;
+	/home/prog/p;
+else 
+    echo "no tienes conexion";
+    /home/com/e
+    if ping -c1 google.com; 
 	then 
-    	echo "Hay conexión"; 
-  		x=$(( $x + 1 ))
-  	else 
-        echo "no tienes conexion"; 
+   		echo "Hay conexión"; 
+		x=$(( $x + 1 ))
+		/home/upd/u;
+		sleep 10;
+		/home/prog/p;
 	fi
-done
-echo "ya esta lista la conexión";
-/home/upd/u;
-sleep 10;
-/home/prog/p;
+fi
