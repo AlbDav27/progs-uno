@@ -11,7 +11,7 @@ int main(){
 	char c;
 	int n=0;
 	int x=0;
-	int z=0
+	int z=0;
 	int u=0;
 	int lt;
 	FILE *fp;
