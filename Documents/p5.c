@@ -460,6 +460,8 @@ int main(){
 	f = 1;
 	n = 1;
 
+	ti = tim-nc+1;			//este tiempo es para que cada ciclo se haga a cada minuto
+
 	sleep(5);				 ////////retardo para asegurar que se envie una vez que el receptor este listo para recibir
 
 	tcflush(fd, TCIFLUSH);			//limpiar buffer de entrada
@@ -681,7 +683,7 @@ int main(){
 				def_table(nc);		//estabñece en la tabla control los valores por default
 				df_tabl(nf);			//establece en la tabla fuente los valores por default
 				printf ("\n acabe un ciclo de todos los dispositivos");
-				ti = tim-nc+1;
+				
 				sleep (ti);			//suponiendo que cada dispositivo ocupa 1 s en enviar y recibir datos
 								//para que la estacion envie datos cada 60s el resto de tiempo hace sleep
 
