@@ -430,7 +430,7 @@ int main(){
 	int z=0;
 	int y;
 	int disp=0;
-	int tim=60;
+	int tim=45;
 	int ti;
 
 	FILE *fp;
@@ -575,7 +575,7 @@ int main(){
 			printf("\nSolicitud: %s/findecad", cmx);
 			cmx[4]=13;					
 			bytes_written = write(fd,cmx,5);
-			usleep(1000000);
+			usleep(400000);
 			bytes_read = read(fd,read_buffer,8);		//leer datos y almacenarlos en el array read_buffer
 			if (bytes_read>0)
 			{
@@ -595,7 +595,7 @@ int main(){
 			printf("/fincadena \n +----------------------------------+\n\n");
 			bytes_read=0;
         	f=0;
-        	usleep(500000);
+        	usleep(100000);
 		}else{					//////////solicitud de datos a lock controller
 			strcpy(cmx, "cr");
 			dec=n/10;
@@ -607,7 +607,7 @@ int main(){
 			strcat(cmx,"/***");
 			printf("\nSolicitud: %s/findecad", cmx);
 			bytes_written = write(fd,cmx,8);
-			usleep(1000000);	
+			usleep(400000);	
 			bytes_read = read(fd,read_buffer,33);		//leer datos y almacenarlos en el array read_buffer
         	printf("\n Recibo: /");
         	for(i=0;i<bytes_read;i++)              /*printing only the received characters*/
@@ -683,6 +683,7 @@ int main(){
 				def_table(nc);		//estabñece en la tabla control los valores por default
 				df_tabl(nf);			//establece en la tabla fuente los valores por default
 				printf ("\n acabe un ciclo de todos los dispositivos");
+				printf ("\n acabe ciclo : %d", cp);
 				
 				sleep (ti);			//suponiendo que cada dispositivo ocupa 1 s en enviar y recibir datos
 								//para que la estacion envie datos cada 60s el resto de tiempo hace sleep
@@ -700,10 +701,10 @@ int main(){
 				//sleep(2);
 			}
 			n++;
-			usleep(500000);
+			usleep(10000);
 		}
-		printf ("\n acabe disp : %d", cp);
-		usleep(400000);						//este retardo debe ser mucho mayor que el de los controladores para que cuando vuelva a enviar info el receptor ya este leyendo
+		
+		usleep(100000);						//este retardo debe ser mucho mayor que el de los controladores para que cuando vuelva a enviar info el receptor ya este leyendo
 	}
     close(fd); /* Close the serial port */
 }
