@@ -430,6 +430,8 @@ int main(){
 	int z=0;
 	int y;
 	int disp=0;
+	int tim=60;
+	int ti;
 
 	FILE *fp;
 
@@ -437,7 +439,7 @@ int main(){
 
 	int nc=36;					//número de lock controllers de la estación
 	int id_st=1;				//identificador de la estación
-	int nf = 4;					//numero de fuentes
+	int nf = 4;					//numero de fuentes, este numero no debe de ser mayor a 7
 	
 	///////////////////////este valor es el mismo para todas las estaciones inicialmente
 
@@ -604,7 +606,7 @@ int main(){
 			printf("\nSolicitud: %s/findecad", cmx);
 			bytes_written = write(fd,cmx,8);
 			usleep(1000000);	
-			bytes_read = read(fd,read_buffer,22);		//leer datos y almacenarlos en el array read_buffer
+			bytes_read = read(fd,read_buffer,33);		//leer datos y almacenarlos en el array read_buffer
         	printf("\n Recibo: /");
         	for(i=0;i<bytes_read;i++)              /*printing only the received characters*/
 				printf("%c",read_buffer[i]);
@@ -679,6 +681,9 @@ int main(){
 				def_table(nc);		//estabñece en la tabla control los valores por default
 				df_tabl(nf);			//establece en la tabla fuente los valores por default
 				printf ("\n acabe un ciclo de todos los dispositivos");
+				ti = tim-nc+1;
+				sleep (ti);			//suponiendo que cada dispositivo ocupa 1 s en enviar y recibir datos
+								//para que la estacion envie datos cada 60s el resto de tiempo hace sleep
 
 				printf("\n se monitorearon %d dispositivos\n", disp);
 				if (disp==0){
@@ -690,7 +695,7 @@ int main(){
 				}
 				
 				disp=0;
-				sleep(2);
+				//sleep(2);
 			}
 			n++;
 			usleep(500000);
