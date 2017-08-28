@@ -460,7 +460,7 @@ int main(){
 	f = 1;
 	n = 1;
 
-	ti = tim-nc+1;			//este tiempo es para que cada ciclo se haga a cada minuto
+	ti = tim-nc;			//este tiempo es para que cada ciclo se haga a cada minuto
 
 	sleep(5);				 ////////retardo para asegurar que se envie una vez que el receptor este listo para recibir
 
