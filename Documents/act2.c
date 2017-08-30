@@ -121,8 +121,8 @@ void act_sflc(){
 	unsigned char ch;
 
 	
-	fp = fopen ("/home/alberto/Documents/ecob/acsof/ebike_application.bin","r");
-	//fp = fopen ("/home/upd/lc/ebike_application.bin","r");
+	//fp = fopen ("/home/alberto/Documents/ecob/acsof/ebike_application.bin","r");
+	fp = fopen ("/home/upd/lc/ebike_application.bin","r");
 	printf("\nEl valor de fp es : %d\n", fp);
 	if (fp!=NULL){
 		fseek(fp, 0L, SEEK_END);
@@ -221,8 +221,8 @@ void act_sfcn(){
 	char n[5];
 	char ch;
 
-	fp = fopen ("/home/alberto/Documents/ecob/acsof/ebike_application.bin","r");
-	//fp = fopen ("/home/upd/contr/ebike_application.bin","r");
+	//fp = fopen ("/home/alberto/Documents/ecob/acsof/ebike_application.bin","r");
+	fp = fopen ("/home/upd/cn/ebike_application.bin","r");
 	printf("\nEl valor de fp es : %d\n", fp);
 	if (fp!=NULL){
 		fseek(fp, 0L, SEEK_END);
@@ -295,7 +295,7 @@ void act_sfcn(){
 		}
 		fclose(fp);
 		printf("\nSe actualizaron todos los controladores\n");
-		//system("rm /home/upd/contr/ebike_application.bin");
+		//system("rm /home/upd/cn/ebike_application.bin");
 		sleep(2);
 	}else{
 		printf("\nNo existe actualizacion de los controladores\n");
