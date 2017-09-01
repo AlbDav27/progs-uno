@@ -214,13 +214,13 @@ void to_jsonc(int nc, int nf, int id_st){
 	strcat(js, ", \"chargers\":[");
 	for(q=1;q<=nf;q++){
 		strcat(js,"{\"id_f\":");
-		sprintf(t,"%d",fuente[q][0]);			//id_f se encuentra en las posiciones [0][q] de fuente
+		sprintf(t,"%d",fuente[q][0]);			//id_f se encuentra en las posiciones fuentes[0][q] de fuente
 		strcat(js, t);
 		strcat(js,", \"temperature\":");
-		sprintf(t,"%d",fuente[q][2]);			//t se encuentra en las posiciones [q][2] de fuente
+		sprintf(t,"%d",fuente[q][2]);			//t se encuentra en las posiciones fuetes[q][2] de fuente
 		strcat(js, t);
 		strcat(js,", \"status\":");
-		sprintf(t,"%d",fuente[q][1]);			//ok se encuentra en las posiciones [q][1] de fuente
+		sprintf(t,"%d",fuente[q][1]);			//ok se encuentra en las posiciones fuentes[q][1] de fuente
 		strcat(js, t);
 		if (q<nf){
 			strcat(js, "},");
@@ -241,19 +241,19 @@ void to_jsonc(int nc, int nf, int id_st){
 		k=0;
 
 		strcat(js,"{\"id_c\":");
-		sprintf(t,"%d",control[q][0]);			//id_c se encuentra en las posiciones [q][0] de control
+		sprintf(t,"%d",control[q][0]);			//id_c se encuentra en las posiciones control[q][0] de control
 		strcat(js, t);
 		strcat(js,", \"id_b\":\"");
-		//sprintf(t,"%d",control[q][4]);			//id_b se encuentra en las posiciones [q][4] de control
+		//sprintf(t,"%d",control[q][4]);			//id_b se encuentra en las posiciones control[q][4] de control
 		strcat(js, rfid);
 		strcat(js,"\", \"st_ch\":");
-		sprintf(t,"%d",control[q][1]);			//st_ch se encuentra en las posiciones [q][1] de control
+		sprintf(t,"%d",control[q][1]);			//st_ch se encuentra en las posiciones control[q][1] de control
 		strcat(js, t);
 		strcat(js,", \"hs_ba\":");
-		sprintf(t,"%d",control[q][2]);			//hs_ba se encuentra en las posiciones [q][2] de control
+		sprintf(t,"%d",control[q][2]);			//hs_ba se encuentra en las posiciones control[q][2] de control
 		strcat(js, t);
 		strcat(js,", \"nc\":");
-		sprintf(t,"%d",control[q][3]);			//nc se encuentra en las posiciones [q][3] de control
+		sprintf(t,"%d",control[q][3]);			//nc se encuentra en las posiciones control[q][3] de control
 		strcat(js, t);
 		if (q<nc){
 			strcat(js, "},");
