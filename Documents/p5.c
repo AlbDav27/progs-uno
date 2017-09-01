@@ -16,6 +16,7 @@ int v[2];				//2 valores de configuración recibidos
 int x =0;				//variable que distingue entr variables de configuración
 char js[2000];			//cadena json a enviar
 int b, slots, st;
+char brfid[37][16];
 /////////////////////////////////////////////////////funciones para parseo JSON////////////////////////////////////////////////////////////////////////
 
 void transform(char dat1[3], char dat2[3]){
@@ -133,12 +134,23 @@ int conv_st_int5(char str[5]){
 
 void def_table(int n){
 	int y;
+	int j;
 	for (y=0;y<n+1;y++){
+		j=0;
 		control[y][0]=y;
 		control[y][1]=-1;
 		control[y][2]=-1;
 		control[y][3]=-1;
 		control[y][4]=0;
+		while (j<16){
+			if (j==0){
+				brfid[y][j]='x';
+			}else{
+				brfid[y][j]='\0';
+			}
+			j++;
+		}
+		
 	}
 }
 
@@ -178,6 +190,8 @@ void getgval(int nc){
 void to_jsonc(int nc, int nf, int id_st){
 	char t [5];
 	int q;
+	char rfid[16];
+	int k=0;
 	strcpy(js,"");
 	strcpy(js,"{\"id_st\":");
 	sprintf(t,"%d",id_st);
@@ -219,13 +233,20 @@ void to_jsonc(int nc, int nf, int id_st){
 	strcat(js, "\"locks\":[");
 
 	for(q=1;q<=nc;q++){
+
+		while (k<16){
+			rfid[k]=brfid[q][k];
+			k++;
+		}
+		k=0;
+
 		strcat(js,"{\"id_c\":");
 		sprintf(t,"%d",control[q][0]);			//id_c se encuentra en las posiciones [q][0] de control
 		strcat(js, t);
-		strcat(js,", \"id_b\":");
-		sprintf(t,"%d",control[q][4]);			//id_b se encuentra en las posiciones [q][4] de control
-		strcat(js, t);
-		strcat(js,", \"st_ch\":");
+		strcat(js,", \"id_b\":\"");
+		//sprintf(t,"%d",control[q][4]);			//id_b se encuentra en las posiciones [q][4] de control
+		strcat(js, rfid);
+		strcat(js,"\", \"st_ch\":");
 		sprintf(t,"%d",control[q][1]);			//st_ch se encuentra en las posiciones [q][1] de control
 		strcat(js, t);
 		strcat(js,", \"hs_ba\":");
@@ -405,7 +426,7 @@ int main(){
 
  	/////////declaración de variables//////////////////////////////////
 
-	char read_buffer[22];   /* Buffer to store the data received              */
+	char read_buffer[35];   /* Buffer to store the data received              */
     char com [3000];
     char re[200];
     char cmx[10];
@@ -414,6 +435,7 @@ int main(){
 	char subs[5];
 	char sol[70];
 	char ci[30];
+	
 	char caracter;
 
     int  bytes_read = 0;    /* Number of bytes read by the read() system call */
@@ -608,7 +630,7 @@ int main(){
 			printf("\nSolicitud: %s/findecad", cmx);
 			bytes_written = write(fd,cmx,8);
 			usleep(900000);	
-			bytes_read = read(fd,read_buffer,33);		//leer datos y almacenarlos en el array read_buffer
+			bytes_read = read(fd,read_buffer,34);		//leer datos y almacenarlos en el array read_buffer
         	printf("\n Recibo: /");
         	for(i=0;i<bytes_read;i++)              /*printing only the received characters*/
 				printf("%c",read_buffer[i]);
@@ -644,13 +666,24 @@ int main(){
 				control[n][3]=num;
 				strcpy(subs,"");
 
-				subs[0]='0';
-				subs[1]=read_buffer[18];			//id_b : E-Bike ID
-				subs[2]=read_buffer[19];
-				subs[3]=read_buffer[20];
-				subs[4]=read_buffer[21];
-				num=conv_st_int5(subs);
-				control[n][4]=num;
+				brfid[n][0]=read_buffer[18];
+				brfid[n][1]=read_buffer[19];			//id_b : E-Bike ID
+				brfid[n][2]=read_buffer[20];
+				brfid[n][3]=read_buffer[21];
+				brfid[n][4]=read_buffer[22];
+				brfid[n][5]=read_buffer[23];
+				brfid[n][6]=read_buffer[24];			//id_b : E-Bike ID
+				brfid[n][7]=read_buffer[25];
+				brfid[n][8]=read_buffer[26];
+				brfid[n][9]=read_buffer[27];
+				brfid[n][10]=read_buffer[28];
+				brfid[n][11]=read_buffer[29];			//id_b : E-Bike ID
+				brfid[n][12]=read_buffer[30];
+				brfid[n][13]=read_buffer[31];
+				brfid[n][14]=read_buffer[32];
+				brfid[n][15]=read_buffer[33];
+				//num=conv_st_int5(subs);
+				//control[n][4]=num;
 				strcpy(subs,"");	
 
 				disp++;
