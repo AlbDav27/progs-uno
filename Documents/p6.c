@@ -601,9 +601,10 @@ int main(){
 			printf("\nSolicitud: %s/findecad", cmx);
 			cmx[4]=13;					
 			bytes_written = write(fd,cmx,5);
-			usleep(900000);
+			usleep(400000);
 			ioctl(fd,TIOCMBIS,&RTS_flag);
 			ioctl(fd,TIOCMBIS,&DTR_flag);
+			usleep(500000);
 			bytes_read = read(fd,read_buffer,8);		//leer datos y almacenarlos en el array read_buffer
 			if (bytes_read>0)
 			{
@@ -635,9 +636,10 @@ int main(){
 			strcat(cmx,"/***");
 			printf("\nSolicitud: %s/findecad", cmx);
 			bytes_written = write(fd,cmx,8);
-			usleep(900000);
+			usleep(400000);
 			ioctl(fd,TIOCMBIS,&RTS_flag);
-			ioctl(fd,TIOCMBIS,&DTR_flag);	
+			ioctl(fd,TIOCMBIS,&DTR_flag);
+			usleep(500000);	
 			bytes_read = read(fd,read_buffer,34);		//leer datos y almacenarlos en el array read_buffer
         	printf("\n Recibo: /");
         	for(i=0;i<bytes_read;i++)              /*printing only the received characters*/
