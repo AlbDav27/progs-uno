@@ -625,7 +625,7 @@ int main(){
 			bytes_read=0;
         	f=0;
         	usleep(100000);
-        	//tcflush(fd, TCIOFLUSH);
+        	tcflush(fd, TCIOFLUSH);
 		}else{					//////////solicitud de datos a lock controller
 			strcpy(cmx, "cr");
 			dec=n/10;
@@ -647,7 +647,7 @@ int main(){
 				printf("%c",read_buffer[i]);
 			printf("/fincadena \n +----------------------------------+\n\n");
 			bytes_read=0;
-			//tcflush(fd, TCIOFLUSH);
+			tcflush(fd, TCIOFLUSH);
 
         	//almacena la información de los controladores
 			if (bytes_read>0)
