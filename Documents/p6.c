@@ -643,7 +643,7 @@ int main(){
 			usleep(3000000);	
 			bytes_read = read(fd, read_buffer, 34);		//leer datos y almacenarlos en el array read_buffer
         	printf("\n Recibo: /");
-        	for(i=0;i<35;i++)              /*printing only the received characters*/
+        	for(i=0;i<bytes_read;i++)              /*printing only the received characters*/
 				printf("%c",read_buffer[i]);
 			printf("/fincadena \n +----------------------------------+\n\n");
 			bytes_read=0;
