@@ -625,7 +625,7 @@ int main(){
 			bytes_read=0;
         	f=0;
         	usleep(100000);
-        	tcflush(fd, TCIOFLUSH);
+        	//tcflush(fd, TCIOFLUSH);
 		}else{					//////////solicitud de datos a lock controller
 			strcpy(cmx, "cr");
 			dec=n/10;
@@ -641,13 +641,13 @@ int main(){
 			ioctl(fd,TIOCMBIS,&RTS_flag);
 			ioctl(fd,TIOCMBIS,&DTR_flag);
 			usleep(3000000);	
-			bytes_read = read(fd, read_buffer, 34);		//leer datos y almacenarlos en el array read_buffer
+			bytes_read = read(fd, read_buffer, 35);		//leer datos y almacenarlos en el array read_buffer
         	printf("\n Recibo: /");
         	for(i=0;i<bytes_read;i++)              /*printing only the received characters*/
 				printf("%c",read_buffer[i]);
 			printf("/fincadena \n +----------------------------------+\n\n");
 			bytes_read=0;
-			tcflush(fd, TCIOFLUSH);
+			//tcflush(fd, TCIOFLUSH);
 
         	//almacena la información de los controladores
 			if (bytes_read>0)
