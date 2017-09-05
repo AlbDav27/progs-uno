@@ -616,7 +616,7 @@ int main(){
 				disp++;
 			}
 			strcpy(subs,"");
-			tcflush(fd, TCIOFLUSH);
+			
 			strcpy(cmx, "");
         	printf("\n Recibo: /");
         	for(i=0;i<bytes_read;i++)              /*printing only the received characters*/
@@ -625,6 +625,7 @@ int main(){
 			bytes_read=0;
         	f=0;
         	usleep(100000);
+        	tcflush(fd, TCIOFLUSH);
 		}else{					//////////solicitud de datos a lock controller
 			strcpy(cmx, "cr");
 			dec=n/10;
