@@ -585,7 +585,7 @@ int main(){
 			printf("\n El broadcast velocidad a las Lock Controller es : %s/fin_cad\n", cmx);
 			bytes_written = write(fd,cmx,8);						//envio de segundo broadcast
 			usleep(400000);			
-			tcflush(fd, TCIFLUSH);
+			//tcflush(fd, TCIFLUSH);
 			cp=0;
 			n=1;
 		}
@@ -613,7 +613,7 @@ int main(){
 				disp++;
 			}
 			strcpy(subs,"");
-			tcflush(fd, TCIFLUSH);
+			//tcflush(fd, TCIFLUSH);
 			strcpy(cmx, "");
         	printf("\n Recibo: /");
         	for(i=0;i<bytes_read;i++)              /*printing only the received characters*/
@@ -640,7 +640,7 @@ int main(){
 				printf("%c",read_buffer[i]);
 			printf("/fincadena \n +----------------------------------+\n\n");
 			bytes_read=0;
-			tcflush(fd, TCIOFLUSH);
+			//tcflush(fd, TCIFLUSH);
 
         	//almacena la información de los controladores
 			if (bytes_read>0)
