@@ -18,7 +18,7 @@ int main(){
 	int fd;/*File Descriptor*/
 	/*------------------------------- Opening the Serial Port -------------------------------*/
 	/* Change /dev/ttyS0 to the one corresponding to your system */
-	fd = open("/dev/ttyS0",O_RDWR | O_NOCTTY | O_NDELAY);           /* ttyS0 corresponde al puerto serial rs485 de UNO-1252G   */  
+	fd = open("/dev/ttyS0",O_RDWR | O_NOCTTY );           /* ttyS0 corresponde al puerto serial rs485 de UNO-1252G   */  
                                                               /* O_RDWR   - Read/Write access to serial port       */
                                                               /* O_NOCTTY - No terminal will control the process   */
                                                               /* Open in blocking mode,read will wait              */
@@ -67,7 +67,7 @@ int main(){
              printf("\n  BaudRate = 9600 \n  StopBits = 1 \n  Parity   = none");
  	}
  	while (1){
- 		strcpy(cmx, "cr02/***");
+ 		strcpy(cmx, "cr01/***");
 		printf("\nSolicitud: %s/findecad", cmx);
 		tcflush(fd, TCIOFLUSH);
 		bytes_written = write(fd,cmx,8);
