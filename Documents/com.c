@@ -51,11 +51,11 @@ int main(){
 	
 		int RTS_flag,DTR_flag;
 
-		RTS_flag = TIOCM_RTS;	 Modem Constant for RTS pin 
-		DTR_flag = TIOCM_DTR;	 Modem Constant for DTR pin 
+		RTS_flag = TIOCM_RTS;	 //Modem Constant for RTS pin 
+		DTR_flag = TIOCM_DTR;	// Modem Constant for DTR pin 
 
-		ioctl(fd,TIOCMBIC,&RTS_flag); ~RTS = 1,So ~RE pin of MAX485 is HIGH                       
-		ioctl(fd,TIOCMBIC,&DTR_flag); ~DTR = 1,So  DE pin of MAX485 is HIGH,Transmit Mode enabled 
+		ioctl(fd,TIOCMBIC,&RTS_flag); //~RTS = 1,So ~RE pin of MAX485 is HIGH                       
+		ioctl(fd,TIOCMBIC,&DTR_flag); //~DTR = 1,So  DE pin of MAX485 is HIGH,Transmit Mode enabled 
  
 	
 	//fcntl(fd, F_SETFL,FNDELAY);
