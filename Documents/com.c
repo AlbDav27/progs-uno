@@ -72,10 +72,11 @@ int main(){
 		printf("\nSolicitud: %s/findecad", cmx);
 		strcpy(read_buffer,"");
 		bytes_written = write(fd,cmx,8);
-		bytes_read = read(fd,read_buffer,35);
-       		tcflush(fd, TCIOFLUSH); 
-        	printf("\n Recibo: /");
-        	for(i=0;i<bytes_read;i++)              
+		usleep(100000);
+		bytes_read = read(fd,read_buffer,35);		//leer datos y almacenarlos en el array read_buffer
+       	tcflush(fd, TCIOFLUSH); 
+        printf("\n Recibo: /");
+        for(i=0;i<bytes_read;i++)              /*printing only the received characters*/
 			printf("%c",read_buffer[i]);
 		printf("/fincadena \n +----------------------------------+\n\n");
 		bytes_read=0;
