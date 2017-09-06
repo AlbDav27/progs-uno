@@ -70,9 +70,9 @@ int main(){
  		strcpy(cmx, "cr02/***");
 		printf("\nSolicitud: %s/findecad", cmx);
 		bytes_written = write(fd,cmx,8);
-		//ioctl(fd,TIOCMBIS,&RTS_flag);                       
-		//ioctl(fd,TIOCMBIS,&DTR_flag);
-		usleep(3000000);	
+		ioctl(fd,TIOCMBIS,&RTS_flag);                       
+		ioctl(fd,TIOCMBIS,&DTR_flag);
+		//usleep(3000000);	
 		bytes_read = read(fd,read_buffer,35);		//leer datos y almacenarlos en el array read_buffer
         //ioctl(fd,TIOCMBIC,&RTS_flag); 
         printf("\n Recibo: /");
@@ -80,5 +80,7 @@ int main(){
 			printf("%c",read_buffer[i]);
 		printf("/fincadena \n +----------------------------------+\n\n");
 		bytes_read=0;
+		printf("\nAcabe \n");
+		sleep (2);
  	}
 }
