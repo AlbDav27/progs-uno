@@ -54,8 +54,8 @@ int main(){
 		RTS_flag = TIOCM_RTS;	 //Modem Constant for RTS pin 
 		DTR_flag = TIOCM_DTR;	// Modem Constant for DTR pin 
 
-		ioctl(fd,TIOCMBIC,&RTS_flag); //~RTS = 1,So ~RE pin of MAX485 is HIGH                       
-		ioctl(fd,TIOCMBIC,&DTR_flag); //~DTR = 1,So  DE pin of MAX485 is HIGH,Transmit Mode enabled 
+		ioctl(fd,TIOCMBIS,&RTS_flag); //~RTS = 1,So ~RE pin of MAX485 is HIGH                       
+		ioctl(fd,TIOCMBIS,&DTR_flag); //~DTR = 1,So  DE pin of MAX485 is HIGH,Transmit Mode enabled 
  
 	
 	//fcntl(fd, F_SETFL,FNDELAY);
@@ -70,11 +70,11 @@ int main(){
  		strcpy(cmx, "cr02/***");
 		printf("\nSolicitud: %s/findecad", cmx);
 		bytes_written = write(fd,cmx,8);
-		ioctl(fd,TIOCMBIS,&RTS_flag);                       
+		//ioctl(fd,TIOCMBIS,&RTS_flag);                       
 		//ioctl(fd,TIOCMBIS,&DTR_flag);
 		usleep(900000);	
 		bytes_read = read(fd,read_buffer,35);		//leer datos y almacenarlos en el array read_buffer
-        ioctl(fd,TIOCMBIC,&RTS_flag); 
+        //ioctl(fd,TIOCMBIC,&RTS_flag); 
         printf("\n Recibo: /");
         for(i=0;i<bytes_read;i++)              /*printing only the received characters*/
 			printf("%c",read_buffer[i]);
