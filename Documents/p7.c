@@ -601,6 +601,7 @@ int main(){
 			printf("\nSolicitud: %s/findecad", cmx);
 			cmx[4]=13;					
 			bytes_written = write(fd,cmx,5);
+			usleep(100000);
 			bytes_read = read(fd,read_buffer,8);		//leer datos y almacenarlos en el array read_buffer
 			if (bytes_read>0)
 			{
@@ -620,7 +621,7 @@ int main(){
 			printf("/fincadena \n +----------------------------------+\n\n");
 			bytes_read=0;
         	f=0;
-        	usleep(900000);
+        	usleep(800000);
 		}else{					//////////solicitud de datos a lock controller
 			strcpy(cmx, "cr");
 			dec=n/10;
@@ -632,13 +633,14 @@ int main(){
 			strcat(cmx,"/***");
 			printf("\nSolicitud: %s/findecad", cmx);
 			bytes_written = write(fd,cmx,8);
+			usleep(100000);
 			bytes_read = read(fd,read_buffer,35);		//leer datos y almacenarlos en el array read_buffer
         	printf("\n Recibo: /");
         	for(i=0;i<bytes_read;i++)              /*printing only the received characters*/
 				printf("%c",read_buffer[i]);
 			printf("/fincadena \n +----------------------------------+\n\n");
 			bytes_read=0;
-			usleep(900000);
+			usleep(800000);
 			//tcflush(fd, TCIOFLUSH);
 
         	//almacena la información de los controladores
