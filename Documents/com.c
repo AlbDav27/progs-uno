@@ -58,7 +58,7 @@ int main(){
 		ioctl(fd,TIOCMBIC,&DTR_flag); //~DTR = 1,So  DE pin of MAX485 is HIGH,Transmit Mode enabled 
  
 	
-	//fcntl(fd, F_SETFL,FNDELAY);
+	fcntl(fd, F_SETFL,FNDELAY);
 
 	if((tcsetattr(fd,TCSANOW,&SerialPortSettings)) != 0){ 
 		    printf("\n  ERROR ! in Setting attributes");
@@ -70,12 +70,12 @@ int main(){
  		strcpy(cmx, "cr02/***");
 		printf("\nSolicitud: %s/findecad", cmx);
 		bytes_written = write(fd,cmx,8);
-		ioctl(fd,TIOCMBIS,&RTS_flag);
-		ioctl(fd,TIOCMBIS,&DTR_flag);
+		//ioctl(fd,TIOCMBIS,&RTS_flag);
+		//ioctl(fd,TIOCMBIS,&DTR_flag);
 		usleep(50000);	
 		bytes_read = read(fd,read_buffer,35);		//leer datos y almacenarlos en el array read_buffer
-       	ioctl(fd,TIOCMBIC,&RTS_flag);                   
-		ioctl(fd,TIOCMBIC,&DTR_flag); 
+       	//ioctl(fd,TIOCMBIC,&RTS_flag);                   
+		//ioctl(fd,TIOCMBIC,&DTR_flag); 
         printf("\n Recibo: /");
         for(i=0;i<bytes_read;i++)              /*printing only the received characters*/
 			printf("%c",read_buffer[i]);
