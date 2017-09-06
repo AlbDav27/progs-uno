@@ -633,7 +633,7 @@ int main(){
 			strcat(cmx,"/***");
 			printf("\nSolicitud: %s/findecad", cmx);
 			bytes_written = write(fd,cmx,8);
-			usleep(250000);	
+			usleep(2500000);	
 			bytes_read = read(fd,read_buffer,35);		//leer datos y almacenarlos en el array read_buffer
         	printf("\n Recibo: /");
         	for(i=0;i<bytes_read;i++)              /*printing only the received characters*/
