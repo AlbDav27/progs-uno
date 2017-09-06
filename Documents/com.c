@@ -71,18 +71,9 @@ int main(){
  		
 		printf("\nSolicitud: %s/findecad", cmx);
 		strcpy(read_buffer,"");
-		//tcflush(fd, TCIOFLUSH);
 		bytes_written = write(fd,cmx,8);
-		//tcflush(fd, TCIOFLUSH);
-		//ioctl(fd,TIOCMBIC,&RTS_flag);
-		//ioctl(fd,TIOCMBIC,&DTR_flag);*/
-		
-		printf("\nlisto para recibir\n");
-		usleep(100000);	
 		bytes_read = read(fd,read_buffer,35);		//leer datos y almacenarlos en el array read_buffer
-       	tcflush(fd, TCIOFLUSH);
-       	//ioctl(fd,TIOCMBIS,&RTS_flag);                   
-		//ioctl(fd,TIOCMBIS,&DTR_flag); 
+       	tcflush(fd, TCIOFLUSH); 
         printf("\n Recibo: /");
         for(i=0;i<bytes_read;i++)              /*printing only the received characters*/
 			printf("%c",read_buffer[i]);
