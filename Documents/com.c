@@ -54,11 +54,11 @@ int main(){
 		RTS_flag = TIOCM_RTS;	 //Modem Constant for RTS pin 
 		DTR_flag = TIOCM_DTR;	// Modem Constant for DTR pin 
 
-		ioctl(fd,TIOCMBIS,&RTS_flag); //~RTS = 1,So ~RE pin of MAX485 is HIGH                       
-		ioctl(fd,TIOCMBIS,&DTR_flag); //~DTR = 1,So  DE pin of MAX485 is HIGH,Transmit Mode enabled 
+		ioctl(fd,TIOCMBIS,&RTS_flag); 
+		ioctl(fd,TIOCMBIS,&DTR_flag); 
  	
 	
-	fcntl(fd, F_SETFL,FNDELAY);
+	//fcntl(fd, F_SETFL,FNDELAY);
 
 	if((tcsetattr(fd,TCSANOW,&SerialPortSettings)) != 0){ 
 		    printf("\n  ERROR ! in Setting attributes");
@@ -67,15 +67,17 @@ int main(){
              printf("\n  BaudRate = 9600 \n  StopBits = 1 \n  Parity   = none");
  	}
  	while (1){
- 		/*strcpy(cmx, "cr01/***");
+ 		strcpy(cmx, "cr02/***");
 		printf("\nSolicitud: %s/findecad", cmx);
-		tcflush(fd, TCIOFLUSH);
+		strcpy(read_buffer,"");
+		//tcflush(fd, TCIOFLUSH);
 		bytes_written = write(fd,cmx,8);
-		tcflush(fd, TCIOFLUSH);
+		//tcflush(fd, TCIOFLUSH);
 		//ioctl(fd,TIOCMBIC,&RTS_flag);
 		//ioctl(fd,TIOCMBIC,&DTR_flag);*/
+		
 		printf("\nlisto para recibir\n");
-		usleep(3000000);	
+		usleep(100000);	
 		bytes_read = read(fd,read_buffer,35);		//leer datos y almacenarlos en el array read_buffer
        	tcflush(fd, TCIOFLUSH);
        	//ioctl(fd,TIOCMBIS,&RTS_flag);                   
