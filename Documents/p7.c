@@ -156,7 +156,7 @@ void def_table(int n){
 
 void df_tabl(int n){
 	int y;
-	for (y=0;y<9;y++){
+	for (y=0;y<n+1;y++){
 		fuente[y][0]=y;
 		fuente[y][1]=-1;
 		fuente[y][2]=-1;
@@ -564,7 +564,7 @@ int main(){
 			printf("\n El broadcast carga a las Lock Controller es : %s/fin_cad\n", cmx);
 			bytes_written = write(fd,cmx,8);						//envio de primer broadcast
 			usleep(400000);			
-			tcflush(fd, TCIFLUSH);
+			tcflush(fd, TCIOFLUSH);
 			strcpy(cmx, "");
 			
 			////////////////////////////////////configuracion de broadcast de velocidad
@@ -585,7 +585,7 @@ int main(){
 			printf("\n El broadcast velocidad a las Lock Controller es : %s/fin_cad\n", cmx);
 			bytes_written = write(fd,cmx,8);						//envio de segundo broadcast
 			usleep(400000);			
-			//tcflush(fd, TCIFLUSH);
+			tcflush(fd, TCIOFLUSH);
 			cp=0;
 			n=1;
 		}
@@ -613,7 +613,7 @@ int main(){
 				disp++;
 			}
 			strcpy(subs,"");
-			//tcflush(fd, TCIFLUSH);
+			tcflush(fd, TCIOFLUSH);
 			strcpy(cmx, "");
         	printf("\n Recibo: /");
         	for(i=0;i<bytes_read;i++)              /*printing only the received characters*/
@@ -633,15 +633,15 @@ int main(){
 			strcat(cmx,"/***");
 			printf("\nSolicitud: %s/findecad", cmx);
 			bytes_written = write(fd,cmx,8);
-			usleep(900000);	
-			bytes_read = read(fd,read_buffer,34);		//leer datos y almacenarlos en el array read_buffer
+			usleep(100000);	
+			bytes_read = read(fd,read_buffer,35);		//leer datos y almacenarlos en el array read_buffer
         	printf("\n Recibo: /");
         	for(i=0;i<bytes_read;i++)              /*printing only the received characters*/
 				printf("%c",read_buffer[i]);
 			printf("/fincadena \n +----------------------------------+\n\n");
 			bytes_read=0;
-			//tcflush(fd, TCIFLUSH);
-
+			tcflush(fd, TCIOFLUSH);
+			usleep(800000);
         	//almacena la información de los controladores
 			if (bytes_read>0)
 			{
