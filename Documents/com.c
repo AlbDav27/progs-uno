@@ -67,13 +67,14 @@ int main(){
              printf("\n  BaudRate = 9600 \n  StopBits = 1 \n  Parity   = none");
  	}
  	while (1){
- 		strcpy(cmx, "cr01/***");
+ 		/*strcpy(cmx, "cr01/***");
 		printf("\nSolicitud: %s/findecad", cmx);
 		tcflush(fd, TCIOFLUSH);
 		bytes_written = write(fd,cmx,8);
 		tcflush(fd, TCIOFLUSH);
 		//ioctl(fd,TIOCMBIC,&RTS_flag);
-		//ioctl(fd,TIOCMBIC,&DTR_flag);
+		//ioctl(fd,TIOCMBIC,&DTR_flag);*/
+		printf("\nlisto para recibir\n");
 		usleep(3000000);	
 		bytes_read = read(fd,read_buffer,35);		//leer datos y almacenarlos en el array read_buffer
        	tcflush(fd, TCIOFLUSH);
