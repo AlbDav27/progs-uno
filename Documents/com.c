@@ -46,7 +46,7 @@ int main(){
 	SerialPortSettings.c_iflag &= ~(ICANON | ECHO | ECHOE | ISIG);  /* Non Cannonical mode                            */
 	SerialPortSettings.c_oflag &= ~OPOST;/*No Output Processing*/
 		/* Setting Time outs */
-	SerialPortSettings.c_cc[VMIN] =  0; 		//pure time read 
+	SerialPortSettings.c_cc[VMIN] =  35; 		//pure time read 
 	SerialPortSettings.c_cc[VTIME] = 30;  /* Wait 1s   */	//VTIME TIEMPO EN DECIMAS DE SEGUNDO
 	
 		int RTS_flag,DTR_flag;
@@ -73,7 +73,7 @@ int main(){
 		ioctl(fd,TIOCMBIS,&RTS_flag);                       
 		//ioctl(fd,TIOCMBIS,&DTR_flag);
 		usleep(900000);	
-		bytes_read = read(fd,read_buffer,34);		//leer datos y almacenarlos en el array read_buffer
+		bytes_read = read(fd,read_buffer,35);		//leer datos y almacenarlos en el array read_buffer
         ioctl(fd,TIOCMBIC,&RTS_flag); 
         printf("\n Recibo: /");
         for(i=0;i<bytes_read;i++)              /*printing only the received characters*/
@@ -82,4 +82,3 @@ int main(){
 		bytes_read=0;
  	}
 }
- 	
