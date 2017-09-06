@@ -69,7 +69,9 @@ int main(){
  	while (1){
  		strcpy(cmx, "cr02/***");
 		printf("\nSolicitud: %s/findecad", cmx);
+		tcflush(fd, TCIOFLUSH);
 		bytes_written = write(fd,cmx,8);
+		tcflush(fd, TCIOFLUSH);
 		//ioctl(fd,TIOCMBIC,&RTS_flag);
 		//ioctl(fd,TIOCMBIC,&DTR_flag);
 		usleep(100000);	
