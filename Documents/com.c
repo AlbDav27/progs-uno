@@ -72,7 +72,7 @@ int main(){
 		bytes_written = write(fd,cmx,8);
 		//ioctl(fd,TIOCMBIC,&RTS_flag);
 		//ioctl(fd,TIOCMBIC,&DTR_flag);
-		usleep(50000);	
+		usleep(100000);	
 		bytes_read = read(fd,read_buffer,35);		//leer datos y almacenarlos en el array read_buffer
        	//ioctl(fd,TIOCMBIS,&RTS_flag);                   
 		//ioctl(fd,TIOCMBIS,&DTR_flag); 
