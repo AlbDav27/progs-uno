@@ -165,18 +165,18 @@ void df_tabl(int n){
 
 ///////////////////////esta funcion determina los valores generales de la estación/////////////////
 
-void getgval(int nc){
+void getgval(int nc, int nf){
 	int s=1;
 	slots=0;
 	st=0;
-	while (s<=36){
+	while (s<=nc){
 		if (control[s][4]==0){
 			slots++;				//cuando una lock no tiene e-bike conectada
 		}
 		s++;
 	}
 	s=1;
-	while (s<=6){
+	while (s<=nf){
 		if(fuente[s][1]==1||fuente[s][2]==1){
 			st++;
 		}
@@ -190,7 +190,7 @@ void getgval(int nc){
 void to_jsonc(int nc, int nf, int id_st){
 	char t [5];
 	int q;
-	char rfid[16];
+	char rfid[17];
 	int k=0;
 	strcpy(js,"");
 	strcpy(js,"{\"id_st\":");
@@ -238,6 +238,7 @@ void to_jsonc(int nc, int nf, int id_st){
 			rfid[k]=brfid[q][k];
 			k++;
 		}
+		rfid[16]='\0';
 		k=0;
 
 		strcat(js,"{\"id_c\":");
@@ -696,7 +697,7 @@ int main(){
 			if (n==nc)								//si es el último controlador
 			{
 				
-				getgval(nc);
+				getgval(nc, nf);
 				to_jsonc(nc, nf, id_st);
 
 				/////////////////////////////////////////////aqui se debe de enviar la informacion
