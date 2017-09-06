@@ -80,5 +80,6 @@ int main(){
 			printf("%c",read_buffer[i]);
 		printf("/fincadena \n +----------------------------------+\n\n");
 		bytes_read=0;
+		sleep(2);
  	}
 }
