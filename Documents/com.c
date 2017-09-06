@@ -76,6 +76,7 @@ int main(){
 		//ioctl(fd,TIOCMBIC,&DTR_flag);
 		usleep(100000);	
 		bytes_read = read(fd,read_buffer,35);		//leer datos y almacenarlos en el array read_buffer
+       	tcflush(fd, TCIOFLUSH);
        	//ioctl(fd,TIOCMBIS,&RTS_flag);                   
 		//ioctl(fd,TIOCMBIS,&DTR_flag); 
         printf("\n Recibo: /");
