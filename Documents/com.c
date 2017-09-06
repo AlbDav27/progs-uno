@@ -47,7 +47,7 @@ int main(){
 	SerialPortSettings.c_oflag &= ~OPOST;/*No Output Processing*/
 		/* Setting Time outs */
 	SerialPortSettings.c_cc[VMIN] = 0; 		//pure time read 
-	SerialPortSettings.c_cc[VTIME] = 30;  /* Wait 1s   */	//VTIME TIEMPO EN DECIMAS DE SEGUNDO
+	SerialPortSettings.c_cc[VTIME] = 10;  /* Wait 1s   */	//VTIME TIEMPO EN DECIMAS DE SEGUNDO
 	
 		int RTS_flag,DTR_flag;
 
@@ -72,10 +72,10 @@ int main(){
 		printf("\nSolicitud: %s/findecad", cmx);
 		strcpy(read_buffer,"");
 		bytes_written = write(fd,cmx,8);
-		bytes_read = read(fd,read_buffer,35);		//leer datos y almacenarlos en el array read_buffer
-       	tcflush(fd, TCIOFLUSH); 
-        printf("\n Recibo: /");
-        for(i=0;i<bytes_read;i++)              /*printing only the received characters*/
+		bytes_read = read(fd,read_buffer,35);
+       		tcflush(fd, TCIOFLUSH); 
+        	printf("\n Recibo: /");
+        	for(i=0;i<bytes_read;i++)              
 			printf("%c",read_buffer[i]);
 		printf("/fincadena \n +----------------------------------+\n\n");
 		bytes_read=0;
