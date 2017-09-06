@@ -74,7 +74,7 @@ int main(){
 		tcflush(fd, TCIOFLUSH);
 		//ioctl(fd,TIOCMBIC,&RTS_flag);
 		//ioctl(fd,TIOCMBIC,&DTR_flag);
-		usleep(1000000);	
+		usleep(3000000);	
 		bytes_read = read(fd,read_buffer,35);		//leer datos y almacenarlos en el array read_buffer
        	tcflush(fd, TCIOFLUSH);
        	//ioctl(fd,TIOCMBIS,&RTS_flag);                   
