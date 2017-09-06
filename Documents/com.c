@@ -46,7 +46,7 @@ int main(){
 	SerialPortSettings.c_iflag &= ~(ICANON | ECHO | ECHOE | ISIG);  /* Non Cannonical mode                            */
 	SerialPortSettings.c_oflag &= ~OPOST;/*No Output Processing*/
 		/* Setting Time outs */
-	SerialPortSettings.c_cc[VMIN] =  35; 		//pure time read 
+	SerialPortSettings.c_cc[VMIN] = 0; 		//pure time read 
 	SerialPortSettings.c_cc[VTIME] = 30;  /* Wait 1s   */	//VTIME TIEMPO EN DECIMAS DE SEGUNDO
 	
 		int RTS_flag,DTR_flag;
