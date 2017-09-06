@@ -66,8 +66,9 @@ int main(){
 	else{
              printf("\n  BaudRate = 9600 \n  StopBits = 1 \n  Parity   = none");
  	}
+ 	strcpy(cmx, "cr02/***");
  	while (1){
- 		strcpy(cmx, "cr02/***");
+ 		
 		printf("\nSolicitud: %s/findecad", cmx);
 		strcpy(read_buffer,"");
 		//tcflush(fd, TCIOFLUSH);
