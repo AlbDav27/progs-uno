@@ -48,7 +48,7 @@ int main(){
 		/* Setting Time outs */
 	SerialPortSettings.c_cc[VMIN] = 0; 		//pure time read 
 	SerialPortSettings.c_cc[VTIME] = 30;  /* Wait 1s   */	//VTIME TIEMPO EN DECIMAS DE SEGUNDO
-	/*
+	
 		int RTS_flag,DTR_flag;
 
 		RTS_flag = TIOCM_RTS;	 //Modem Constant for RTS pin 
@@ -56,7 +56,7 @@ int main(){
 
 		ioctl(fd,TIOCMBIS,&RTS_flag); //~RTS = 1,So ~RE pin of MAX485 is HIGH                       
 		ioctl(fd,TIOCMBIS,&DTR_flag); //~DTR = 1,So  DE pin of MAX485 is HIGH,Transmit Mode enabled 
- 	*/
+ 	
 	
 	fcntl(fd, F_SETFL,FNDELAY);
 
