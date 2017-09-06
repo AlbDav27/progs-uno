@@ -81,4 +81,4 @@ int main(){
 		printf("/fincadena \n +----------------------------------+\n\n");
 		bytes_read=0;
  	}
- 	
+}
