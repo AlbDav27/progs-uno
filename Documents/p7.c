@@ -639,10 +639,9 @@ int main(){
         	for(i=0;i<bytes_read;i++)              /*printing only the received characters*/
 				printf("%c",read_buffer[i]);
 			printf("/fincadena \n +----------------------------------+\n\n");
-			bytes_read=0;
+			
 			usleep(800000);
 			//tcflush(fd, TCIOFLUSH);
-
         	//almacena la información de los controladores
 			if (bytes_read>0)
 			{
@@ -693,6 +692,7 @@ int main(){
 
 				disp++;
 			}
+			bytes_read=0;
 			if (n==nc)								//si es el último controlador
 			{
 				
