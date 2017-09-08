@@ -14,7 +14,7 @@ FILE *fp;
 
 int k;
 int bn[24];
-char nch[3];
+unsigned char nch[3];
 int fd;/*File Descriptor*/
 
 int nc=24;
@@ -63,7 +63,6 @@ void conv(int numero){
 		if (bin[p]==1){
 			sum = sum+ (pow(2,p));
 		}
-		
 		p++;
 	}
 	printf("\nel valor de la suma : %d\n", sum);
@@ -110,6 +109,7 @@ void act_sflc(){
 	int c=1;
 	int ck=1;
 	int nf;		//nf- number of frames
+	int fok;
 	int bytes_written;
 	int bytes_read;
 	//char xm[170];
@@ -127,6 +127,7 @@ void act_sflc(){
 	if (fp!=NULL){
 		fseek(fp, 0L, SEEK_END);
 		lf=ftell(fp);
+		//rewind(fp);
 		printf("\nel archivo de actualizacion tiene una logitud de %d bytes\n", lf);
 		conv(lf);
 		//leer el documento///
@@ -135,7 +136,7 @@ void act_sflc(){
 			nf++;
 		}
 		printf("\nEl archivo tiene: %d frames\n", nf);
-		while (c<37){
+		while (c<=nc){
 			strcpy(mx, "cl");
 			if ((c/10)==0){
 				strcat(mx,"0");
@@ -151,6 +152,7 @@ void act_sflc(){
 			ck = 1;
 			
 			while(ck<=nf){
+				fok=0;
 				while(cc<17 && fin<1){
 					if (!feof(fp)){
 						ch= fgetc(fp);
@@ -165,25 +167,33 @@ void act_sflc(){
 				frame[16] = CheckSumByte(frame, 16);
 				printf("\nSe agrego byte de Cheksum\n");
 
-				if (fin ==0){
-					//bytes_written = write(fd,mx, 17);
+				if (fin ==0&&ck!=nf){
 					printf("\n Se envia el frame %d : %s\n", ck, frame);
+					while(fok==0){
+						bytes_written = write(fd,mx, 17);
+						
 					
-					usleep(100);
-					//bytes_read = read(fd,rec, 7);
-				}else{
-					//bytes_written = write(fd,mx, cc);
-					printf("\n Se envia el frame %d (ultimo frame): %s\n", ck, frame);
-					
-					usleep(100);
-					//bytes_read = read(fd,rec, 7);
-					usleep(100);
-					/*while (rec!="frameok"){
-						bytes_written = write(fd,mx, cc);
-						usleep(100);
+						usleep(100000);
 						bytes_read = read(fd,rec, 7);
-						usleep(100);
-					}*/
+						if(rec[0]=='f'&&rec[1]=='r'&&rec[2]=='a'&&rec[3]=='m'&&
+							rec[4]=='e'&&rec[5]=='o'&&rec[6]=='k'){
+							fok=1;
+						}
+					}										
+				}else{
+					printf("\n Se envia el ultimo frame %d : %s\n", ck, frame);
+					//bytes_written = write(fd,mx, cc);
+					while(fok==0){
+						bytes_written = write(fd,mx, cc-1);	//para vsalidar si hay error, modificar ultimo parametro a cc-2
+						
+					
+						usleep(100000);
+						bytes_read = read(fd,rec, 7);
+						if(rec[0]=='f'&&rec[1]=='r'&&rec[2]=='a'&&rec[3]=='m'&&
+							rec[4]=='e'&&rec[5]=='o'&&rec[6]=='k'){
+							fok=1;
+						}
+					}
 					fin =0;
 				}
 				cc=1;
@@ -204,13 +214,14 @@ void act_sflc(){
 }
 
 void act_sfcn(){
-	long lf;
+long lf;
 	int ll;
 	int cc=1;
 	int fin=0;
 	int c=1;
 	int ck=1;
 	int nf;		//nf- number of frames
+	int fok;
 	int bytes_written;
 	int bytes_read;
 	//char xm[170];
@@ -219,14 +230,16 @@ void act_sfcn(){
 	char mx[30];
 	//char bin[25];
 	char n[5];
-	char ch;
+	unsigned char ch;
 
+	
 	//fp = fopen ("/home/alberto/Documents/ecob/acsof/ebike_application.bin","r");
-	fp = fopen ("/home/upd/cn/ebike_application.bin","r");
+	fp = fopen ("/home/upd/lc/ebike_application.bin","r");
 	printf("\nEl valor de fp es : %d\n", fp);
 	if (fp!=NULL){
 		fseek(fp, 0L, SEEK_END);
 		lf=ftell(fp);
+		//rewind(fp);
 		printf("\nel archivo de actualizacion tiene una logitud de %d bytes\n", lf);
 		conv(lf);
 		//leer el documento///
@@ -235,7 +248,7 @@ void act_sfcn(){
 			nf++;
 		}
 		printf("\nEl archivo tiene: %d frames\n", nf);
-		while (c<37){
+		while (c<=nc){
 			strcpy(mx, "cc");
 			if ((c/10)==0){
 				strcat(mx,"0");
@@ -244,13 +257,14 @@ void act_sfcn(){
 			strcat(mx,n);
 			strcat(mx,"/");
 			strcat(mx, nch);
-			printf("\n El comando a enviar actualizacion al controlador %d es: %s\n", c, mx);
+			printf("\n El comando a enviar actualizacion al lockcontroller %d es: %s\n", c, mx);
 			//bytes_written = write(fd,mx, 17);
 			usleep(100);
 			rewind(fp);
 			ck = 1;
 			
 			while(ck<=nf){
+				fok=0;
 				while(cc<17 && fin<1){
 					if (!feof(fp)){
 						ch= fgetc(fp);
@@ -265,24 +279,33 @@ void act_sfcn(){
 				frame[16] = CheckSumByte(frame, 16);
 				printf("\nSe agrego byte de Cheksum\n");
 
-				if (fin ==0){
-					//bytes_written = write(fd,mx, 17);
+				if (fin ==0&&ck!=nf){
 					printf("\n Se envia el frame %d : %s\n", ck, frame);
+					while(fok==0){
+						bytes_written = write(fd,mx, 17);
+						
 					
-					usleep(100);
-					//bytes_read = read(fd,rec, 7);
-				}else{
-					//bytes_written = write(fd,mx, cc);
-					printf("\n Se envia el frame %d (ultimo frame): %s\n", ck, frame);
-					usleep(100);
-					//bytes_read = read(fd,rec, 7);
-					/*usleep(100);
-					while (rec!="frameok"){
-						bytes_written = write(fd,mx, cc);
-						usleep(100);
+						usleep(100000);
 						bytes_read = read(fd,rec, 7);
-						usleep(100);
-					}*/
+						if(rec[0]=='f'&&rec[1]=='r'&&rec[2]=='a'&&rec[3]=='m'&&
+							rec[4]=='e'&&rec[5]=='o'&&rec[6]=='k'){
+							fok=1;
+						}
+					}										
+				}else{
+					printf("\n Se envia el ultimo frame %d : %s\n", ck, frame);
+					//bytes_written = write(fd,mx, cc);
+					while(fok==0){
+						bytes_written = write(fd,mx, cc-1);	//para vsalidar si hay error, modificar ultimo parametro a cc-2
+						
+					
+						usleep(100000);
+						bytes_read = read(fd,rec, 7);
+						if(rec[0]=='f'&&rec[1]=='r'&&rec[2]=='a'&&rec[3]=='m'&&
+							rec[4]=='e'&&rec[5]=='o'&&rec[6]=='k'){
+							fok=1;
+						}
+					}
 					fin =0;
 				}
 				cc=1;
@@ -290,18 +313,17 @@ void act_sfcn(){
 			}
 			ck=1;
 			usleep(1000);
-			printf("\nSe actualizo C: %d\n", c);
+			printf("\nSe actualizo LC: %d\n", c);
 			c++;
 		}
 		fclose(fp);
-		printf("\nSe actualizaron todos los controladores\n");
-		//system("rm /home/upd/cn/ebike_application.bin");
+		printf("\nSe actualizaron todas las lock controller\n");
+		//system("rm /home/upd/lc/ebike_application.bin");
 		sleep(2);
 	}else{
-		printf("\nNo existe actualizacion de los controladores\n");
+		printf("\nNo existe actualizacion de las Lock Controller\n");
 	}
 }
-
 void act_sfsm(){
 	int ll;
 	int ck=0;
@@ -361,11 +383,11 @@ int main()
 	SerialPortSettings.c_cflag &= ~CRTSCTS;       /* No Hardware flow Control                         */
 	SerialPortSettings.c_cflag |= CREAD | CLOCAL; /* Enable receiver,Ignore Modem Control lines       */ 
 	SerialPortSettings.c_iflag &= ~(IXON | IXOFF | IXANY);          /* Disable XON/XOFF flow control both i/p and o/p */
-	SerialPortSettings.c_iflag &= ~(ICANON | ECHO | ECHOE | ISIG);  /* Non Cannonical mode                            */
+	SerialPortSettings.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);  /* Non Cannonical mode                            */
 	SerialPortSettings.c_oflag &= ~OPOST;/*No Output Processing*/
 		/* Setting Time outs */
 	SerialPortSettings.c_cc[VMIN] =  0; 		//pure time read 
-	SerialPortSettings.c_cc[VTIME] = 10;  /* Wait 1s   */	//VTIME TIEMPO EN DECIMAS DE SEGUNDO
+	SerialPortSettings.c_cc[VTIME] = 2;  /* Wait 1s   */	//VTIME TIEMPO EN DECIMAS DE SEGUNDO
 	/*int RTS_flag,DTR_flag;
 		RTS_flag = TIOCM_RTS;	/* Modem Constant for RTS pin 
 		DTR_flag = TIOCM_DTR;	/* Modem Constant for DTR pin 
@@ -381,10 +403,12 @@ int main()
 	tcflush(fd, TCOFLUSH);			//limpiar buffer de salida
 
 	act_sflc();
+	//system ("rm /home/upd/lc/ebike_application.bin");
 	tcflush(fd, TCIFLUSH);			//limpiar buffer de entrada
 	tcflush(fd, TCOFLUSH);			//limpiar buffer de salida
 	sleep(3);
 	act_sfcn();
+	//system ("rm /home/upd/cn/ebike_application.bin");
 	tcflush(fd, TCIFLUSH);			//limpiar buffer de entrada
 	tcflush(fd, TCOFLUSH);			//limpiar buffer de salida
 	sleep(3);
