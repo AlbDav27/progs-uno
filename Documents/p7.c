@@ -730,10 +730,6 @@ int main(){
 				printf("\n se monitorearon %d dispositivos\n", disp);
 				if (disp==0){
 					printf("\n ERROR NO HAY NINGUN DISPOSITIVO QUE ENVIE DATOS \n");
-					break;
-					break;
-					break;
-					break;
 				}
 				
 				disp=0;
