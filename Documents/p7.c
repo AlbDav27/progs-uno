@@ -12,68 +12,72 @@
 ///////////variables globales/////////////////////////
 int control[37][5];		//tabla donde se almacenan los datos de las Lock Controller
 int fuente[9][3];		//tabla donde se almacenan los datos de las fuentes
-int v[2];				//2 valores de configuración recibidos
+int v[3];				//3 valores de configuración recibidos
 int x =0;				//variable que distingue entr variables de configuración
 char js[2000];			//cadena json a enviar
 int b, slots, st;
 char brfid[37][16];
 /////////////////////////////////////////////////////funciones para parseo JSON////////////////////////////////////////////////////////////////////////
 
-void transform(char dat1[3], char dat2[3]){
+void transform(char dat1[3], char dat2[3], char dat3[3]){
 	int un=0;
 	int de=0;
 	int ce=0;
 	int dat;
-	if (dat1[2]!='\0'){
+	if (dat1[2]!=0){
 		ce=dat1[0]-48;
 		de=dat1[1]-48;
 		un=dat1[2]-48;
-	}else{
+	}
+	else if (dat1[1]!=0){
+		ce=0;
 		de=dat1[0]-48;
 		un=dat1[1]-48;
+	}else{
+		ce=0;
+		de=0;
+		un=dat1[0]-48;
 	}
 	dat=(100*ce)+(10*de)+un;
-	v[0]=dat;					// dato de porcentaje de carga
+	v[0]=dat;					//dato de porcentaje de carga
 
-	if (dat2[2]!='\0'){
+	if (dat2[2]!=0){
 		ce=dat2[0]-48;
 		de=dat2[1]-48;
 		un=dat2[2]-48;
-	}else{
+	}
+	else if (dat2[1]!=0){
+		ce=0;
 		de=dat2[0]-48;
 		un=dat2[1]-48;
+	}else{
+		
+		ce=0;
+		de=0;
+		un=dat2[0]-48;
 	}
 	dat=(100*ce)+(10*de)+un;
 	v[1]=dat;					//dato de velocidad de la E/Bike
+
+	if (dat3[2]!=0){
+		ce=dat3[0]-48;
+		de=dat3[1]-48;
+		un=dat3[2]-48;
+	}
+	else if (dat3[1]!=0){
+		ce=0;
+		de=dat3[0]-48;
+		un=dat3[1]-48;
+	}else{
+		
+		ce=0;
+		de=0;
+		un=dat3[0]-48;
+	}
+	dat=(100*ce)+(10*de)+un;
+	v[2]=dat;					//dato de nivel de asistencia
 }
 
-void getdata(char ci[30]){
-	int y=0;
-	int u=0;
-	int l=0;
-	char dat1[3];
-	char dat2[3];
-	dat1[2]='\0';
-	dat2[2]='\0';
-	while (ci[y]!='\0'){
-		if (ci[y]==','){
-			u=1;l=0;
-		}
-		if (ci[y]=='0'||ci[y]=='1'||ci[y]=='2'||ci[y]=='3'||ci[y]=='4'
-			||ci[y]=='5'||ci[y]=='6'||ci[y]=='7'||ci[y]=='8'||ci[y]=='9'){
-			if (u==0){
-				dat1[l]=ci[y];
-				l++;
-			}
-			if (u==1){
-				dat2[l]=ci[y];
-				l++;
-			}
-		}
-		y++;
-	}
-	transform(dat1,dat2);
-}
 
 /////////////////////////////////////////////////////////////////funciones para transformar cadena recibida a valores enteros
 int conv_st_int3(char str[3]){
@@ -410,10 +414,8 @@ int main(){
 	SerialPortSettings.c_cc[VTIME] = 10;  /* Wait 1s   */	//VTIME TIEMPO EN DECIMAS DE SEGUNDO
 	/*
 		int RTS_flag,DTR_flag;
-
 		RTS_flag = TIOCM_RTS;	 Modem Constant for RTS pin 
 		DTR_flag = TIOCM_DTR;	 Modem Constant for DTR pin 
-
 		ioctl(fd,TIOCMBIC,&RTS_flag); ~RTS = 1,So ~RE pin of MAX485 is HIGH                       
 		ioctl(fd,TIOCMBIC,&DTR_flag); ~DTR = 1,So  DE pin of MAX485 is HIGH,Transmit Mode enabled 
  
@@ -440,8 +442,11 @@ int main(){
 	char subs[5];
 	char sol[70];
 	char ci[30];
+	char cpc[3];		//dato de porcentaje de carga en caracteres
+	char cvl[3];		//dato de velocidad en caracteres
+	char cas[3];		//dato de nivel de asistencia en caracteres
 	
-	char caracter;
+	unsigned char caracter;
 
     int  bytes_read = 0;    /* Number of bytes read by the read() system call */
     int  bytes_written  = 0;  	/* Value for storing the number of bytes written to the port */
@@ -459,6 +464,10 @@ int main(){
 	int disp=0;
 	int tim=55;
 	int ti;
+	int cor;
+	int cmm;
+	int lf;
+	int crchr;
 
 	FILE *fp;
 
@@ -508,43 +517,71 @@ int main(){
 			z=0;
 			//strcpy(com, "curl -X GET \"https://my.rayven.io:8082/api/main?uid=111848e7eda9ff3b47e3aba02197e37a6a94&deviceid=conf_data\" >/home/alberto/Documents/ecob/UNO/response.txt");
 			strcpy(com, "curl -X GET \"https://my.rayven.io:8082/api/main?uid=111848e7eda9ff3b47e3aba02197e37a6a94&deviceid=conf_data\" >/home/prog/response.txt");
-			printf("\n\n\nejecuto post : %s \n", com);
-			lt= strlen(com);
-			printf("\n la longitud del comando es : %d\n\n", lt);
-			system (com);
-			//fp = fopen ("response.txt","r");
+			system(com);
 			fp = fopen ("/home/prog/response.txt","r");
-			//fgets(res, 100, fp);
+			//fp = fopen ("/home/alberto/Documents/ecob/UNO/r1.txt","r");
 			n=0;
-			while((caracter = fgetc(fp)) != EOF)
+			cor =0;
+			z=0;
+			cmm=0;
+			crchr=0;
+			fseek(fp, 0L, SEEK_END);
+			lf=ftell(fp);
+			printf("\n Longitud del archivo : %i \n", lf);
+			rewind(fp);
+			while(((caracter = fgetc(fp)) != EOF)&& n<200)
 			{		
+				re[n]=caracter;		
+				//caracter = fgetc(fp);
 				printf("%c",caracter);
-				re[n]=caracter;
+				
 				n++;
 			}
-			n=107;
-			//printf("\n\n la cadena recibida guardadA en res es : ");
-			while ((n<164)&&(z<83)){		
-				//printf("%d-%c  ", n, re[n]);
-				y=n%2;
-				if (y==0&&n!=106&&n!=160){
-					if (re[n]!=92)
-					{
-						ci[z]=re[n];
-						z++;
-					}
+
+			printf("\nre = %s\n", re);
+			while(crchr<200)
+			{		
+				
+				printf("\ncrchr : %i\n", crchr);
+				caracter= re[crchr];
+				printf("%c",caracter);
+				if (caracter=='{'){
+					cor++;
 				}
-				n++;
+				if (cor==2){
+					if (caracter!=','){
+						if (caracter=='0'||caracter=='1'||caracter=='2'||caracter=='3'||caracter=='4'||caracter=='5'||
+							caracter=='6'||caracter=='7'||caracter=='8'||caracter=='9'){
+							if (cmm==0){
+								cpc[z]=caracter;
+							}
+							if (cmm==1){
+								cvl[z]=caracter;
+							}
+							if (cmm==2){
+								cas[z]=caracter;
+							}
+							z++;
+						}
+						
+					}else{
+						cmm++;
+						z=0;
+					}
+					
+				}
+				crchr++;
 			}
-			ci[z]='\0';
-			fclose(fp);
-			lr=strlen(ci);
-			printf("\n la longitud de la cadena recibida ci es : %d", lr);
-			printf("\n la cadena recibida ci es: %s", ci);
-			n++;
-			getdata(ci);
-			printf("\nLos valores del json son: %i, %i\n", v[0], v[1]);
-			strcpy (com, "");
+			cas[2]=0;
+			cas[1]=0;
+			cvl[2]=0;
+			cpc[2]=0;
+			printf("\n Las cadenas recolectadas son : %s , %s , %s \n", cpc, cvl, cas);
+			transform(cpc, cvl,  cas),
+			//getdata(ci);
+			printf("\nLos valores del json son: %i, %i, %i \n", v[0], v[1], v[2]);
+			//strcpy (com, "");
+
 			///////////se envian los datos a los controladores en Broadcast/////////////////////////////////////
 
 			////////////////////////////////////configuracion de broadcast de carga de liberación
@@ -586,7 +623,29 @@ int main(){
 			printf("\n El broadcast velocidad a las Lock Controller es : %s/fin_cad\n", cmx);
 			bytes_written = write(fd,cmx,8);						//envio de segundo broadcast
 			usleep(400000);			
-			//tcflush(fd, TCIFLUSH);
+			tcflush(fd, TCIFLUSH);
+			strcpy(cmx, "");
+
+			////////////////////////////////////configuracion de broadcast de nivel de asistencia
+			strcpy(cmx, "ca00/");
+			strcpy(temp,"");
+			cen = v[1]/100;
+			if (cen == 0){
+				strcat(cmx, "0");
+			}
+			res = v[1]-(cen*100);
+			dec = res/10;
+			if (dec==0){
+				strcat(cmx,"0");	
+			}
+			sprintf(temp,"%d",v[2]);
+			strcat(cmx, temp);
+			printf("\n El broadcast velocidad a las Lock Controller es : %s/fin_cad\n", cmx);
+			//bytes_written = write(fd,cmx,8);						//envio de segundo broadcast
+			usleep(400000);			
+			tcflush(fd, TCIFLUSH);
+			strcpy(cmx, "");
+
 			cp=0;
 			n=1;
 		}
