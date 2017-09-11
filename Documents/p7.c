@@ -641,7 +641,7 @@ int main(){
 			sprintf(temp,"%d",v[2]);
 			strcat(cmx, temp);
 			printf("\n El broadcast velocidad a las Lock Controller es : %s/fin_cad\n", cmx);
-			//bytes_written = write(fd,cmx,8);						//envio de segundo broadcast
+			bytes_written = write(fd,cmx,8);						//envio de segundo broadcast
 			usleep(400000);			
 			tcflush(fd, TCIFLUSH);
 			strcpy(cmx, "");
@@ -797,8 +797,7 @@ int main(){
 			n++;
 			usleep(10000);
 		}
-		
-		usleep(100000);						//este retardo debe ser mucho mayor que el de los controladores para que cuando vuelva a enviar info el receptor ya este leyendo
+		usleep(100000);	//este retardo debe ser mucho mayor que el de los controladores para que cuando vuelva a enviar info el receptor ya este leyendo
 	}
     close(fd); /* Close the serial port */
 }
