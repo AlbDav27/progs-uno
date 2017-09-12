@@ -419,6 +419,7 @@ int main()
 	system(comand);
 	strcpy(comand, "");
 	strcpy(comand, "cd /home\ngit clone https://xmdmdw6qn6nsgabrzwydlfe2kuc7biuvtosohm3e5ie7ckz6aylq@albdav27.visualstudio.com/_git/MyFirstProject\n");
+	system(comand);
 	
 	strcpy(comand, "");
 	strcpy(comand, "cp /home/MyFirstProject/Documents/upd/bike.bin /home/upd/cn/bike.bin");
