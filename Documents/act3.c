@@ -351,12 +351,12 @@ void act_upd(){
 		system("cp /home/upd/prog/new_act.c /home/upd/act.c ");
 		system ("rm /home/prog/upd/new_act.c");
 		system("gcc /home/upd/act.c -o /home/upd/u");
-		printf("\nSe actualizo la aplicacion del SM\n");
+		printf("\nSe actualizo el programa de actualizacion\n");
 		fclose(fp);
 		
 	}
 	else{
-		printf("\n No hay actualizacion de la aplicacion del SM\n", );
+		printf("\n No hay actualizacion del programa de actualizacion\n", );
 	}
 	sleep(2);
 }
