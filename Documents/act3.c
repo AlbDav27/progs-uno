@@ -412,13 +412,13 @@ int main()
              printf("\n  BaudRate = 9600 \n  StopBits = 1 \n  Parity   = none");
  	}
 
- 	strcpy(comand, "rm -Rf /home/alberto/Documents/ecob/git/MyFirstProject");
+ 	strcpy(comand, "rm -Rf /home/MyFirstProject");
  	//strcpy(comand, "rm -Rf /home/MyFirstProject");
 	printf("\nDirectorio borrado\n");
 	//sleep(5);
 	system(comand);
 	strcpy(comand, "");
-	strcpy(comand, "cd /home/alberto/Documents/ecob/git\ngit clone https://xmdmdw6qn6nsgabrzwydlfe2kuc7biuvtosohm3e5ie7ckz6aylq@albdav27.visualstudio.com/_git/MyFirstProject\n");
+	strcpy(comand, "cd /home\ngit clone https://xmdmdw6qn6nsgabrzwydlfe2kuc7biuvtosohm3e5ie7ckz6aylq@albdav27.visualstudio.com/_git/MyFirstProject\n");
 	//strcpy(comand, "cd /home\ngit clone https://xmdmdw6qn6nsgabrzwydlfe2kuc7biuvtosohm3e5ie7ckz6aylq@albdav27.visualstudio.com/_git/MyFirstProject\n")
 	
 	strcpy(comand, "");
