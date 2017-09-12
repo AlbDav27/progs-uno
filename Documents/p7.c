@@ -541,10 +541,9 @@ int main(){
 			printf("\nre = %s\n", re);
 			while(crchr<200)
 			{		
-				
-				printf("\ncrchr : %i\n", crchr);
+				//printf("\ncrchr : %i\n", crchr);
 				caracter= re[crchr];
-				printf("%c",caracter);
+				//printf("%c",caracter);
 				if (caracter=='{'){
 					cor++;
 				}
@@ -603,7 +602,7 @@ int main(){
 			bytes_written = write(fd,cmx,8);						//envio de primer broadcast
 			usleep(400000);			
 			tcflush(fd, TCIFLUSH);
-			strcpy(cmx, "");
+			strcpy(cmx, "");  
 			
 			////////////////////////////////////configuracion de broadcast de velocidad
 
