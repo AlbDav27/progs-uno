@@ -419,25 +419,20 @@ int main()
 	system(comand);
 	strcpy(comand, "");
 	strcpy(comand, "cd /home\ngit clone https://xmdmdw6qn6nsgabrzwydlfe2kuc7biuvtosohm3e5ie7ckz6aylq@albdav27.visualstudio.com/_git/MyFirstProject\n");
-	//strcpy(comand, "cd /home\ngit clone https://xmdmdw6qn6nsgabrzwydlfe2kuc7biuvtosohm3e5ie7ckz6aylq@albdav27.visualstudio.com/_git/MyFirstProject\n")
 	
 	strcpy(comand, "");
-	//strcpy(comand, "cp /home/alberto/Documents/ecob/git/MyFirstProject/Documents/\ngit clone https://xmdmdw6qn6nsgabrzwydlfe2kuc7biuvtosohm3e5ie7ckz6aylq@albdav27.visualstudio.com/_git/MyFirstProject\n");
 	strcpy(comand, "cp /home/MyFirstProject/Documents/upd/bike.bin /home/upd/cn/bike.bin");
 	system(comand);
 
 	strcpy(comand, "");
-	//strcpy(comand, "cp /home/alberto/Documents/ecob/git/MyFirstProject/Documents/\ngit clone https://xmdmdw6qn6nsgabrzwydlfe2kuc7biuvtosohm3e5ie7ckz6aylq@albdav27.visualstudio.com/_git/MyFirstProject\n");
 	strcpy(comand, "cp /home/MyFirstProject/Documents/upd/lc.bin /home/upd/cn/lc.bin");
 	system(comand);
 
 	strcpy(comand, "");
-	//strcpy(comand, "cp /home/alberto/Documents/ecob/git/MyFirstProject/Documents/\ngit clone https://xmdmdw6qn6nsgabrzwydlfe2kuc7biuvtosohm3e5ie7ckz6aylq@albdav27.visualstudio.com/_git/MyFirstProject\n");
 	strcpy(comand, "cp /home/MyFirstProject/Documents/upd/new_act.c /home/upd/prog/new_act.c");
 	system(comand);
 
 	strcpy(comand, "");
-	//strcpy(comand, "cp /home/alberto/Documents/ecob/git/MyFirstProject/Documents/\ngit clone https://xmdmdw6qn6nsgabrzwydlfe2kuc7biuvtosohm3e5ie7ckz6aylq@albdav27.visualstudio.com/_git/MyFirstProject\n");
 	strcpy(comand, "cp /home/MyFirstProject/Documents/upd/new_prog.c /home/upd/prog/new_prog.c");
 	system(comand);
 
@@ -445,24 +440,17 @@ int main()
 	tcflush(fd, TCOFLUSH);			//limpiar buffer de salida
 
 	act_sflc();
-	//system ("rm /home/upd/lc/ebike_application.bin");
 	tcflush(fd, TCIFLUSH);			//limpiar buffer de entrada
 	tcflush(fd, TCOFLUSH);			//limpiar buffer de salida
 	sleep(3);
 	act_sfcn();
-	//system ("rm /home/upd/cn/ebike_application.bin");
+	
 	tcflush(fd, TCIFLUSH);			//limpiar buffer de entrada
 	tcflush(fd, TCOFLUSH);			//limpiar buffer de salida
 	sleep(3);
 	act_sfsm();
 	sleep (3);
 	//act_upd();
-	//system("rm /home/root/Documents/ecob/acosf/ebike_application.bin");
-	//se borra archivo de actualizacion de lock controllers
-	//system("rm /home/root/Documents/ecob/acosf/ebike_application.bin");
-	//se borra el archivo de actualizacion de controladores 
-
-	//si no se borran los archivos de actualizacion el sistema de monitoreo envia 
-	//en cada reinicio el mismo programa  esto es muy tardado.
+	
 	return 0;
 }
