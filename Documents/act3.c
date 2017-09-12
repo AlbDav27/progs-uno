@@ -350,7 +350,7 @@ void act_upd(){
 		system ("rm /home/upd/act.c");
 		system("cp /home/upd/prog/new_act.c /home/upd/act.c ");
 		system ("rm /home/prog/upd/new_act.c");
-		system("gcc /home/upd/act.c -o /home/upd/u");
+		system("gcc /home/upd/act.c -o /home/upd/u -lm");
 		printf("\nSe actualizo el programa de actualizacion\n");
 		fclose(fp);
 		
