@@ -450,7 +450,7 @@ int main()
 	sleep(3);
 	act_sfsm();
 	sleep (3);
-	//act_upd();
+	act_upd();
 	sleep(3);
 	
 	return 0;
