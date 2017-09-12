@@ -338,7 +338,7 @@ void act_sfsm(){
 		
 	}
 	else{
-		printf("\n No hay actualizacion de la aplicacion del SM\n", );
+		printf("\n No hay actualizacion de la aplicacion del SM\n" );
 	}
 	sleep(2);
 }
@@ -356,7 +356,7 @@ void act_upd(){
 		
 	}
 	else{
-		printf("\n No hay actualizacion del programa de actualizacion\n", );
+		printf("\n No hay actualizacion del programa de actualizacion\n");
 	}
 	sleep(2);
 }
