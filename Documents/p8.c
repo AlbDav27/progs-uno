@@ -519,6 +519,7 @@ int main(){
 	cor=0;
 	crchr=0;
 	cmm=0;
+	printf("\n\n");
 	fp = fopen ("/home/prog/st_data.txt","r");
 	while(((caracter = fgetc(fp)) != EOF)&& n<50)
 	{		
