@@ -174,7 +174,7 @@ void getgval(int nc, int nf){
 	slots=0;
 	st=0;
 	while (s<=nc){
-		if (control[s][4]==0){
+		if (control[s][1]<0){
 			slots++;				//cuando una lock no tiene e-bike conectada
 		}
 		s++;
