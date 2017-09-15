@@ -1,3 +1,3 @@
-curl -X POST -H "Content-Type: application/json" -d '{"b_s":27, "rel_r":72}' "https://my.rayven.io:8082/api/main?uid=111848e7eda9ff3b47e3aba02197e37a6a94&deviceid=conf_data"
+curl -X POST -H "Content-Type: application/json" -d '{"rel_r":72, "b_s":27, "as_lv":3}' "https://my.rayven.io:8082/api/main?uid=111848e7eda9ff3b47e3aba02197e37a6a94&deviceid=conf_data"
 
-curl -X GET "https://my.rayven.io:8082/api/main?uid=111848e7eda9ff3b47e3aba02197e37a6a94&deviceid=conf_data" >/home/alberto/Desktop/response
+curl -X GET "https://my.rayven.io:8082/api/main?uid=111848e7eda9ff3b47e3aba02197e37a6a94&deviceid=conf_data"
