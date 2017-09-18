@@ -563,8 +563,9 @@ int main(){
 	id_st=v[0];
 	nc=v[1];
 	nf=v[2];
+	fclose(fp);
 	//getdata(ci);
-	printf("\nLos valores de la estacion son son: %i, %i, %i \n", id_st, nc, nf);
+	printf("\nLos valores de la estacion son son: id_st=%i, nc=%i, nf=%i \n", id_st, nc, nf);
 
 	n=0;
 	z=0;
@@ -645,7 +646,8 @@ int main(){
 			printf("\n Las cadenas recolectadas son : %s , %s , %s \n", cpc, cvl, cas);
 			transform(cpc, cvl,  cas),
 			//getdata(ci);
-			printf("\nLos valores del json son: %i, %i, %i \n", v[0], v[1], v[2]);
+			fclose(fp),
+			printf("\nLos valores del json son: rel_r=%i, b_s=%i, as_lv=%i \n", v[0], v[1], v[2]);
 			//strcpy (com, "");
 
 			///////////se envian los datos a los controladores en Broadcast/////////////////////////////////////
