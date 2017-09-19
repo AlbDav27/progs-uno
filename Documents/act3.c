@@ -317,11 +317,11 @@ long lf;
 			c++;
 		}
 		fclose(fp);
-		printf("\nSe actualizaron todas las lock controller\n");
+		printf("\nSe actualizaron todos los controladores\n");
 		system("rm /home/upd/lc/bike.bin");
 		sleep(2);
 	}else{
-		printf("\nNo existe actualizacion de las Lock Controller\n");
+		printf("\nNo existe actualizacion de los controladores\n");
 	}
 }
 void act_sfsm(){
@@ -331,7 +331,7 @@ void act_sfsm(){
 	if (fp!=NULL){
 		system ("rm /home/prog/p.c");
 		system("cp /home/upd/prog/new_prog.c /home/prog/p.c ");
-		system ("rm /home/prog/upd/new_prog.c");
+		system ("rm /home/upd/prog/new_prog.c");
 		system("gcc /home/prog/p.c -o /home/prog/p");
 		printf("\nSe actualizo la aplicacion del SM\n");
 		fclose(fp);
@@ -349,7 +349,7 @@ void act_upd(){
 	if (fp!=NULL){
 		system ("rm /home/upd/act.c");
 		system("cp /home/upd/prog/new_act.c /home/upd/act.c ");
-		system ("rm /home/prog/upd/new_act.c");
+		system ("rm /home/upd/prog/new_act.c");
 		system("gcc /home/upd/act.c -o /home/upd/u -lm");
 		printf("\nSe actualizo el programa de actualizacion\n");
 		fclose(fp);
