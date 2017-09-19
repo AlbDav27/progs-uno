@@ -149,7 +149,7 @@ void def_table(int n){
 		while (j<16){
 			if (j==0){
 				brfid[y][j]='x';
-.				brfid[y][j]='\0';
+				brfid[y][j]='\0';
 			}
 			j++;
 		}
@@ -273,7 +273,7 @@ void to_jsonc(int nc, int nf, int id_st){
 			strcat(js, t);
 			strcat(js,", \"id_b\":\"\"");
 			strcat(js,", \"st_ch\":\"\"");
-			strcat(js,", \"hs_ba\":\"\"")
+			strcat(js,", \"hs_ba\":\"\"");
 			strcat(js,", \"nc\":\"\"");
 			if (q<nc){
 				strcat(js, "},");
