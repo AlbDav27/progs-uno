@@ -31,7 +31,7 @@ void def_table1(int n){
 	for (z=1;z<=n;z++){
 		r=rand()%2;
 		d=rand()%401;
-		if (r!=1)
+		if (r!=1&&d!=0)
 		{			
 			if (bike[d]==0){
 				bilckd++;
