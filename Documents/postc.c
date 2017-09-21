@@ -97,8 +97,9 @@ void getgval(int nc, int nf){
 	int s=1;
 	slots=0;
 	st=0;
+	b=0;
 	while (s<=nc){
-		if (control[s][4]==0){
+		if (control[s][1]<0){
 			slots++;				//cuando una lock no tiene e-bike conectada
 		}
 		s++;
@@ -110,14 +111,16 @@ void getgval(int nc, int nf){
 		}
 		s++;
 	}
+
 	b=nc-slots;
+	printf("\n\n\nslots:%d , \nnc:%d , \nbikes:%d \n\n", slots,nc, b);
 }
 
 
 void to_jsonc(int id_st){
 	char t [5];
 	int nf=4;
-	int nc=34;
+	int nc=24;
 	int q;
 	//char rfid[17];
 	int k=0;
@@ -166,29 +169,47 @@ void to_jsonc(int id_st){
 		}
 		rfid[16]='\0';*/
 		k=0;
-		strcat(js,"{\"id_c\":");
-		sprintf(t,"%d",control[q][0]);			//id_c se encuentra en las posiciones control[q][0] de control
-		strcat(js, t);
-		strcat(js,", \"id_b\":\"bike_");
-		sprintf(t,"%d",control[q][4]);			//id_b se encuentra en las posiciones control[q][4] de control
-		strcat(js, t);
-		strcat(js,"\", \"st_ch\":");
-		sprintf(t,"%d",control[q][1]);			//st_ch se encuentra en las posiciones control[q][1] de control
-		strcat(js, t);
-		strcat(js,", \"hs_ba\":");
-		sprintf(t,"%d",control[q][2]);			//hs_ba se encuentra en las posiciones control[q][2] de control
-		strcat(js, t);
-		strcat(js,", \"nc\":");
-		sprintf(t,"%d",control[q][3]);			//nc se encuentra en las posiciones control[q][3] de control
-		strcat(js, t);
-		if (q<nc){
-			strcat(js, "},");
+		if (control[q][1]>=0)
+		{
+			strcat(js,"{\"id_c\":");
+			sprintf(t,"%d",control[q][0]);			//id_c se encuentra en las posiciones control[q][0] de control
+			strcat(js, t);
+			strcat(js,", \"id_b\":\"bike_");
+			sprintf(t,"%d",control[q][4]);			//id_b se encuentra en las posiciones control[q][4] de control
+			strcat(js, t);
+			strcat(js,"\", \"st_ch\":");
+			sprintf(t,"%d",control[q][1]);			//st_ch se encuentra en las posiciones control[q][1] de control
+			strcat(js, t);
+			strcat(js,", \"hs_ba\":");
+			sprintf(t,"%d",control[q][2]);			//hs_ba se encuentra en las posiciones control[q][2] de control
+			strcat(js, t);
+			strcat(js,", \"nc\":");
+			sprintf(t,"%d",control[q][3]);			//nc se encuentra en las posiciones control[q][3] de control
+			strcat(js, t);
+			if (q<nc){
+				strcat(js, "},");
+			}
+			else {
+				strcat(js, "}");
+			}
 		}
-		else {
-			strcat(js, "}]");
+		else{
+			strcat(js,"{\"id_c\":");
+			sprintf(t,"%d",control[q][0]);			//id_c se encuentra en las posiciones control[q][0] de control
+			strcat(js, t);
+			strcat(js,", \"id_b\":\"\",");
+			strcat(js,"\"st_ch\":\"\",");
+			strcat(js,"\"hs_ba\":\"\",");
+			strcat(js,"\"nc\":\"\"");
+			if (q<nc){
+				strcat(js, "},");
+			}
+			else {
+				strcat(js, "}");
+			}
 		}
 	}
-	strcat(js, "}");
+	strcat(js, "]}");
 }
 
 void to_jsoncb(){
@@ -259,8 +280,8 @@ int main(){
 	int is;
 	strcpy(com,"");
 	//strcpy(res,"");
-	int nc=36;
-	int nf=6;
+	int nc=24;
+	int nf=4;
 	int n=1;
 	int lt, lr;
 	FILE *fp;
@@ -288,7 +309,7 @@ int main(){
 			printf("\n la longitud del comando es : %d", lt);
 			system (com);
 			n++;
-			usleep(50000);
+			usleep(1000000);
 		}
 		n=1;
 		while (n<401){
@@ -306,7 +327,7 @@ int main(){
 				lt= strlen(com);
 				printf("\n la longitud del comando es : %d", lt);
 				system (com);
-				usleep(50000);
+				usleep(1000000);
 			}
 			n++;
 		}
@@ -315,5 +336,6 @@ int main(){
 		printf("\nE-Bikes locked in a station = %d \n", bilckd);
 		btot=biroad+bilckd;
 		printf("\nE-Bikes total = %d \n", btot);
+		sleep(2);
 	}
 }
