@@ -12,6 +12,7 @@ int bike [401];
 int bd[6];
 float lat, lon;
 int bilckd=0, biroad=0;
+int dfd=0;
 
 
 void vac_bike(){
@@ -118,10 +119,26 @@ void getgval(int nc, int nf){
 
 
 void to_jsonc(int id_st){
-	char t [5];
+	char t [10];
 	int nf=4;
 	int nc=24;
 	int q;
+	float l;
+	double clon;
+
+	lat= 19.045773;
+	lon=-99.373112;
+	
+	l=rand()%556344;
+	l=l/1000000;
+	lat= lat+l;
+	l=rand()%43621;
+	l=l/100000;
+	lon= lon+l;
+
+	printf("\n\n Estacion ubicada lat: %f , lon: %f\n\n", lat, lon);
+	clon=lon;
+
 	//char rfid[17];
 	int k=0;
 	strcpy(js,"");
@@ -142,6 +159,11 @@ void to_jsonc(int id_st){
 		strcat(js, ", \"door\":\"closed\"");
 	}else{
 		strcat(js, ", \"door\":\"opened\"");
+	}
+	if (dfd==0){
+		strcat(js, ", \"default\":\"no\"");
+	}else{
+		strcat(js, ", \"default\":\"yes\"");
 	}
 	strcat(js, ", \"chargers\":[");
 	for(q=1;q<=nf;q++){
@@ -169,12 +191,15 @@ void to_jsonc(int id_st){
 		}
 		rfid[16]='\0';*/
 		k=0;
-		if (control[q][1]>=0)
-		{
+		if (control[q][1]>=0){
+			
+
+			clon = 0.000002 +clon;
+			printf("\nnew lon= %f\n",clon);
 			strcat(js,"{\"id_c\":");
 			sprintf(t,"%d",control[q][0]);			//id_c se encuentra en las posiciones control[q][0] de control
 			strcat(js, t);
-			strcat(js,", \"id_b\":\"bike_");
+			strcat(js,", \"id_b\":\"");
 			sprintf(t,"%d",control[q][4]);			//id_b se encuentra en las posiciones control[q][4] de control
 			strcat(js, t);
 			strcat(js,"\", \"st_ch\":");
@@ -186,27 +211,36 @@ void to_jsonc(int id_st){
 			strcat(js,", \"nc\":");
 			sprintf(t,"%d",control[q][3]);			//nc se encuentra en las posiciones control[q][3] de control
 			strcat(js, t);
+			strcat(js, ", \"lat\":");
+			sprintf(t,"%f",lat);
+			strcat(js, t);
+			strcat(js, ", \"lon\":");
+			sprintf(t,"%f",clon);
+			strcat(js, t);
 			if (q<nc){
 				strcat(js, "},");
 			}
 			else {
 				strcat(js, "}");
 			}
-		}
-		else{
+		}else{			//esta parte envia cuando no hay una bici conectada a la lock
+
 			strcat(js,"{\"id_c\":");
 			sprintf(t,"%d",control[q][0]);			//id_c se encuentra en las posiciones control[q][0] de control
 			strcat(js, t);
-			strcat(js,", \"id_b\":\"\",");
-			strcat(js,"\"st_ch\":\"\",");
-			strcat(js,"\"hs_ba\":\"\",");
-			strcat(js,"\"nc\":\"\"");
+			strcat(js,", \"id_b\":\"\"");
+			strcat(js,", \"st_ch\":\"\"");
+			strcat(js,", \"hs_ba\":\"\"");
+			strcat(js,", \"nc\":\"\"");
+			strcat(js,", \"lat\":\"\"");
+			strcat(js,", \"lon\":\"\"");
 			if (q<nc){
 				strcat(js, "},");
 			}
 			else {
 				strcat(js, "}");
 			}
+		
 		}
 	}
 	strcat(js, "]}");
