@@ -552,6 +552,7 @@ int main(){
 	int cmm;
 	int lf;
 	int crchr;
+	int ban;
 
 	FILE *fp;
 
@@ -861,6 +862,7 @@ int main(){
 		}else{					//////////solicitud de datos a lock controller
 			strcpy(cmx, "cr");
 			dec=n/10;
+			ban=0;
 			if (dec==0){
 				strcat(cmx,"0");	
 			}
@@ -884,19 +886,25 @@ int main(){
 				dfd=0;
 
 				control[n][0]= n;
-									//id_c : id del controlador
+												//id_c : id del controlador
 				subs[0]=read_buffer[4];				//st_ch : estado de carga
 				subs[1]=read_buffer[5];
 				subs[2]=read_buffer[6];
-				num=conv_st_int3(subs);
-				control[n][1]=num;
+				if (subs[0]!='x'||subs[1]!='x'||subs[2]!='x'){
+					num=conv_st_int3(subs);
+					control[n][1]=num;
+					ban=1;
+				}
 				strcpy(subs,"");
 
 				subs[0]=read_buffer[8];				//hs_ba : estado de salud de la bateria
 				subs[1]=read_buffer[9];
 				subs[2]=read_buffer[10];
-				num=conv_st_int3(subs);
-				control[n][2]=num;
+				if (ban==0){
+					num=conv_st_int3(subs);
+					control[n][2]=num;
+				}
+				
 				strcpy(subs,"");
 
 				subs[0]=read_buffer[12];			//nc : numero de ciclos
@@ -904,29 +912,36 @@ int main(){
 				subs[2]=read_buffer[14];
 				subs[3]=read_buffer[15];
 				subs[4]=read_buffer[16];
-				num=conv_st_int5(subs);
-				control[n][3]=num;
+				if(ban==0){
+					num=conv_st_int5(subs);
+					control[n][3]=num;
+				}
+				
 				strcpy(subs,"");
 
-				brfid[n][0]=read_buffer[18];
-				brfid[n][1]=read_buffer[19];			//id_b : E-Bike ID
-				brfid[n][2]=read_buffer[20];
-				brfid[n][3]=read_buffer[21];
-				brfid[n][4]=read_buffer[22];
-				brfid[n][5]=read_buffer[23];
-				brfid[n][6]=read_buffer[24];			//id_b : E-Bike ID
-				brfid[n][7]=read_buffer[25];
-				brfid[n][8]=read_buffer[26];
-				brfid[n][9]=read_buffer[27];
-				brfid[n][10]=read_buffer[28];
-				brfid[n][11]=read_buffer[29];			//id_b : E-Bike ID
-				brfid[n][12]=read_buffer[30];
-				brfid[n][13]=read_buffer[31];
-				brfid[n][14]=read_buffer[32];
-				brfid[n][15]=read_buffer[33];
+				if(ban==0){
+					brfid[n][0]=read_buffer[18];
+					brfid[n][1]=read_buffer[19];			//id_b : E-Bike ID
+					brfid[n][2]=read_buffer[20];
+					brfid[n][3]=read_buffer[21];
+					brfid[n][4]=read_buffer[22];
+					brfid[n][5]=read_buffer[23];
+					brfid[n][6]=read_buffer[24];			//id_b : E-Bike ID
+					brfid[n][7]=read_buffer[25];
+					brfid[n][8]=read_buffer[26];
+					brfid[n][9]=read_buffer[27];
+					brfid[n][10]=read_buffer[28];
+					brfid[n][11]=read_buffer[29];			//id_b : E-Bike ID
+					brfid[n][12]=read_buffer[30];
+					brfid[n][13]=read_buffer[31];
+					brfid[n][14]=read_buffer[32];
+					brfid[n][15]=read_buffer[33];
+				}
+				
 				//num=conv_st_int5(subs);
 				//control[n][4]=num;
-				strcpy(subs,"");	
+				strcpy(subs,"");
+					
 
 				disp++;
 			}
