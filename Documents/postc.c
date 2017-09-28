@@ -195,11 +195,11 @@ void to_jsonc(int id_st){
 			
 
 			clon = 0.000002 +clon;
-			printf("\nnew lon= %f\n",clon);
+			//printf("\nnew lon= %f\n",clon);
 			strcat(js,"{\"id_c\":");
 			sprintf(t,"%d",control[q][0]);			//id_c se encuentra en las posiciones control[q][0] de control
 			strcat(js, t);
-			strcat(js,", \"id_b\":\"");
+			strcat(js,", \"id_b\":\"bike_");
 			sprintf(t,"%d",control[q][4]);			//id_b se encuentra en las posiciones control[q][4] de control
 			strcat(js, t);
 			strcat(js,"\", \"st_ch\":");
@@ -370,6 +370,6 @@ int main(){
 		printf("\nE-Bikes locked in a station = %d \n", bilckd);
 		btot=biroad+bilckd;
 		printf("\nE-Bikes total = %d \n", btot);
-		sleep(2);
+		sleep(7);
 	}
 }
