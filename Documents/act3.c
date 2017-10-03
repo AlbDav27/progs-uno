@@ -214,7 +214,7 @@ void act_sflc(){
 }
 
 void act_sfcn(){
-long lf;
+	long lf;
 	int ll;
 	int cc=1;
 	int fin=0;
@@ -225,16 +225,19 @@ long lf;
 	int bytes_written;
 	int bytes_read;
 	//char xm[170];
+	int x;
 	char rec[7];
 	unsigned char frame[17];
+	unsigned char chsmframe[17];
+	int chs[16];
 	char mx[30];
 	//char bin[25];
 	char n[5];
 	unsigned char ch;
 
 	
-	//fp = fopen ("/home/alberto/Documents/ecob/acsof/ebike_application.bin","r");
-	fp = fopen ("/home/upd/cn/bike.bin","r");
+	fp = fopen ("/home/alberto/Documents/ecob/acsof/ebike_application.bin","r");
+	//fp = fopen ("/home/upd/cn/bike.bin","r");
 	printf("\nEl valor de fp es : %d\n", fp);
 	if (fp!=NULL){
 		fseek(fp, 0L, SEEK_END);
@@ -248,6 +251,56 @@ long lf;
 			nf++;
 		}
 		printf("\nEl archivo tiene: %d frames\n", nf);
+		fseek(fp , -3 , SEEK_END);
+		printf("\nposicion: %d\n", ftell(fp));
+		chsmframe[0]= fgetc(fp);
+		chs[0]= chsmframe[0];
+		printf("\nposicion: %d\n", ftell(fp));
+		chsmframe[1]= fgetc(fp);
+		chs[1]= chsmframe[1];
+		printf("\nposicion: %d\n", ftell(fp));
+		chsmframe[2]= fgetc(fp);
+		chs[2]= chsmframe[2];
+		printf("\nposicion: %d\n", ftell(fp));
+		chsmframe[3]= fgetc(fp);
+		chs[3]= chsmframe[3];
+		chsmframe[4]=0;
+		chs[4]= chsmframe[4];
+		chsmframe[5]=0;
+		chs[5]= chsmframe[5];
+		chsmframe[6]=0;
+		chs[6]= chsmframe[6];
+		chsmframe[7]=0;
+		chs[7]= chsmframe[7];
+		chsmframe[8]=0;
+		chs[8]= chsmframe[8];
+		chsmframe[9]=0;
+		chs[9]= chsmframe[9];
+		chsmframe[10]=0;
+		chs[10]= chsmframe[10];
+		chsmframe[11]=0;
+		chs[11]= chsmframe[11];
+		chsmframe[12]=0;
+		chs[12]= chsmframe[12];
+		chsmframe[13]=0;
+		chs[13]= chsmframe[13];
+		chsmframe[14]=0;
+		chs[14]= chsmframe[14];
+		chsmframe[15]=0;
+		chs[15]= chsmframe[15];
+		chsmframe[16] = CheckSumByte(chsmframe, 16);
+		chs[16]=chsmframe[16];
+		
+		printf("\nchecksum del archivo (ultimos 4 bytes): %s\n", frame);
+		printf("\nframe de check sum (enteros): %d", chs[0]);
+		x=1;
+		while (x<17){
+			printf(", %d", chs[x]);
+			x++;
+		}
+		printf("\n\n");
+		strcpy(frame, "");
+		sleep(5);
 		while (c<=nc){
 			strcpy(mx, "cc");
 			if ((c/10)==0){
@@ -258,7 +311,18 @@ long lf;
 			strcat(mx,"/");
 			strcat(mx, nch);
 			printf("\n El comando a enviar actualizacion al lockcontroller %d es: %s\n", c, mx);
-			//bytes_written = write(fd,mx, 17);
+			bytes_written = write(fd,mx, 17);
+			usleep(100);
+			while(fok==0){
+				bytes_written = write(fd,chsmframe, 1);	//para vsalidar si hay error, modificar ultimo parametro a cc-2	
+				usleep(1000);
+				bytes_read = read(fd,rec, 7);
+				if(rec[0]=='f'&&rec[1]=='r'&&rec[2]=='a'&&rec[3]=='m'&&
+						rec[4]=='e'&&rec[5]=='o'&&rec[6]=='k'){
+					fok=1;
+				}
+			}
+			fok=0;
 			usleep(100);
 			rewind(fp);
 			ck = 1;
@@ -280,12 +344,12 @@ long lf;
 				printf("\nSe agrego byte de Cheksum\n");
 
 				if (fin ==0&&ck!=nf){
-					printf("\n Se envia el frame %d : %s\n", ck, frame);
+					printf(" Se envia el frame %d : %s", ck, frame);
 					while(fok==0){
 						bytes_written = write(fd,mx, 17);
 						
 					
-						usleep(100000);
+						usleep(1000);
 						bytes_read = read(fd,rec, 7);
 						if(rec[0]=='f'&&rec[1]=='r'&&rec[2]=='a'&&rec[3]=='m'&&
 							rec[4]=='e'&&rec[5]=='o'&&rec[6]=='k'){
@@ -293,20 +357,20 @@ long lf;
 						}
 					}										
 				}else{
-					printf("\n Se envia el ultimo frame %d : %s\n", ck, frame);
+					printf(" Se envia el ultimo frame %d : %s", ck, frame);
 					//bytes_written = write(fd,mx, cc);
 					while(fok==0){
 						bytes_written = write(fd,mx, cc-1);	//para vsalidar si hay error, modificar ultimo parametro a cc-2
 						
 					
-						usleep(100000);
+						usleep(1000);
 						bytes_read = read(fd,rec, 7);
 						if(rec[0]=='f'&&rec[1]=='r'&&rec[2]=='a'&&rec[3]=='m'&&
 							rec[4]=='e'&&rec[5]=='o'&&rec[6]=='k'){
 							fok=1;
 						}
 					}
-					fin =0;
+					fin =1;
 				}
 				cc=1;
 				ck++;
@@ -318,12 +382,13 @@ long lf;
 		}
 		fclose(fp);
 		printf("\nSe actualizaron todos los controladores\n");
-		system("rm /home/upd/lc/bike.bin");
+		//system("rm /home/upd/lc/bike.bin");
 		sleep(2);
 	}else{
 		printf("\nNo existe actualizacion de los controladores\n");
 	}
 }
+
 void act_sfsm(){
 	
 	fp = fopen ("/home/upd/prog/new_prog.c","r");
