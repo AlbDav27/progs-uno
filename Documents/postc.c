@@ -305,9 +305,9 @@ void def_tableb(int ib){
 	else{
 		bd[5]=0;	
 	}
-	nr = rand()%50;
-	if (nr ==7){
-		bd[6]=1;
+	nr = rand()%100;
+	if (nr == 27){
+		bd[6]=rand()%2;
 	}else{
 		bd[6]=0;
 	}
