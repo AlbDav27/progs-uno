@@ -9,7 +9,7 @@ int control[37][5];		//tabla donde se almacenan los datos de las Lock Controller
 int fuente[8][3];		//tabla donde se almacenan los datos de las fuentes
 int slots, b, st;
 int bike [401];
-int bd[6];
+int bd[7];
 float lat, lon;
 int bilckd=0, biroad=0;
 int dfd=0;
@@ -270,11 +270,15 @@ void to_jsoncb(){
 	strcat(js,", \"lo_ch\":");
 	sprintf(t,"%d",bd[5]);
 	strcat(js,t);
+	strcat(js,", \"alert\":");
+	sprintf(t,"%d",bd[6]);
+	strcat(js,t);
 	strcat(js, "}");
 }
 
 void def_tableb(int ib){
 	int rp;
+	int nr;
 	biroad++;
 	lat= 19.045773;
 	lon=-99.373112;
@@ -300,7 +304,13 @@ void def_tableb(int ib){
 	}
 	else{
 		bd[5]=0;	
-	}	
+	}
+	nr = rand()%10;
+	if (nr ==7){
+		bd[6]=1;
+	}else{
+		bd[6]=0;
+	}
 	//bd[5]=rand()%2;
 }
 
