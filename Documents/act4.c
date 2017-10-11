@@ -205,6 +205,7 @@ void act_sflc(){
 				if (ck == nf){
 					usleep(400000);
 					bytes_read= read(fd, rec, 5);
+					/////////////////////si se recibe actok
 					if (rec[0]=='a'&&rec[1]=='c'&&rec[2]=='t'&&rec[3]=='o'&&rec[4]=='k'){
 						ck=0;
 						rewind(fp);
@@ -334,10 +335,12 @@ void act_sfcn(){
 				usleep(100);
 				bytes_read = read(fd,rec,6);
 			}
+
+			//////////////////////si se recibe 000000///////////////////////////
 			if (rec[0]=='0'&&rec[1]=='0'&&rec[2]=='0'&&rec[3]=='0'&&rec[4]=='0'&&rec[5]=='0'){
 				usleep(100);
 			}
-			
+			////////////////////si se recibe Bike00////////////////////////////
 			if ((rec[0]=='B'&&rec[1]=='i'&&rec[2]=='k'&&rec[3]=='e'&&rec[4]=='0'&&rec[5]=='0')){		///////////si se tiene una bike conectada
 				strcpy(rec,"");
 				/////////////////////se envia chesum del archivo(ultimos 4 bytes)
@@ -346,6 +349,7 @@ void act_sfcn(){
 					usleep(1000);
 					strcpy(rec,"");
 					bytes_read = read(fd,rec, 7);
+					//////////////////si se recibe frameok//////////////////////////////
 					if(rec[0]=='f'&&rec[1]=='r'&&rec[2]=='a'&&rec[3]=='m'&&
 							rec[4]=='e'&&rec[5]=='o'&&rec[6]=='k'){
 						fok=1;
@@ -386,6 +390,7 @@ void act_sfcn(){
 						
 							usleep(1000);
 							bytes_read = read(fd,rec, 7);
+							///////////////////si se recibe frameok///////////////////
 							if(rec[0]=='f'&&rec[1]=='r'&&rec[2]=='a'&&rec[3]=='m'&&
 								rec[4]=='e'&&rec[5]=='o'&&rec[6]=='k'){
 								fok=1;
@@ -401,6 +406,7 @@ void act_sfcn(){
 						
 							usleep(1000);
 							bytes_read = read(fd,rec, 7);
+							///////////////////si se recibe frameok////////////////////////
 							if(rec[0]=='f'&&rec[1]=='r'&&rec[2]=='a'&&rec[3]=='m'&&
 								rec[4]=='e'&&rec[5]=='o'&&rec[6]=='k'){
 								fok=1;
@@ -415,6 +421,7 @@ void act_sfcn(){
 					if (ck == nf){
 						usleep(400000);
 						bytes_read= read(fd, rec, 5);
+						////////////////////////////si se recibe actok//////////////////////////
 						if (rec[0]=='a'&&rec[1]=='c'&&rec[2]=='t'&&rec[3]=='o'&&rec[4]=='k'){
 							ck=0;
 							rewind(fp);
@@ -526,15 +533,18 @@ int main()
              printf("\n  BaudRate = 9600 \n  StopBits = 1 \n  Parity   = none");
  	}
 
- 	strcpy(comand, "rm -Rf /home/MyFirstProject");
+ 	strcpy(comand, "rm -Rf /home/MyFirstProject");	//borra la version actual del repositorio
  	//strcpy(comand, "rm -Rf /home/MyFirstProject");
 	printf("\nDirectorio borrado\n");
 	//sleep(5);
 	system(comand);
+
+	/////////////////////descarga el repositorio en la carpeta /home	////////////////
 	strcpy(comand, "");
 	strcpy(comand, "cd /home\ngit clone https://xmdmdw6qn6nsgabrzwydlfe2kuc7biuvtosohm3e5ie7ckz6aylq@albdav27.visualstudio.com/_git/MyFirstProject\n");
 	system(comand);
 	
+	///////////////////// se descargan los archivos en los directorios correspondientes	////////
 	strcpy(comand, "");
 	strcpy(comand, "cp /home/MyFirstProject/Documents/upd/bike.bin /home/upd/cn/bike.bin");
 	system(comand);
@@ -554,17 +564,24 @@ int main()
  	tcflush(fd, TCIFLUSH);			//limpiar buffer de entrada
 	tcflush(fd, TCOFLUSH);			//limpiar buffer de salida
 
+	////////////////////////funcion que actualiza Lock Controller ////////////////////
 	act_sflc();
 	tcflush(fd, TCIFLUSH);			//limpiar buffer de entrada
 	tcflush(fd, TCOFLUSH);			//limpiar buffer de salida
 	sleep(3);
+
+	///////////////////////funcion que actualiza Controladores ///////////////////////////
 	act_sfcn();
 	
 	tcflush(fd, TCIFLUSH);			//limpiar buffer de entrada
 	tcflush(fd, TCOFLUSH);			//limpiar buffer de salida
 	sleep(3);
+
+	/////////////////////funcion que actualiza la aplicacion del sistema de monitoreo ////
 	act_sfsm();
 	sleep (3);
+
+	/////////////////funcion que actualiza el programa de actualizacion //////////////////
 	act_upd();
 	sleep(3);
 	
