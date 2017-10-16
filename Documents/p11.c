@@ -60,7 +60,7 @@ void transf(char slt[9], char sln[10]){
 	de=slt[8]-48;
 	un=slt[9]-48;
 	dcm=(cm*0.1)+(dm*0.01)+(um*0.001)+(ce*0.0001)+(de*0.00001)+(un*0.000001);
-	printf("los decimales son: %f", dcm)
+	printf("\n los decimales son: %f \n", dcm);
 	lon=lon +dcm;
 	lon =lon*(-1);
 }
