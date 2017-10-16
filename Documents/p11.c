@@ -19,7 +19,7 @@ int b, slots, st, dfd;
 char brfid[37][16];
 double lat, lon;
 /////////////////////////////////////////////////////funciones para parseo JSON////////////////////////////////////////////////////////////////////////
-void transf(char slt[9], char sln[10]){
+void transf(char slt[10], char sln[11]){
 	printf("\n la cadena de longitud recibida es: %s \n", sln);
 	lat=0;
 	lon=0;
