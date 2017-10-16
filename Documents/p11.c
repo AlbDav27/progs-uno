@@ -20,6 +20,7 @@ char brfid[37][16];
 double lat, lon;
 /////////////////////////////////////////////////////funciones para parseo JSON////////////////////////////////////////////////////////////////////////
 void transf(char slt[9], char sln[10]){
+	printf("\n la cadena de longitud recibida es: %s \n", sln);
 	lat=0;
 	lon=0;
 	int un=0;
