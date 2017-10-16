@@ -17,7 +17,7 @@ int x =0;				//variable que distingue entr variables de configuración
 char js[2000];			//cadena json a enviar
 int b, slots, st, dfd;
 char brfid[37][16];
-float lat, lon;
+double lat, lon;
 /////////////////////////////////////////////////////funciones para parseo JSON////////////////////////////////////////////////////////////////////////
 void transf(char slt[9], char sln[10]){
 	lat=0;
@@ -28,7 +28,7 @@ void transf(char slt[9], char sln[10]){
 	int um=0;
 	int dm=0;
 	int cm=0;
-	float dcm=0;
+	double dcm=0;
 	//primero se obtiene la latitud
 	de=slt[0]-48;
 	un=slt[1]-48;
