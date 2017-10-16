@@ -603,8 +603,8 @@ int main(){
 	crchr=0;
 	cmm=0;
 	printf("\n\n");
-	fp = fopen ("/home/alberto/Documents/ecob/UNO/st_data.txt","r");
-	//fp = fopen ("/home/prog/st_data.txt","r");
+	//fp = fopen ("/home/alberto/Documents/ecob/UNO/st_data.txt","r");
+	fp = fopen ("/home/prog/st_data.txt","r");
 	while(((caracter = fgetc(fp)) != EOF)&& n<80)
 	{		
 		re[n]=caracter;		
@@ -686,11 +686,11 @@ int main(){
 				n++;
 			}
 			
-			strcpy(com, "curl -X GET \"https://my.rayven.io:8082/api/customTableData?ctid=10&email=ebike@rayven.io&pw=qwerty\" >/home/alberto/Documents/ecob/UNO/response.txt");
-			//strcpy(com, "curl -X GET \"https://my.rayven.io:8082/api/customTableData?ctid=10&email=ebike@rayven.io&pw=qwerty\" >/home/prog/response.txt");
+			//strcpy(com, "curl -X GET \"https://my.rayven.io:8082/api/customTableData?ctid=10&email=ebike@rayven.io&pw=qwerty\" >/home/alberto/Documents/ecob/UNO/response.txt");
+			strcpy(com, "curl -X GET \"https://my.rayven.io:8082/api/customTableData?ctid=10&email=ebike@rayven.io&pw=qwerty\" >/home/prog/response.txt");
 			system(com);
-			fp = fopen ("/home/alberto/Documents/ecob/UNO/response.txt","r");
-			//fp = fopen ("/home/prog/response.txt","r");
+			//fp = fopen ("/home/alberto/Documents/ecob/UNO/response.txt","r");
+			fp = fopen ("/home/prog/response.txt","r");
 			n=0;
 			cor =0;
 			z=0;
