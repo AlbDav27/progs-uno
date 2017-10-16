@@ -61,7 +61,7 @@ void transf(char slt[10], char sln[11]){
 	ce=slt[7]-48;
 	de=slt[8]-48;
 	un=slt[9]-48;
-	printf (\n los decimales son: %i %i %i %i %i %i \n", cm,dm,um,ce,de,un);
+	printf ("\n los decimales son: %d %d %d %d %d %d \n", cm,dm,um,ce,de,un);
 	dcm=(cm*0.1)+(dm*0.01)+(um*0.001)+(ce*0.0001)+(de*0.00001)+(un*0.000001);
 	printf("\n los decimales son: %f \n", dcm);
 	lon=lon +dcm;
