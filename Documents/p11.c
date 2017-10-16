@@ -527,8 +527,8 @@ int main(){
 	char st_id[4];		//cadena leida de id_st
 	char st_nc[3];		//cadena leida de nc
 	char st_nf[3];		//cadena leida de nf
-	char st_lat[9];
-	char st_lon[10];
+	char st_lat[15];
+	char st_lon[15];
 	
 	unsigned char caracter;
 
