@@ -55,12 +55,12 @@ void transf(char slt[10], char sln[11]){
 	un=sln[2]-48;
 	lon=lon+un+(de*10);
 	un=0;de=0;
-	cm=slt[4]-48;
-	dm=slt[5]-48;
-	um=slt[6]-48;
-	ce=slt[7]-48;
-	de=slt[8]-48;
-	un=slt[9]-48;
+	cm=sln[4]-48;
+	dm=sln[5]-48;
+	um=sln[6]-48;
+	ce=sln[7]-48;
+	de=sln[8]-48;
+	un=sln[9]-48;
 	printf ("\n los decimales son: %d %d %d %d %d %d \n", cm,dm,um,ce,de,un);
 	dcm=(cm*0.1)+(dm*0.01)+(um*0.001)+(ce*0.0001)+(de*0.00001)+(un*0.000001);
 	printf("\n los decimales son: %f \n", dcm);
