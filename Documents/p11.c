@@ -849,18 +849,18 @@ int main(){
 			////////////////////////////////////configuracion de broadcast de nivel de asistencia
 			strcpy(cmx, "ca00/");
 			strcpy(temp,"");
-			cen = v[1]/100;
+			cen = v[2]/100;
 			if (cen == 0){
 				strcat(cmx, "0");
 			}
-			res = v[1]-(cen*100);
+			res = v[2]-(cen*100);
 			dec = res/10;
 			if (dec==0){
 				strcat(cmx,"0");	
 			}
 			sprintf(temp,"%d",v[2]);
 			strcat(cmx, temp);
-			printf("\n El broadcast velocidad a las Lock Controller es : %s/fin_cad\n", cmx);
+			printf("\n El broadcast de nivel de asistencia a las Lock Controller es : %s/fin_cad\n", cmx);
 			bytes_written = write(fd,cmx,8);						//envio de segundo broadcast
 			usleep(400000);			
 			tcflush(fd, TCIFLUSH);
