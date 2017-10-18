@@ -710,37 +710,12 @@ int main(){
 				re[n]=caracter;		
 				//caracter = fgetc(fp);
 				printf("%c",caracter);
-				if (caracter=='{'){
-					cor++;
-				}
-				if (cor==id_st){
-					if (caracter!=','){
-						if (caracter=='0'||caracter=='1'||caracter=='2'||caracter=='3'||caracter=='4'||caracter=='5'||
-							caracter=='6'||caracter=='7'||caracter=='8'||caracter=='9'){
-							if (cmm==2){		//rel_r
-								cpc[z]=caracter;
-							}
-							if (cmm==3){		//b_s
-								cvl[z]=caracter;
-							}
-							if (cmm==4){
-								cas[z]=caracter;
-							}
-							z++;
-						}
-								
-					}else{
-						cmm++;
-						z=0;
-					}
-						
-				}
 						
 				n++;
 			}
 			printf("\nre = %s\n", re);
 
-			/*while(crchr<9000)
+			while(crchr<9000)
 			{		
 				//printf("\ncrchr : %i\n", crchr);
 				caracter= re[crchr];
@@ -771,7 +746,7 @@ int main(){
 						
 				}
 					crchr++;
-			}*/
+			}
 			
 			printf("\n Las cadenas recolectadas son : %s , %s , %s \n", cpc, cvl, cas);
 			transform(cpc, cvl,  cas);
