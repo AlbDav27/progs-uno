@@ -541,8 +541,10 @@ int main(){
     int i =0;
     int n;
 	int f;
+	int uni;
 	int dec=0;
 	int cen=0;
+	int mil=0;
 	int res=0;
 	int num;
 	int cp=420;
@@ -557,6 +559,8 @@ int main(){
 	int lf;
 	int crchr;
 	int ban;
+	int idr;
+	int bnd:
 
 	FILE *fp;
 
@@ -714,38 +718,74 @@ int main(){
 				n++;
 			}
 			printf("\nre = %s\n", re);
+			strcpy(id_st,"");
 
-			while(crchr<9000)
+			while(crchr<9000&&bnd<2)
 			{		
 				//printf("\ncrchr : %i\n", crchr);
 				caracter= re[crchr];
 				//printf("%c",caracter);
 				if (caracter=='{'){
-					cor++;
+					bnd=0;
 				}
-				if (cor==id_st){
-					if (caracter!=','){
-						if (caracter=='0'||caracter=='1'||caracter=='2'||caracter=='3'||caracter=='4'||caracter=='5'||
+				if (caracter=='}'){
+					cmm=0;
+				}
+				if (caracter==','){
+					z=0;
+					cmm++;
+				}
+				if (bnd=0){
+					if (caracter=='0'||caracter=='1'||caracter=='2'||caracter=='3'||caracter=='4'||caracter=='5'||
 							caracter=='6'||caracter=='7'||caracter=='8'||caracter=='9'){
-							if (cmm==2){		//rel_r
-								cpc[z]=caracter;
-							}
-							if (cmm==3){		//b_s
-								cvl[z]=caracter;
-							}
-							if (cmm==4){
-								cas[z]=caracter;
-							}
-							z++;
+						if (cmm==0){		//rel_r
+							st_id[z]=caracter;
 						}
-								
-					}else{
-						cmm++;
-						z=0;
+						if (cmm==2){		//rel_r
+							cpc[z]=caracter;
+						}
+						if (cmm==3){		//b_s
+							cvl[z]=caracter;
+						}
+						if (cmm==4){
+							cas[z]=caracter;
+							bnd=2;
+							printf("\nLeo los datos de la estacion: %d \n",idr);
+						}
+						z++;	
 					}
-						
+					if (caracter=='"'&&cm<1){
+						if (st_id[3]<58&&st_id[3]>47){
+							mil=st_id[0]-48;
+							cen=st_id[1]-48;
+							dec=st_id[2]-48;
+							uni=st_id[3]-48;
+						}
+						else if (st_id[2]<58&&st_id[2]>47){
+							mil=0;
+							cen=st_id[0]-48;
+							dec=st_id[1]-48;
+							uni=st_id[2]-48;
+						}
+						else if (st_id[1]<58&&st_id[1]>47){
+							mil=0;
+							cen=0;
+							dec=st_id[0]-48;
+							uni=st_id[1]-48;
+						}
+						else{
+							mil=0;
+							cen=0;
+							dec=0;
+							uni=st_id[0]-48;
+						}
+						idr=(mil*1000)+(cen*100)+(dec*10)+uni;
+						if (idr!=id_st){
+							bnd=1;
+						}
+					}
 				}
-					crchr++;
+				crchr++;
 			}
 			
 			printf("\n Las cadenas recolectadas son : %s , %s , %s \n", cpc, cvl, cas);
