@@ -713,32 +713,35 @@ int main(){
 			{		
 				re[n]=caracter;		
 				//caracter = fgetc(fp);
-				printf("%c",caracter);
+				//printf("%c",caracter);
 						
 				n++;
 			}
-			printf("\nre = %s\n", re);
+			//printf("\nre = %s\n", re);
 			strcpy(st_id,"");
+			bnd=0;
+			st_id[0]=0;
+			st_id[1]=0;
+			st_id[2]=0;
+			st_id[3]=0;
 
 			while(crchr<9000&&bnd<2)
 			{		
-				//printf("\ncrchr : %i\n", crchr);
+				//printf("\ncrchr : %i ---> ", crchr);
 				caracter= re[crchr];
-				//printf("%c",caracter);
+				//printf("%c                      cmm=%d ,  bnd=%d , z=%d",caracter, cmm, bnd, z);
 				if (caracter=='{'){
 					bnd=0;
-				}
-				if (caracter=='}'){
 					cmm=0;
 				}
 				if (caracter==','){
 					z=0;
 					cmm++;
 				}
-				if (bnd=0){
+				if (bnd==0){
 					if (caracter=='0'||caracter=='1'||caracter=='2'||caracter=='3'||caracter=='4'||caracter=='5'||
 							caracter=='6'||caracter=='7'||caracter=='8'||caracter=='9'){
-						if (cmm==0){		//rel_r
+						if (cmm==0){		//st id
 							st_id[z]=caracter;
 						}
 						if (cmm==2){		//rel_r
@@ -754,7 +757,9 @@ int main(){
 						}
 						z++;	
 					}
-					if (caracter=='"'&&cmm<1){
+					if (caracter==','&&cmm==1){
+						mil=0;cen=0;dec=0;uni=0;
+						//printf("\n string id_st= %s\n", st_id);
 						if (st_id[3]<58&&st_id[3]>47){
 							mil=st_id[0]-48;
 							cen=st_id[1]-48;
@@ -780,6 +785,11 @@ int main(){
 							uni=st_id[0]-48;
 						}
 						idr=(mil*1000)+(cen*100)+(dec*10)+uni;
+						st_id[0]=0;
+						st_id[1]=0;
+						st_id[2]=0;
+						st_id[3]=0;
+						//printf("\n El id leido en este ciclo es: %d", idr);
 						if (idr!=id_st){
 							bnd=1;
 						}
