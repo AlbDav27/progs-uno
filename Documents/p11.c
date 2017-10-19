@@ -560,7 +560,7 @@ int main(){
 	int crchr;
 	int ban;
 	int idr;
-	int bnd:
+	int bnd;
 
 	FILE *fp;
 
@@ -718,7 +718,7 @@ int main(){
 				n++;
 			}
 			printf("\nre = %s\n", re);
-			strcpy(id_st,"");
+			strcpy(st_id,"");
 
 			while(crchr<9000&&bnd<2)
 			{		
@@ -754,7 +754,7 @@ int main(){
 						}
 						z++;	
 					}
-					if (caracter=='"'&&cm<1){
+					if (caracter=='"'&&cmm<1){
 						if (st_id[3]<58&&st_id[3]>47){
 							mil=st_id[0]-48;
 							cen=st_id[1]-48;
