@@ -345,7 +345,7 @@ void act_sfcn(){
 				strcpy(rec,"");
 				/////////////////////se envia chesum del archivo(ultimos 4 bytes)
 				while(fok==0){
-					bytes_written = write(fd,chsmframe, 1);	
+					bytes_written = write(fd,chsmframe, 17);	
 					usleep(1000);
 					strcpy(rec,"");
 					bytes_read = read(fd,rec, 7);
