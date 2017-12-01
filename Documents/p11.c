@@ -802,8 +802,8 @@ int main(){
 			transform(cpc, cvl,  cas);
 			//getdata(ci);
 			if (v[0]<=0||v[1]<=0||v[2]<=0){
-				v[0]=75;
-				v[1]=25;
+				v[0]=20;
+				v[1]=15;
 				v[2]=1;
 				printf("\n Se asignaron los valores default\n");
 			}
