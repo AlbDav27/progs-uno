@@ -1010,7 +1010,7 @@ int main(){
 
 				strcpy(com, "curl -X POST -H \"Content-Type: application/json\" -d '");
 				strcat(com, js);
-				strcat(com, "' \"https://my.rayven.io:8082/api/main?uid=111848e7eda9ff3b47e3aba02197e37a6a94&deviceid=st_");
+				strcat(com, "' \"https://immatech.rayven.io/api.php?uid=111848e7eda9ff3b47e3aba02197e37a6a94&deviceid=st_");
 				sprintf(t,"%d",id_st);
 				strcat(com, t);
 				strcat(com, "\"");
