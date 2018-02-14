@@ -195,10 +195,10 @@ void def_table(int n){
 		control[y][3]=-1;
 		control[y][4]=0;
 		while (j<16){
-			if (j==0){
-				brfid[y][j]='x';
+			//if (j==0){
+				//brfid[y][j]='x';
 				brfid[y][j]='\0';
-			}
+			//}
 			j++;
 		}
 		
